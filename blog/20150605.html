@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>20150605</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+/* GitHub stylesheet for MarkdownPad (http://markdownpad.com) */
+/* Author: Nicolas Hery - http://nicolashery.com */
+/* Version: b13fe65ca28d2e568c6ed5d7f06581183df8f2ff */
+/* Source: https://github.com/nicolahery/markdownpad-github */
+
+/* RESET
+=============================================================================*/
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* BODY
+=============================================================================*/
+
+body {
+  font-family: Helvetica, arial, freesans, clean, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #333;
+  background-color: #fff;
+  padding: 20px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+body>*:first-child {
+  margin-top: 0 !important;
+}
+
+body>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* BLOCKS
+=============================================================================*/
+
+p, blockquote, ul, ol, dl, table, pre {
+  margin: 15px 0;
+}
+
+/* HEADERS
+=============================================================================*/
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 tt, h1 code, h2 tt, h2 code, h3 tt, h3 code, h4 tt, h4 code, h5 tt, h5 code, h6 tt, h6 code {
+  font-size: inherit;
+}
+
+h1 {
+  font-size: 28px;
+  color: #000;
+}
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #ccc;
+  color: #000;
+}
+
+h3 {
+  font-size: 18px;
+}
+
+h4 {
+  font-size: 16px;
+}
+
+h5 {
+  font-size: 14px;
+}
+
+h6 {
+  color: #777;
+  font-size: 14px;
+}
+
+body>h2:first-child, body>h1:first-child, body>h1:first-child+h2, body>h3:first-child, body>h4:first-child, body>h5:first-child, body>h6:first-child {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+h1+p, h2+p, h3+p, h4+p, h5+p, h6+p {
+  margin-top: 10px;
+}
+
+/* LINKS
+=============================================================================*/
+
+a {
+  color: #4183C4;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* LISTS
+=============================================================================*/
+
+ul, ol {
+  padding-left: 30px;
+}
+
+ul li > :first-child, 
+ol li > :first-child, 
+ul li ul:first-of-type, 
+ol li ol:first-of-type, 
+ul li ol:first-of-type, 
+ol li ul:first-of-type {
+  margin-top: 0px;
+}
+
+ul ul, ul ol, ol ol, ol ul {
+  margin-bottom: 0;
+}
+
+dl {
+  padding: 0;
+}
+
+dl dt {
+  font-size: 14px;
+  font-weight: bold;
+  font-style: italic;
+  padding: 0;
+  margin: 15px 0 5px;
+}
+
+dl dt:first-child {
+  padding: 0;
+}
+
+dl dt>:first-child {
+  margin-top: 0px;
+}
+
+dl dt>:last-child {
+  margin-bottom: 0px;
+}
+
+dl dd {
+  margin: 0 0 15px;
+  padding: 0 15px;
+}
+
+dl dd>:first-child {
+  margin-top: 0px;
+}
+
+dl dd>:last-child {
+  margin-bottom: 0px;
+}
+
+/* CODE
+=============================================================================*/
+
+pre, code, tt {
+  font-size: 12px;
+  font-family: Consolas, "Liberation Mono", Courier, monospace;
+}
+
+code, tt {
+  margin: 0 0px;
+  padding: 0px 0px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px;
+}
+
+pre>code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent;
+}
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px;
+}
+
+pre code, pre tt {
+  background-color: transparent;
+  border: none;
+}
+
+kbd {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #DDDDDD;
+    background-image: linear-gradient(#F1F1F1, #DDDDDD);
+    background-repeat: repeat-x;
+    border-color: #DDDDDD #CCCCCC #CCCCCC #DDDDDD;
+    border-image: none;
+    border-radius: 2px 2px 2px 2px;
+    border-style: solid;
+    border-width: 1px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    line-height: 10px;
+    padding: 1px 4px;
+}
+
+/* QUOTES
+=============================================================================*/
+
+blockquote {
+  border-left: 4px solid #DDD;
+  padding: 0 15px;
+  color: #777;
+}
+
+blockquote>:first-child {
+  margin-top: 0px;
+}
+
+blockquote>:last-child {
+  margin-bottom: 0px;
+}
+
+/* HORIZONTAL RULES
+=============================================================================*/
+
+hr {
+  clear: both;
+  margin: 15px 0;
+  height: 0px;
+  overflow: hidden;
+  border: none;
+  background: transparent;
+  border-bottom: 4px solid #ddd;
+  padding: 0;
+}
+
+/* TABLES
+=============================================================================*/
+
+table th {
+  font-weight: bold;
+}
+
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 6px 13px;
+}
+
+table tr {
+  border-top: 1px solid #ccc;
+  background-color: #fff;
+}
+
+table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+
+/* IMAGES
+=============================================================================*/
+
+img {
+  max-width: 100%
+}
+
+img.logo{width:100px;height:100px;border-radius:100%;vertical-align:middle;}
+</style>
+<style type="text/css">
+.highlight  { background: #ffffff; }
+.highlight .c { color: #999988; font-style: italic } /* Comment */
+.highlight .err { color: #a61717; background-color: #e3d2d2 } /* Error */
+.highlight .k { font-weight: bold } /* Keyword */
+.highlight .o { font-weight: bold } /* Operator */
+.highlight .cm { color: #999988; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #999999; font-weight: bold } /* Comment.Preproc */
+.highlight .c1 { color: #999988; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #999999; font-weight: bold; font-style: italic } /* Comment.Special */
+.highlight .gd { color: #000000; background-color: #ffdddd } /* Generic.Deleted */
+.highlight .gd .x { color: #000000; background-color: #ffaaaa } /* Generic.Deleted.Specific */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #aa0000 } /* Generic.Error */
+.highlight .gh { color: #999999 } /* Generic.Heading */
+.highlight .gi { color: #000000; background-color: #ddffdd } /* Generic.Inserted */
+.highlight .gi .x { color: #000000; background-color: #aaffaa } /* Generic.Inserted.Specific */
+.highlight .go { color: #888888 } /* Generic.Output */
+.highlight .gp { color: #555555 } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #aaaaaa } /* Generic.Subheading */
+.highlight .gt { color: #aa0000 } /* Generic.Traceback */
+.highlight .kc { font-weight: bold } /* Keyword.Constant */
+.highlight .kd { font-weight: bold } /* Keyword.Declaration */
+.highlight .kp { font-weight: bold } /* Keyword.Pseudo */
+.highlight .kr { font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #445588; font-weight: bold } /* Keyword.Type */
+.highlight .m { color: #009999 } /* Literal.Number */
+.highlight .s { color: #d14 } /* Literal.String */
+.highlight .na { color: #008080 } /* Name.Attribute */
+.highlight .nb { color: #0086B3 } /* Name.Builtin */
+.highlight .nc { color: #445588; font-weight: bold } /* Name.Class */
+.highlight .no { color: #008080 } /* Name.Constant */
+.highlight .ni { color: #800080 } /* Name.Entity */
+.highlight .ne { color: #990000; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #990000; font-weight: bold } /* Name.Function */
+.highlight .nn { color: #555555 } /* Name.Namespace */
+.highlight .nt { color: #000080 } /* Name.Tag */
+.highlight .nv { color: #008080 } /* Name.Variable */
+.highlight .ow { font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #009999 } /* Literal.Number.Float */
+.highlight .mh { color: #009999 } /* Literal.Number.Hex */
+.highlight .mi { color: #009999 } /* Literal.Number.Integer */
+.highlight .mo { color: #009999 } /* Literal.Number.Oct */
+.highlight .sb { color: #d14 } /* Literal.String.Backtick */
+.highlight .sc { color: #d14 } /* Literal.String.Char */
+.highlight .sd { color: #d14 } /* Literal.String.Doc */
+.highlight .s2 { color: #d14 } /* Literal.String.Double */
+.highlight .se { color: #d14 } /* Literal.String.Escape */
+.highlight .sh { color: #d14 } /* Literal.String.Heredoc */
+.highlight .si { color: #d14 } /* Literal.String.Interpol */
+.highlight .sx { color: #d14 } /* Literal.String.Other */
+.highlight .sr { color: #009926 } /* Literal.String.Regex */
+.highlight .s1 { color: #d14 } /* Literal.String.Single */
+.highlight .ss { color: #990073 } /* Literal.String.Symbol */
+.highlight .bp { color: #999999 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #008080 } /* Name.Variable.Class */
+.highlight .vg { color: #008080 } /* Name.Variable.Global */
+.highlight .vi { color: #008080 } /* Name.Variable.Instance */
+.highlight .il { color: #009999 } /* Literal.Number.Integer.Long */
+.pl-c {
+    color: #969896;
+}
+
+.pl-c1,.pl-mdh,.pl-mm,.pl-mp,.pl-mr,.pl-s1 .pl-v,.pl-s3,.pl-sc,.pl-sv {
+    color: #0086b3;
+}
+
+.pl-e,.pl-en {
+    color: #795da3;
+}
+
+.pl-s1 .pl-s2,.pl-smi,.pl-smp,.pl-stj,.pl-vo,.pl-vpf {
+    color: #333;
+}
+
+.pl-ent {
+    color: #63a35c;
+}
+
+.pl-k,.pl-s,.pl-st {
+    color: #a71d5d;
+}
+
+.pl-pds,.pl-s1,.pl-s1 .pl-pse .pl-s2,.pl-sr,.pl-sr .pl-cce,.pl-sr .pl-sra,.pl-sr .pl-sre,.pl-src,.pl-v {
+    color: #df5000;
+}
+
+.pl-id {
+    color: #b52a1d;
+}
+
+.pl-ii {
+    background-color: #b52a1d;
+    color: #f8f8f8;
+}
+
+.pl-sr .pl-cce {
+    color: #63a35c;
+    font-weight: bold;
+}
+
+.pl-ml {
+    color: #693a17;
+}
+
+.pl-mh,.pl-mh .pl-en,.pl-ms {
+    color: #1d3e81;
+    font-weight: bold;
+}
+
+.pl-mq {
+    color: #008080;
+}
+
+.pl-mi {
+    color: #333;
+    font-style: italic;
+}
+
+.pl-mb {
+    color: #333;
+    font-weight: bold;
+}
+
+.pl-md,.pl-mdhf {
+    background-color: #ffecec;
+    color: #bd2c00;
+}
+
+.pl-mdht,.pl-mi1 {
+    background-color: #eaffea;
+    color: #55a532;
+}
+
+.pl-mdr {
+    color: #795da3;
+    font-weight: bold;
+}
+
+.pl-mo {
+    color: #1d3e81;
+}
+.task-list {
+padding-left:10px;
+margin-bottom:0;
+}
+
+.task-list li {
+    margin-left: 20px;
+}
+
+.task-list-item {
+list-style-type:none;
+padding-left:10px;
+}
+
+.task-list-item label {
+font-weight:400;
+}
+
+.task-list-item.enabled label {
+cursor:pointer;
+}
+
+.task-list-item+.task-list-item {
+margin-top:3px;
+}
+
+.task-list-item-checkbox {
+display:inline-block;
+margin-left:-20px;
+margin-right:3px;
+vertical-align:1px;
+}
+</style>
+<meta name="viewport" content="width=device-width" />
+<meta name="author" content="jockchou" />
+<link rel="profile" href="http://gmpg.org/xfn/11" />
+<link href="http://jockchou.github.io/img/logo.jpg" rel="shortcut icon">
+<meta name="description" content="jockchou的博客" />
+<meta name="keywords" content="CodeIgniter,PHP,PHP框架,MVC框架,MySQL,MySQL数据库,Linux,javascript,C语言" />
+</head>
+<body>
+<h1 id="-php-">半小时速成PHP基础</h1>
+<hr>
+<h2 id="-">大纲</h2>
+<ul>
+<li>数据类型</li><li>变量，常量</li><li>函数</li><li>数组</li><li>面向对象</li></ul>
+<h2 id="-1-php-1-"><a href="http://php.net/manual/zh/language.types.php">1. PHP数据类型</a></h2>
+<p>PHP 支持 8 种原始数据类型</p>
+<p><em>四种标量类型：</em></p>
+<ul>
+<li>boolean（布尔型）</li><li>integer（整型）</li><li>float（浮点型，也称作 double)</li><li>string（字符串）</li></ul>
+<p><em>两种复合类型：</em></p>
+<ul>
+<li>array（数组）</li><li>object（对象）</li></ul>
+<p><em>最后是两种特殊类型：</em></p>
+<ul>
+<li>resource（资源）</li><li>NULL（空类型）</li></ul>
+<p><em>example:</em></p>
+<pre><code class="lang-php">&lt;?php
+    $a = true;
+    $b = 12;
+    $c = 12.3;
+    $d = &quot;hello&quot;;
+    $e = array(1, 2, 3);
+
+    //记住，不是这样初始化的哟，亲
+    //$e = [1, 2, 3];
+
+    var_dump($a);
+    var_dump($b);
+    var_dump($c);
+    var_dump($d);
+    var_dump($e);
+?&gt;
+</code></pre>
+<p><em>运行如果：</em><br><img src="http://qptemp.qiniudn.com/zhoujing/demo01.jpg" alt="demo01"></p>
+<h2 id="-2-2-"><a href="http://php.net/manual/zh/language.variables.php">2. 变量</a></h2>
+<ul>
+<li>所有变量用$开头，字母，数字，下划线</li><li>弱类型，不是由程序员决定，由运行时上下文决定</li><li>变量无需声明，直接使用，随便赋值</li><li>打开文件、数据库连接属于resource类型</li><li>gettype函数获取变量类型，类型断言使用is_type函数</li></ul>
+<p><em>example:</em></p>
+<pre><code class="lang-php">&lt;?php
+    $a = &quot;hello&quot;;
+    $b = array(&quot;hello&quot;, &quot;world&quot;);
+
+    echo gettype($a) . &quot;\n&quot;;
+    echo gettype($b) . &quot;\n&quot;;
+
+    var_dump($a);
+    var_dump($b);
+
+    $a = $b;
+
+    if (is_array($a)) {
+        var_dump($a);
+    }    
+?&gt;
+</code></pre>
+<p><em>运行如果：</em><br><img src="http://qptemp.qiniudn.com/zhoujing/demo02.jpg" alt="demo01"></p>
+<p><em>例子中几个常用函数，死记住</em></p>
+<ul>
+<li>gettype</li><li>is_type</li><li>var_dump</li></ul>
+<p><em>php使用&#39;.&#39;号拼接字符串</em><br><em>echo，print用于输出字符串，它不是函数，是语言结构</em></p>
+<h2 id="-3-3-"><a href="http://php.net/manual/zh/language.constants.php">3. 常量</a></h2>
+<p><em>example:</em></p>
+<pre><code class="lang-php">&lt;?php
+    define(&quot;FOO&quot;, &quot;zhoujing&quot;);
+
+    var_dump(FOO);
+
+    echo __FILE__ . &quot;\n&quot;;
+    echo __LINE__ . &quot;\n&quot;;
+    echo __DIR__ . &quot;\n&quot;;
+?&gt;
+</code></pre>
+<p><em>运行如果：</em><br><img src="http://qptemp.qiniudn.com/zhoujing/demo03.jpg" alt="demo03"></p>
+<p><em>常量的特性：</em></p>
+<ul>
+<li>常量的范围是全局的</li><li>自定义常量，不要以‘__’开头</li><li>魔术常量，PHP向脚本注入的预定义常量</li></ul>
+<h2 id="-4-4-"><a href="http://php.net/manual/zh/language.functions.php">4. 函数</a></h2>
+<p><em>example:</em></p>
+<pre><code class="lang-php">&lt;?php
+
+    function say($word) {
+        echo $word . &quot;\n&quot;;
+    }
+
+    function foo($arr) {
+        foreach($arr as $key =&gt; $item) {
+            echo $key . &quot;=&gt;&quot; . $item . &quot;\n&quot;;
+        }
+        return 1;
+    }
+
+    $name = &quot;jobs&quot;;
+    $rtn1 = say(&quot;fuck you, $name&quot;);
+    $rtn2 = foo(array(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;));
+
+    var_dump($rtn1);
+    var_dump($rtn2);
+?&gt;
+</code></pre>
+<p><em>运行如果：</em><br><img src="http://qptemp.qiniudn.com/zhoujing/demo04.jpg" alt="demo04"></p>
+<p><em>1.php不支持函数重载</em><br><em>2.php提供了非常多的内置函数，可参考手册<a href="http://php.net/manual/zh/funcref.php">PHP函数参考</a></em><br><em>3.常用的如下：</em></p>
+<blockquote>
+<ul>
+<li><a href="http://php.net/manual/zh/ref.strings.php">字符串函数</a></li><li><a href="http://php.net/manual/zh/ref.array.php">数组函数</a></li><li><a href="http://php.net/manual/zh/ref.datetime.php">日期函数</a></li><li><a href="http://php.net/manual/zh/ref.json.php">JSON函数</a></li><li><a href="http://php.net/manual/zh/ref.filesystem.php">文件系统函数</a></li><li><a href="http://php.net/manual/zh/ref.mysql.php">MySQL函数</a></li></ul>
+</blockquote>
+<p>对于这些函数，熟练常用的，其他要用的时候，知道在哪查文档就OK</p>
+<ul>
+<li>empty</li><li>count</li><li>isset</li><li>implode</li><li>explode</li><li>in_array</li><li>array_push</li><li>json_encode</li><li>json_decode</li><li>date</li></ul>
+<h2 id="-5-12-"><a href="http://php.net/manual/zh/language.types.array.php">5. 数组</a></h2>
+<p>PHP中数组的功能非常强大，几乎是现实了Java中的Array, List, Map的所有功能。因此可以把它当成真正的数组，或列表（向量），字典，集合，栈，队列以及更多可能性。</p>
+<p><em>example:</em></p>
+<pre><code class="lang-php">&lt;?php
+    $map = array(
+        &quot;name&quot; =&gt; &quot;zhoujing&quot;,
+        &quot;age&quot; =&gt; 26
+    );
+
+    $list = array(&quot;zhoujing&quot;, &quot;xiaoming&quot;, &quot;jay&quot;);
+
+    function iteratorArray($arr) {
+        foreach($arr as $key =&gt; $val) {
+            echo $key . &quot; =&gt; &quot; . $val . &quot;\n&quot;; 
+        }
+    }
+
+    iteratorArray($map);
+    print &quot;\n==================\n\n&quot;;
+    iteratorArray($list);
+    print &quot;\n==================\n\n&quot;;
+
+    var_dump($list[1]);
+    var_dump($map[&quot;name&quot;]);
+    var_dump($map);
+?&gt;
+</code></pre>
+<p><em>运行如果：</em><br><img src="http://qptemp.qiniudn.com/zhoujing/demo05.jpg" alt="demo05"></p>
+<h2 id="-6-17-"><a href="http://php.net/manual/zh/language.oop5.php">6. 面向对象</a></h2>
+<p>PHP面向对象是PHP5完善的特性，几本上是参照Java现实的。<br><em>example:</em></p>
+<pre><code class="lang-php">&lt;?php
+class Person {
+    private $name = &quot;zhoujing&quot;;
+    private $age = 26;
+
+    function __construct() {
+        print &quot;In &quot; . __CLASS__ . &quot; constructor\n&quot;;
+    }
+
+    public function getName() {
+        return $this-&gt;name;
+    }
+
+    public function getAge() {
+        return $this-&gt;age;
+    }
+
+    public function setName($name) {
+        $this-&gt;name = $name;
+    }
+
+    public function setAge($age) {
+        $this-&gt;age = $age;
+    }
+}
+
+class Studnet extends Person {
+    private $school;
+
+    function __construct() {
+        parent::__construct();
+        print &quot;In &quot; . __CLASS__ . &quot; constructor\n&quot;;
+    }
+
+    public function getSchool() {
+        return $this-&gt;school;
+    }
+
+    public function setSchool($school) {
+        $this-&gt;school = $school;
+    }
+}
+
+$tom = new Studnet();
+$tom-&gt;setSchool(&quot;shengzhen&quot;);
+var_dump($tom);
+?&gt;
+</code></pre>
+<p><em>运行如果：</em><br><img src="http://qptemp.qiniudn.com/zhoujing/demo06.jpg" alt="demo06"></p>
+<hr>
+<h2 id="web-">Web服务器搭建</h2>
+<ul>
+<li>理解Web服务器</li><li>PHP程序运行方式</li><li>了解<a href="http://www.ietf.org/rfc/rfc3875">CGI</a></li><li>PHP如何获取客户端数据</li><li>Nginx配置</li></ul>
+<h3 id="1-web-">1. Web服务器</h3>
+<ul>
+<li>监听端口，接受用户请求，返回指定URL对应的文档资源</li><li>基于请求响应的被动交互方式</li><li>运行外部脚本或程序</li><li>实现Http协议</li><li>apache, nginx, tomcat</li></ul>
+<h3 id="2-php-">2. php程序运行方式</h3>
+<ul>
+<li>php有三个模块：内核，Zend引擎，扩展层</li><li>Zend将源文件转成机器语言，在虚拟机上运行，将结果返回给内核</li><li>扩展层是一组函数，类库，流</li><li>PHP内核用来处理请求、文件流、错误处理等相关操作</li><li>apache通过php模块运行php，nginx通过cgi进程运行php</li></ul>
+<h3 id="3-cgi">3. CGI</h3>
+<p>nginx不具有php模块，所以要通过cgi进程的方式运行php脚本。所以要在Linux开发应用层接口，必须要有web服务器程序，cgi(FastCGI)程序和PHP解析程序。CGI在物理上就是一个程序，在逻辑上是Web服务器与脚本程序的通信接口，规范。当然，还有其他一些网关程序，比如swgi,uwsgi。</p>
+<h3 id="4-php-">4. PHP如何获取客户端请求数据</h3>
+<p>答案是： <a href="http://php.net/manual/zh/language.variables.superglobals.php">超全局变量</a></p>
+<blockquote>
+<ul>
+<li>$GLOBALS</li><li>$_SERVER</li><li>$_GET</li><li>$_POST</li><li>$_FILES</li><li>$_COOKIE</li><li>$_SESSION</li><li>$_REQUEST</li><li>$_ENV</li></ul>
+</blockquote>
+<p>用CodeIgniter开发时，不太需要关注这些变量，有封装好的函数获取。<br>假如已经配置好了一个www.a.com服务，网站的根目前C:\data\www\a.com。nginx配置如下:</p>
+<pre><code>server {
+    listen       80;
+    server_name  www.a.com;
+    root         C:/data/www/a.com;
+    index        index.html index.htm index.php;
+
+    location ~ .*\.(php|php5)?$
+    {
+        fastcgi_connect_timeout 300;
+        fastcgi_send_timeout 300;
+        fastcgi_read_timeout 300;
+        fastcgi_pass   127.0.0.1:9000;
+        fastcgi_index  index.php;
+        fastcgi_param  SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        include        fastcgi_params;
+    }
+}
+</code></pre><p><em>index.php源码:</em></p>
+<pre><code class="lang-php">&lt;?php
+    if (isset($_GET[&#39;name&#39;]))
+        echo &quot;&lt;h1&gt;hello, &quot; . $_GET[&#39;name&#39;] . &quot;&lt;/h1&gt;&quot;;
+    else
+        echo &quot;you muse input your name.&quot;;
+?&gt;
+</code></pre>
+<p><em>运行如果：</em><br><img src="http://qptemp.qiniudn.com/zhoujing/demo07.jpg" alt="demo07"></p>
+<h3 id="5-nginx-codeigniter">5. Nginx配置CodeIgniter</h3>
+<p><em>nginx配置php:</em></p>
+<pre><code>server {
+        listen       80;
+        server_name  api.impingo.me;
+        root         /data/vhosts/api.impingo.me;
+        index        index.html index.htm index.php;
+
+        access_log  /data/logs/nginx_log/api.impingo.me/access.log  main;
+
+        location ~ \.(jpg|png|gif|js|css|swf|flv|ico)$ {
+                 expires 12h;
+        }
+
+        location ~* ^/(doc|logs|application|system)/ {
+                return 403;
+        }
+
+        location / {
+                if (!-e $request_filename) {
+                    rewrite ^(.*)$ /index.php?$1 last;
+                    break;
+                }
+        }
+
+        location ~ .*\.(php|php5)?$
+        {
+                fastcgi_connect_timeout 300;
+                fastcgi_send_timeout 300;
+                fastcgi_read_timeout 300;
+                fastcgi_pass   127.0.0.1:9000;
+                fastcgi_index  index.php;
+                fastcgi_param  SCRIPT_FILENAME $document_root$fastcgi_script_name;
+                include        fastcgi_params;
+        }
+}
+</code></pre><p>Nginx服务器监听80端口，接受用户请求，通过调用CGI程序，与PHP脚本解释程序通信。也就意味着，对于每一个客户端请求，服务器要开启一个新的CGI进程进行处理。</p>
+<p>Nginx,MySQL的安装配置，Linux系统基本操作不在本文介绍范围之内。请参考其他资料。</p>
+<p>至此，PHP开发的最基础的内容已经介绍得差不多了。还有一点重要的内 PHP查询MySQL数据库。这里不介绍如何使用原始API操作MySQL，直接讲CI的MVC即可。</p>
+
+</body>
+</html>
+<!-- This document was created with MarkdownPad, the Markdown editor for Windows (http://markdownpad.com) -->
