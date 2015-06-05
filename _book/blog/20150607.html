@@ -1,0 +1,442 @@
+<!DOCTYPE HTML>
+<html lang="zh-tw" >
+    
+    <head>
+        
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>C语言常用字符串操作函数 | jockchou</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 2.1.0">
+        
+        
+        <meta name="HandheldFriendly" content="true"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+        <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="../gitbook/style.css">
+    
+    
+
+        
+    
+    
+    <link rel="next" href="../blog/20150606.html" />
+    
+    
+    <link rel="prev" href="../blog/20150604.html" />
+    
+
+        
+    </head>
+    <body>
+        
+        
+    <div class="book" data-level="2" data-basepath=".." data-revision="Fri Jun 05 2015 21:33:06 GMT+0800 (中国标准时间)">
+    
+
+<div class="book-summary">
+    <div class="book-search">
+        <input type="text" placeholder="輸入並搜尋" class="form-control" />
+    </div>
+    <ul class="summary">
+        
+        
+        
+        
+
+        
+
+        
+    
+        <li class="chapter " data-level="0" data-path="index.html">
+            
+                
+                    <a href="../index.html">
+                        <i class="fa fa-check"></i>
+                        
+                        介紹
+                    </a>
+                
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1" data-path="blog/20150604.html">
+            
+                
+                    <a href="../blog/20150604.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.</b>
+                        
+                        C语言常用的输入输出函数
+                    </a>
+                
+            
+            
+        </li>
+    
+        <li class="chapter active" data-level="2" data-path="blog/20150607.html">
+            
+                
+                    <a href="../blog/20150607.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.</b>
+                        
+                        C语言常用字符串操作函数
+                    </a>
+                
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3" data-path="blog/20150606.html">
+            
+                
+                    <a href="../blog/20150606.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.</b>
+                        
+                        用CSS3画公司logo
+                    </a>
+                
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4" data-path="blog/20150605.html">
+            
+                
+                    <a href="../blog/20150605.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.</b>
+                        
+                        半小时速成PHP基础
+                    </a>
+                
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5" data-path="blog/20150603.html">
+            
+                
+                    <a href="../blog/20150603.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.</b>
+                        
+                        JavaScript类型检测最佳实践
+                    </a>
+                
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6" data-path="blog/20150602.html">
+            
+                
+                    <a href="../blog/20150602.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.</b>
+                        
+                        两个实用函数camelize，hyphenate
+                    </a>
+                
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7" data-path="blog/20150601.html">
+            
+                
+                    <a href="../blog/20150601.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.</b>
+                        
+                        前端函数getPageSize，getPageScroll
+                    </a>
+                
+            
+            
+        </li>
+    
+
+
+        
+        <li class="divider"></li>
+        <li>
+            <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+                本書使用 GitBook 釋出
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+    <div class="book-body">
+        <div class="body-inner">
+            <div class="book-header">
+    <!-- Actions Left -->
+    <a href="#" class="btn pull-left toggle-summary" aria-label="目錄"><i class="fa fa-align-justify"></i></a>
+    <a href="#" class="btn pull-left toggle-search" aria-label="搜尋"><i class="fa fa-search"></i></a>
+    
+    <div id="font-settings-wrapper" class="dropdown pull-left">
+        <a href="#" class="btn toggle-dropdown" aria-label="字型設定"><i class="fa fa-font"></i>
+        </a>
+        <div class="dropdown-menu font-settings">
+    <div class="dropdown-caret">
+        <span class="caret-outer"></span>
+        <span class="caret-inner"></span>
+    </div>
+
+    <div class="buttons">
+        <button type="button" id="reduce-font-size" class="button size-2">A</button>
+        <button type="button" id="enlarge-font-size" class="button size-2">A</button>
+    </div>
+
+    <div class="buttons font-family-list">
+        <button type="button" data-font="0" class="button">襯線體</button>
+        <button type="button" data-font="1" class="button">無襯線體</button>
+    </div>
+
+    <div class="buttons color-theme-list">
+        <button type="button" id="color-theme-preview-0" class="button size-3" data-theme="0">白色</button>
+        <button type="button" id="color-theme-preview-1" class="button size-3" data-theme="1">棕褐色</button>
+        <button type="button" id="color-theme-preview-2" class="button size-3" data-theme="2">夜間</button>
+    </div>
+</div>
+
+    </div>
+
+    <!-- Actions Right -->
+    
+    <div class="dropdown pull-right">
+        <a href="#" class="btn toggle-dropdown" aria-label="分享"><i class="fa fa-share-alt"></i>
+        </a>
+        <div class="dropdown-menu font-settings dropdown-left">
+            <div class="dropdown-caret">
+                <span class="caret-outer"></span>
+                <span class="caret-inner"></span>
+            </div>
+            <div class="buttons">
+                <button type="button" data-sharing="twitter" class="button">
+                    分享到 Twitter
+                </button>
+                <button type="button" data-sharing="google-plus" class="button">
+                    分享到 Google
+                </button>
+                <button type="button" data-sharing="facebook" class="button">
+                    分享到 Facebook
+                </button>
+                <button type="button" data-sharing="weibo" class="button">
+                    分享到 Weibo
+                </button>
+                <button type="button" data-sharing="instapaper" class="button">
+                    分享到 Instapaper
+                </button>
+            </div>
+        </div>
+    </div>
+    
+
+    
+    <a href="#" target="_blank" class="btn pull-right google-plus-sharing-link sharing-link" data-sharing="google-plus" aria-label="Google"><i class="fa fa-google-plus"></i></a>
+    
+    
+    <a href="#" target="_blank" class="btn pull-right facebook-sharing-link sharing-link" data-sharing="facebook" aria-label="Facebook"><i class="fa fa-facebook"></i></a>
+    
+    
+    <a href="#" target="_blank" class="btn pull-right twitter-sharing-link sharing-link" data-sharing="twitter" aria-label="Twitter"><i class="fa fa-twitter"></i></a>
+    
+    
+    
+
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../" >jockchou</a>
+    </h1>
+</div>
+
+            <div class="page-wrapper" tabindex="-1">
+                <div class="page-inner">
+                
+                
+                    <section class="normal" id="section-">
+                    
+                        <h1 id="c%E8%AF%AD%E8%A8%80%E5%B8%B8%E7%94%A8%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%93%8D%E4%BD%9C%E5%87%BD%E6%95%B0">C&#x8BED;&#x8A00;&#x5E38;&#x7528;&#x5B57;&#x7B26;&#x4E32;&#x64CD;&#x4F5C;&#x51FD;&#x6570;</h1>
+<hr>
+<pre><code>#include &lt;string.h&gt;
+
+size_t strlen(const char *s);
+size_t strnlen(const char *s, size_t maxlen);
+
+char *strcat(char *dest, const char *src);
+char *strncat(char *dest, const char *src, size_t n);
+
+int strcmp(const char *s1, const char *s2);
+int strncmp(const char *s1, const char *s2, size_t n);
+
+char *strcpy(char *dest, const char *src);
+char *strncpy(char *dest, const char *src, size_t n);
+
+char *strstr(const char *haystack, const char *needle);
+char *strchr(const char *s, int c);
+char *strrchr(const char *s, int c);
+</code></pre><p>&#x524D;&#x9762;5&#x7EC4;&#x51FD;&#x6570;&#x90FD;&#x6709;&#x4E00;&#x4E2A;&#x5171;&#x540C;&#x7279;&#x70B9;&#xFF0C;&#x7B2C;&#x4E8C;&#x4E2A;&#x51FD;&#x6570;&#x540D;&#x6BD4;&#x524D;&#x4E00;&#x4E2A;&#x591A;&#x4E86;&#x4E2A;n&#x3002;&#x5148;&#x4E0D;&#x7BA1;&#x8FD9;&#x4E2A;n&#x7684;&#x5177;&#x4F53;&#x542B;&#x4E49;&#xFF0C;&#x6211;&#x4EEC;&#x76F4;&#x63A5;&#x5F00;&#x59CB;&#x8BB2;&#x89E3;&#x51FD;&#x6570;&#x3002;</p>
+<h1 id="strlen-%E5%87%BD%E6%95%B0">strlen()&#x51FD;&#x6570;</h1>
+<p>&#x89C1;&#x540D;&#x77E5;&#x610F;&#xFF0C;&#x8FD9;&#x4E2A;&#x51FD;&#x6570;&#x662F;&#x7528;&#x6765;&#x83B7;&#x53D6;&#x5B57;&#x7B26;&#x4E32;&#x957F;&#x5EA6;&#x7684;&#xFF0C;&#x51C6;&#x786E;&#x6765;&#x8BB2;&#x662F;&#x9664;&#x53BB;&#x7ED3;&#x5C3E;&#x7A7A;&#x5B57;&#x7B26;&#x7684;&#x957F;&#x5EA6;&#x3002;&#x4E0B;&#x9762;&#x6765;&#x770B;&#x4E00;&#x4E2A;&#x4F8B;&#x5B50;:</p>
+<pre><code>#include&lt;stdio.h&gt;
+#include&lt;string.h&gt;
+
+//&#x622A;&#x77ED;&#x5B57;&#x7B26;&#x4E32;
+void fit(char *str, size_t n);
+
+int main(void)
+{
+    char msg[] = &quot;Hold on to your hats, hackers. &quot;;
+    puts(msg);
+
+    fit(msg, 7);
+    puts(msg);
+
+    puts(&quot;Let&apos;s look at some more of the string. &quot;);
+
+    puts(msg + 8);
+
+    return 0;
+}
+
+void fit(char *str, size_t n)
+{
+    if (strlen(str) &gt; n)
+        *(str + n) = &apos;\0&apos;;
+}
+</code></pre><p>&#x58F0;&#x660E;&#x4E00;&#x4E2A;fit()&#x51FD;&#x6570;&#x7528;&#x6765;&#x622A;&#x77ED;&#x4E00;&#x4E2A;&#x5B57;&#x7B26;&#x4E32;&#x5230;&#x6307;&#x5B9A;&#x957F;&#x5EA6;&#xFF0C;&#x53C2;&#x6570;str&#x6CA1;&#x6709;&#x4F7F;&#x7528;const&#x4FEE;&#x9970;&#xFF0C;&#x5373;&#x8868;&#x793A;&#x5B57;&#x7B26;&#x4E32;&#x53EF;&#x4EE5;&#x88AB;fit()&#x51FD;&#x6570;&#x6539;&#x53D8;&#x3002;&#x7B2C;&#x4E8C;&#x4E2A;&#x53C2;&#x6570;n&#x8868;&#x793A;&#x622A;&#x53D6;&#x540E;&#xFF0C;&#x5B57;&#x7B26;&#x4E32;&#x7684;&#x957F;&#x5EA6;&#x3002;&#x5728;&#x4E3B;&#x51FD;&#x6570;&#x4E2D;&#x58F0;&#x660E;&#x4E86;&#x4E00;&#x4E2A;msg&#x5B57;&#x7B26;&#x6570;&#x7EC4;&#x3002;&#x8C03;&#x7528;fit(msg, 7)&#xFF0C;&#x5176;&#x4F5C;&#x7528;&#x5C31;&#x662F;*(msg+7) = &apos;\0&apos;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x628A;msg&#x5B57;&#x7B26;&#x6570;&#x7EC4;&#x7B2C;8&#x4E2A;&#x5143;&#x7D20;&#x53D8;&#x6210;&#x7A7A;&#x5B57;&#x7B26;&apos;\0&apos;&#xFF0C;&#x8BA9;&#x5B83;&#x6240;&#x8868;&#x793A;&#x7684;&#x5B57;&#x7B26;&#x4E32;&#x63D0;&#x524D;&#x7ED3;&#x675F;&#xFF0C;&#x5FFD;&#x7565;&#x540E;&#x9762;&#x7684;&#x5143;&#x7D20;&#xFF0C;&#x7136;&#x800C;&#xFF0C;&#x6570;&#x7EC4;&#x7684;&#x540E;&#x9762;&#x7684;&#x5176;&#x4ED6;&#x5143;&#x7D20;&#x4ECD;&#x7136;&#x5B58;&#x5728;&#xFF0C;puts(msg+8)&#x8F93;&#x51FA;&#x4E86;&#x88AB;&#x622A;&#x7684;&#x5185;&#x5BB9;&#x3002;</p>
+<h1 id="strnlen-%E5%87%BD%E6%95%B0">strnlen()&#x51FD;&#x6570;</h1>
+<p>strnlen()&#x7B49;&#x540C;strlen()&#x51FD;&#x6570;&#xFF0C;&#x4F46;&#x662F;&#x8FD4;&#x56DE;&#x7684;&#x503C;&#x4E0D;&#x4F1A;&#x8D85;&#x8FC7;maxlen&#x3002;&#x4E5F;&#x5C31;&#x662F;&#x8BF4;strnlen()&#x51FD;&#x6570;&#x4E2D;&#x4F1A;&#x8BA1;&#x7B97;&#x524D;maxlen&#x4E2A;&#x5B57;&#x7B26;&#xFF0C;&#x4E0D;&#x4F1A;&#x8D85;&#x8FC7;s+maxlen&#x8FD9;&#x4E2A;&#x4F4D;&#x7F6E;&#x3002;&#x4E0B;&#x9762;&#x6211;&#x4EEC;&#x81EA;&#x5DF1;&#x6765;&#x5B9E;&#x73B0;&#x8FD9;&#x4E2A;&#x51FD;&#x6570;&#x8BD5;&#x8BD5;&#x770B;&#xFF1A;</p>
+<pre><code>#include&lt;stdio.h&gt;
+#include&lt;string.h&gt;
+
+size_t strnlen(const char *s, size_t maxlen);
+
+int main(void)
+{
+    char msg[] = &quot;Hold on to your hats, hackers. &quot;;
+    size_t n = strlen(msg);
+    size_t m = strnlen(msg, 30);
+
+    printf(&quot;strlen is %u\n&quot;, n);
+    printf(&quot;strnlen is %u\n&quot;, m);
+}
+
+size_t strnlen(const char *s, size_t maxlen)
+{
+    size_t n = 0;
+
+    while(*s &amp;&amp; n &lt; maxlen) {
+        s++;
+        n++;
+    }
+    return n;
+}
+</code></pre><p>&#x8F93;&#x51FA;&#x7ED3;&#x679C;&#xFF1A;</p>
+<pre><code>strlen is 31
+strnlen is 30
+</code></pre><p>&#x6CE8;&#x91CA;&#x6389;&#x6211;&#x4EEC;&#x81EA;&#x5DF1;&#x5B9A;&#x4E49;&#x7684;strnlen()&#x51FD;&#x6570;&#xFF0C;&#x4F7F;&#x7528;string.h&#x7684;&#x5B9A;&#x4E49;&#xFF0C;&#x518D;&#x7F16;&#x8BD1;&#x6267;&#x884C;&#xFF0C;&#x7ED3;&#x679C;&#x4ECD;&#x7136;&#x4E00;&#x6837;&#x3002;</p>
+<h1 id="strcat-%E5%87%BD%E6%95%B0">strcat()&#x51FD;&#x6570;</h1>
+<p>&#x8FD9;&#x4E2A;&#x51FD;&#x6570;&#x7528;&#x6765;&#x62FC;&#x63A5;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x5B83;&#x5C06;&#x590D;&#x5236;&#x7B2C;&#x4E8C;&#x4E2A;&#x5B57;&#x7B26;&#x4E32;&#x7684;&#x62F7;&#x8D1D;&#x6DFB;&#x52A0;&#x5230;&#x7B2C;&#x4E00;&#x4E2A;&#x5B57;&#x7B26;&#x4E32;&#x7684;&#x7ED3;&#x5C3E;&#xFF0C;&#x7B2C;&#x4E8C;&#x4E2A;&#x5B57;&#x7B26;&#x4E32;&#x6CA1;&#x6709;&#x6539;&#x53D8;&#xFF0C;&#x7B2C;&#x4E00;&#x4E2A;&#x5B57;&#x7B26;&#x4E32;&#x6210;&#x4E3A;&#x4E00;&#x4E2A;&#x65B0;&#x7684;&#x7EC4;&#x5408;&#x5B57;&#x7B26;&#x4E32;&#x4E86;&#x3002;&#x6240;&#x4EE5;&#x7B2C;&#x4E8C;&#x4E2A;&#x53C2;&#x6570;&#x7528;const&#x4FEE;&#x9970;&#x4E86;&#x3002;&#x51FD;&#x6570;&#x8FD4;&#x56DE;&#x7B2C;&#x4E00;&#x4E2A;&#x53C2;&#x6570;&#x7684;&#x503C;&#x3002;&#x90A3;&#x4E48;&#x95EE;&#x9898;&#x5C31;&#x6765;&#x4E86;&#xFF0C;&#x5982;&#x679C;&#x7B2C;&#x4E00;&#x4E2A;&#x5B57;&#x7B26;&#x4E32;&#x7684;&#x5B58;&#x50A8;&#x7A7A;&#x95F4;&#x4E0D;&#x591F;&#x5927;&#xFF0C;&#x5B57;&#x7B26;&#x4E32;&#x5C31;&#x4F1A;&#x6EA2;&#x51FA;&#xFF0C;&#x4EA7;&#x751F;&#x4E0D;&#x5B89;&#x5168;&#x7684;&#x884C;&#x4E3A;&#x3002;strncat()&#x4E0E;&#x4E4B;&#x4E0D;&#x540C;&#xFF0C;&#x5B83;&#x628A;src&#x6240;&#x6307;&#x5B57;&#x7B26;&#x4E32;&#x7684;&#x524D;n&#x4E2A;&#x5B57;&#x7B26;&#x6DFB;&#x52A0;&#x5230;dest&#x7ED3;&#x5C3E;&#x5904;&#xFF0C;&#x8986;&#x76D6;dest&#x7ED3;&#x5C3E;&#x5904;&#x7684;&apos;/0&apos;&#xFF0C;&#x5B9E;&#x73B0;&#x5B57;&#x7B26;&#x4E32;&#x8FDE;&#x63A5;&#x3002;&#x6240;&#x4EE5;&#x4F7F;&#x7528;strcat&#xFF0C;&#x8981;&#x7A0B;&#x5E8F;&#x5458;&#x81EA;&#x5DF1;&#x4FDD;&#x8BC1;dest&#x8DB3;&#x591F;&#x5BB9;&#x7EB3;&#x62FC;&#x63A5;&#x540E;&#x7684;&#x6574;&#x4E2A;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x800C;strncat&#x4F7F;&#x7528;n&#x53C2;&#x6570;&#x6765;&#x9650;&#x5236;&#x53EA;&#x590D;&#x5236;dest&#x7A7A;&#x95F2;&#x7684;&#x5BB9;&#x91CF;&#x5927;&#x5C0F;&#x7684;&#x5B57;&#x7B26;&#x3002;strncat()&#x7684;&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x5B9E;&#x73B0;&#x4E5F;&#x8BB8;&#x662F;&#x8FD9;&#x6837;&#xFF1A;</p>
+<pre><code>char *strncat(char *dest, const char *src, size_t n)
+{
+    size_t dest_len = strlen(dest);
+    size_t i;
+    for (i = 0 ; i &lt; n &amp;&amp; src[i] != &apos;\0&apos; ; i++)
+        dest[dest_len + i] = src[i];
+
+    dest[dest_len + i] = &apos;\0&apos;;
+
+    return dest;
+}
+</code></pre><h1 id="strcmp-%E5%87%BD%E6%95%B0">strcmp()&#x51FD;&#x6570;</h1>
+<p>&#x8FD9;&#x4E2A;&#x51FD;&#x6570;&#x7528;&#x6765;&#x6BD4;&#x8F83;2&#x4E2A;&#x5B57;&#x7B26;&#x4E32;s1,s2&#x7684;&#x5927;&#x5C0F;&#xFF0C;&#x5982;&#x679C;s1&#x548C;s2&#x76F8;&#x540C;&#xFF0C;&#x8FD4;&#x56DE;&#x4E3A;0&#xFF0C;s1&#x5C0F;&#x4E8E;s2&#xFF0C;&#x8FD4;&#x56DE;&#x8D1F;&#x6570;&#xFF0C;&#x5426;&#x5219;&#x8FD4;&#x56DE;&#x5927;&#x4E8E;0&#x3002;&#x5BF9;&#x4E8E;&#x8FD4;&#x56DE;&#x6570;&#x503C;&#x7684;&#x5927;&#x4E8E;&#xFF0C;&#x4E0D;&#x540C;&#x5B9E;&#x73B0;&#x53EF;&#x80FD;&#x4E0D;&#x540C;&#x3002;&#x6709;&#x7684;&#x662F;-1, 0, 1&#x8FD9;&#x4E09;&#x4E2A;&#x503C;&#xFF0C;&#x4E5F;&#x6709;&#x7684;&#x53EF;&#x80FD;&#x662F;&#x5B57;&#x7B26;&#x4E32;&#x67D0;&#x4E2A;&#x4F4D;&#x7F6E;&#x4E0A;&#x7684;ASCII&#x503C;&#x7684;&#x5DEE;&#x3002;&#x800C;strncmp()&#x7684;n&#x53C2;&#x6570;&#x7528;&#x6765;&#x9650;&#x5B9A;&#xFF0C;&#x53EA;&#x6BD4;&#x8F83;s1&#x7684;&#x524D;n&#x4E2A;&#x5B57;&#x7B26;&#xFF0C;&#x800C;&#x4E0D;&#x662F;&#x4E00;&#x76F4;&#x6BD4;&#x8F83;&#x627E;&#x5230;&#x4E0D;&#x540C;&#x7684;&#x5B57;&#x7B26;&#x3002;&#x56E0;&#x4E9B;strncpm(s1, s2, strlen(s2)) == 0&#x8FD9;&#x4E2A;&#x8868;&#x8FBE;&#x5F0F;&#x53EF;&#x4EE5;&#x7528;&#x6765;&#x5224;&#x65AD;s1&#x662F;&#x5426;&#x4EE5;s2&#x5F00;&#x5934;&#x3002;&#x5F53;&#x7136;&#x4E5F;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;strstr()&#x7684;&#x8FD4;&#x56DE;&#x503C;&#x6765;&#x5224;&#x65AD;&#x3002;&#x4E0B;&#x9762;&#x7684;&#x4F8B;&#x5B50;&#x7A0B;&#x5E8F;&#x5C55;&#x793A;&#x4E86;strncmp()&#x51FD;&#x6570;&#x7684;&#x4E00;&#x4E2A;&#x7528;&#x9014;&#xFF1A;</p>
+<pre><code>#include&lt;stdio.h&gt;
+#include&lt;string.h&gt;
+#define LIST_SIZE 5
+
+int main(void)
+{
+    char *list[LIST_SIZE] = {&quot;astronomy&quot;, &quot;astoudfing&quot;, &quot;astrophysici&quot;, &quot;ostracize&quot;, &quot;asterism&quot;};
+    const char *str = &quot;astro&quot;;
+
+    int i, count = 0;
+
+    for (i = 0; i &lt; LIST_SIZE; i++) {
+        if (strncmp(list[i], str, strlen(str)) == 0) {
+            printf(&quot;Found: %s\n&quot;, list[i]);
+            count++;
+        }
+    }
+
+    printf(&quot;The list contained %d words beginning with astro.\n&quot;, count);
+
+    return 0;
+}
+</code></pre><h1 id="strcpy-%E5%87%BD%E6%95%B0">strcpy()&#x51FD;&#x6570;</h1>
+<p>&#x5982;&#x679C;&#x8981;&#x590D;&#x5236;&#x4E00;&#x4E2A;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x5373;&#x5728;&#x5185;&#x5B58;&#x4E2D;&#x4EA7;&#x751F;&#x67D0;&#x4E2A;&#x5B57;&#x7B26;&#x4E32;&#x7684;&#x526F;&#x672C;&#xFF0C;&#x4F60;&#x9700;&#x8981;&#x4F7F;&#x7528;strcpy()&#x51FD;&#x6570;&#x6765;&#x5B9E;&#x73B0;&#x3002;&#x5B83;&#x7684;&#x601D;&#x8DEF;&#x6709;&#x70B9;&#x50CF;strcat()&#x51FD;&#x6570;&#xFF0C;&#x53EA;&#x4E0D;&#x8FC7;&#x4E0D;&#x662F;&#x62FC;&#x6309;&#x5728;dest&#x7684;&#x540E;&#x9762;&#xFF0C;&#x800C;&#x662F;&#x76F4;&#x63A5;&#x4ECE;dest&#x6307;&#x9488;&#x5904;&#x5F00;&#x59CB;&#x8986;&#x76D6;&#xFF0C;&#x540C;&#x65F6;&#x4E5F;&#x4F1A;&#x628A;src&#x7ED3;&#x5C3E;&#x7684;&#x7A7A;&#x5B57;&#x7B26;&#x590D;&#x5236;&#x3002;&#x540C;&#x6837;&#x8981;&#x6C42;dest&#x6709;&#x8DB3;&#x591F;&#x7684;&#x7A7A;&#x95F4;&#x3002;strncpy()&#x7528;&#x6765;&#x9650;&#x5236;&#x53EA;&#x590D;&#x5236;src&#x524D;n&#x4E2A;&#x5B57;&#x7B26;&#xFF0C;&#x5982;&#x679C;&#x524D;n&#x4E2A;&#x5B57;&#x7B26;&#x6CA1;&#x6709;&#x7A7A;&#x5B57;&#x7B26;&#xFF0C;dest&#x5B57;&#x7B26;&#x4E32;&#x5C06;&#x6CA1;&#x6709;&#x7ED3;&#x5C3E;&#x7684;&#x7A7A;&#x5B57;&#x7B26;&#x3002;&#x5982;&#x679C;src&#x957F;&#x5EA6;&#x4E0D;&#x591F;n&#xFF0C;strncpy()&#x4F1A;&#x5199;&#x5165;&#x989D;&#x5916;&#x7684;&#x7A7A;&#x5B57;&#x7B26;&#x5230;dest&#x4E2D;&#xFF0C;&#x786E;&#x4FDD;n&#x4E2A;&#x5B57;&#x7B26;&#x88AB;&#x5B9A;&#x5165;&#x3002;strncpy()&#x7684;&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x5B9E;&#x73B0;&#x5982;&#x4E0B;&#xFF1A;</p>
+<pre><code>char *strncpy(char *dest, const char *src, size_t n)
+{
+    size_t i;
+
+    for (i = 0; i &lt; n &amp;&amp; src[i] != &apos;\0&apos;; i++)
+        dest[i] = src[i];
+    for ( ; i &lt; n; i++)
+        dest[i] = &apos;\0&apos;;
+
+    return dest;
+}
+</code></pre><h1 id="strstr-%E5%87%BD%E6%95%B0">strstr()&#x51FD;&#x6570;</h1>
+<p>strstr()&#x51FD;&#x6570;&#x5728;haystack&#x641C;&#x7D22;&#x5B50;&#x4E32;needle&#xFF0C;&#x5B57;&#x7B26;&#x4E32;&#x7684;&#x7ED3;&#x5C3E;&#x7A7A;&#x5B57;&#x7B26;&#x4E0D;&#x4F1A;&#x53C2;&#x4E0E;&#x6BD4;&#x8F83;&#x3002;&#x8FD4;&#x56DE;&#x5B50;&#x4E32;needle&#x7B2C;&#x4E00;&#x6B21;&#x5339;&#x914D;&#x65F6;&#x7684;&#x5F00;&#x59CB;&#x4F4D;&#x7F6E;&#x7684;&#x6307;&#x9488;&#x3002;</p>
+
+                    
+                    </section>
+                
+                
+                </div>
+            </div>
+        </div>
+
+        
+        <a href="../blog/20150604.html" class="navigation navigation-prev " aria-label="Previous page: C语言常用的输入输出函数"><i class="fa fa-angle-left"></i></a>
+        
+        
+        <a href="../blog/20150606.html" class="navigation navigation-next " aria-label="Next page: 用CSS3画公司logo"><i class="fa fa-angle-right"></i></a>
+        
+    </div>
+</div>
+
+        
+<script src="../gitbook/app.js"></script>
+
+<script>
+require(["gitbook"], function(gitbook) {
+    var config = {"fontSettings":{"theme":null,"family":"sans","size":2}};
+    gitbook.start(config);
+});
+</script>
+
+        
+    </body>
+    
+</html>
