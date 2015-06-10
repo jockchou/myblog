@@ -1,0 +1,654 @@
+<!DOCTYPE HTML>
+<html lang="en" >
+    
+    <head>
+        
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>C语言枚举类型 | jockchou</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 2.1.0">
+        
+        
+        <meta name="HandheldFriendly" content="true"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+        <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="../gitbook/style.css">
+    
+    
+
+        
+    
+    
+    <link rel="next" href="../blog/20150608.html" />
+    
+    
+    <link rel="prev" href="../index.html" />
+    
+
+        
+    </head>
+    <body>
+        
+        
+    <div class="book" data-level="1" data-basepath=".." data-revision="Wed Jun 10 2015 14:13:20 GMT+0800 (中国标准时间)">
+    
+
+<div class="book-summary">
+    <div class="book-search">
+        <input type="text" placeholder="Type to search" class="form-control" />
+    </div>
+    <ul class="summary">
+        
+        
+        
+        
+
+        
+
+        
+    
+        <li class="chapter " data-level="0" data-path="index.html">
+            
+                
+                    <a href="../index.html">
+                        <i class="fa fa-check"></i>
+                        
+                        Introduction
+                    </a>
+                
+            
+            
+        </li>
+    
+        <li class="chapter active" data-level="1" data-path="blog/20150610.html">
+            
+                
+                    <a href="../blog/20150610.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.</b>
+                        
+                        C语言枚举类型
+                    </a>
+                
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2" data-path="blog/20150608.html">
+            
+                
+                    <a href="../blog/20150608.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.</b>
+                        
+                        C语言真假判断的理解
+                    </a>
+                
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3" data-path="blog/20150604.html">
+            
+                
+                    <a href="../blog/20150604.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.</b>
+                        
+                        C语言常用的输入输出函数
+                    </a>
+                
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4" data-path="blog/20150607.html">
+            
+                
+                    <a href="../blog/20150607.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.</b>
+                        
+                        C语言常用字符串操作函数
+                    </a>
+                
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5" data-path="blog/20150606.html">
+            
+                
+                    <a href="../blog/20150606.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.</b>
+                        
+                        用CSS3画公司logo
+                    </a>
+                
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6" data-path="blog/20150605.html">
+            
+                
+                    <a href="../blog/20150605.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.</b>
+                        
+                        半小时速成PHP基础
+                    </a>
+                
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7" data-path="blog/20150603.html">
+            
+                
+                    <a href="../blog/20150603.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.</b>
+                        
+                        JavaScript类型检测最佳实践
+                    </a>
+                
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8" data-path="blog/20150602.html">
+            
+                
+                    <a href="../blog/20150602.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.</b>
+                        
+                        两个实用函数camelize，hyphenate
+                    </a>
+                
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9" data-path="blog/20150601.html">
+            
+                
+                    <a href="../blog/20150601.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.</b>
+                        
+                        前端函数getPageSize，getPageScroll
+                    </a>
+                
+            
+            
+        </li>
+    
+
+
+        
+        <li class="divider"></li>
+        <li>
+            <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+                Published with GitBook
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+    <div class="book-body">
+        <div class="body-inner">
+            <div class="book-header">
+    <!-- Actions Left -->
+    <a href="#" class="btn pull-left toggle-summary" aria-label="Table of Contents"><i class="fa fa-align-justify"></i></a>
+    <a href="#" class="btn pull-left toggle-search" aria-label="Search"><i class="fa fa-search"></i></a>
+    
+    <div id="font-settings-wrapper" class="dropdown pull-left">
+        <a href="#" class="btn toggle-dropdown" aria-label="Font Settings"><i class="fa fa-font"></i>
+        </a>
+        <div class="dropdown-menu font-settings">
+    <div class="dropdown-caret">
+        <span class="caret-outer"></span>
+        <span class="caret-inner"></span>
+    </div>
+
+    <div class="buttons">
+        <button type="button" id="reduce-font-size" class="button size-2">A</button>
+        <button type="button" id="enlarge-font-size" class="button size-2">A</button>
+    </div>
+
+    <div class="buttons font-family-list">
+        <button type="button" data-font="0" class="button">Serif</button>
+        <button type="button" data-font="1" class="button">Sans</button>
+    </div>
+
+    <div class="buttons color-theme-list">
+        <button type="button" id="color-theme-preview-0" class="button size-3" data-theme="0">White</button>
+        <button type="button" id="color-theme-preview-1" class="button size-3" data-theme="1">Sepia</button>
+        <button type="button" id="color-theme-preview-2" class="button size-3" data-theme="2">Night</button>
+    </div>
+</div>
+
+    </div>
+
+    <!-- Actions Right -->
+    
+    <div class="dropdown pull-right">
+        <a href="#" class="btn toggle-dropdown" aria-label="Share"><i class="fa fa-share-alt"></i>
+        </a>
+        <div class="dropdown-menu font-settings dropdown-left">
+            <div class="dropdown-caret">
+                <span class="caret-outer"></span>
+                <span class="caret-inner"></span>
+            </div>
+            <div class="buttons">
+                <button type="button" data-sharing="twitter" class="button">
+                    Share on Twitter
+                </button>
+                <button type="button" data-sharing="google-plus" class="button">
+                    Share on Google
+                </button>
+                <button type="button" data-sharing="facebook" class="button">
+                    Share on Facebook
+                </button>
+                <button type="button" data-sharing="weibo" class="button">
+                    Share on Weibo
+                </button>
+                <button type="button" data-sharing="instapaper" class="button">
+                    Share on Instapaper
+                </button>
+            </div>
+        </div>
+    </div>
+    
+
+    
+    <a href="#" target="_blank" class="btn pull-right google-plus-sharing-link sharing-link" data-sharing="google-plus" aria-label="Google"><i class="fa fa-google-plus"></i></a>
+    
+    
+    <a href="#" target="_blank" class="btn pull-right facebook-sharing-link sharing-link" data-sharing="facebook" aria-label="Facebook"><i class="fa fa-facebook"></i></a>
+    
+    
+    <a href="#" target="_blank" class="btn pull-right twitter-sharing-link sharing-link" data-sharing="twitter" aria-label="Twitter"><i class="fa fa-twitter"></i></a>
+    
+    
+    
+
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../" >jockchou</a>
+    </h1>
+</div>
+
+            <div class="page-wrapper" tabindex="-1">
+                <div class="page-inner">
+                
+                
+                    <section class="normal" id="section-">
+                    
+                        <h1 id="c%E8%AF%AD%E8%A8%80%E6%9E%9A%E4%B8%BE%E7%B1%BB%E5%9E%8B">C&#x8BED;&#x8A00;&#x679A;&#x4E3E;&#x7C7B;&#x578B;</h1>
+<hr>
+<p>&#x5728;&#x8BB2;&#x679A;&#x4E3E;&#x4E4B;&#x524D;&#xFF0C;&#x6211;&#x4EEC;&#x5148;&#x6765;&#x770B;&#x4E00;&#x4E2A;&#x6848;&#x4F8B;&#xFF0C;&#x5B83;&#x80FD;&#x5E2E;&#x52A9;&#x6211;&#x4EEC;&#x66F4;&#x597D;&#x7684;&#x7406;&#x89E3;C&#x8BBE;&#x8BA1;&#x679A;&#x4E3E;&#x7684;&#x610F;&#x56FE;&#x3002;&#x5047;&#x8BBE;&#x6211;&#x4EEC;&#x5728;&#x7A0B;&#x5E8F;&#x4E2D;&#x8981;&#x5206;&#x522B;&#x8868;&#x793A;&#x661F;&#x671F;&#x4E00;&#x5230;&#x661F;&#x671F;&#x5929;&#x8FD9;&#x4E00;&#x5468;&#xFF0C;&#x4E5F;&#x8BB8;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x8FD9;&#x6837;&#x505A;&#xFF1A;</p>
+<pre><code>#include&lt;stdio.h&gt;
+#include&lt;string.h&gt;
+
+#define    MON    1
+#define    TUE    2
+#define    WED    3
+#define    THU    4
+#define    FRI    5
+#define    SAT    6
+#define    SUN    7
+
+void printf_today(int day);
+
+int main(void) {
+
+    int today = FRI;
+    printf_today(today);
+
+    return 0;
+}
+
+void printf_today(int day) {
+    char today[10];
+
+    switch(day) {
+        case MON:
+            strcpy(today, &quot;monday&quot;);
+            break;
+
+        case TUE:
+            strcpy(today, &quot;tuesday&quot;);
+            break;
+
+        case WED:
+            strcpy(today, &quot;wednesday&quot;);
+            break;
+
+        case THU:
+            strcpy(today, &quot;thursday&quot;);
+            break;
+
+        case FRI:
+            strcpy(today, &quot;friday&quot;);
+            break;
+
+        case SAT:
+            strcpy(today, &quot;saturday&quot;);
+            break;
+
+        case SUN:
+            strcpy(today, &quot;sunday&quot;);
+            break;
+
+        default:
+            strcpy(today, &quot;unknowday&quot;);
+    }
+
+    printf(&quot;today is %s\n&quot;, today);
+}
+</code></pre><p>&#x4E0A;&#x4F8B;&#x7A0B;&#x5E8F;&#x7528;&#x6765;&#x6253;&#x5370;&#x4ECA;&#x5929;&#x662F;&#x661F;&#x671F;&#x51E0;&#xFF0C;&#x5B9A;&#x4E49;&#x4E00;&#x7CFB;&#x5217;&#x7684;&#x5B8F;&#x7684;&#x597D;&#x5904;&#x662F;&#xFF0C;&#x5373;&#x4F7F;&#x628A;&#x661F;&#x671F;&#x5BF9;&#x5E94;&#x7684;&#x6570;&#x503C;&#x6539;&#x6389;&#xFF0C;&#x4E5F;&#x4E0D;&#x7528;&#x4FEE;&#x6539;printf_today()&#x51FD;&#x6570;&#x4E2D;&#x7684;&#x4EE3;&#x7801;&#x3002;&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#xFF0C;&#x4F60;&#x4EE5;&#x540E;&#x53EF;&#x4EE5;&#x628A;&#x5B8F;&#x5B9A;&#x4E49;&#x6539;&#x6210;&#x8FD9;&#x6837;&#xFF1A;</p>
+<pre><code>#define    SUN    0
+#define    MON    1
+#define    TUE    2
+#define    WED    3
+#define    THU    4
+#define    FRI    5
+#define    SAT    6
+</code></pre><p>&#x65E0;&#x8BBA;&#x600E;&#x4E48;&#x4FEE;&#x6539;&#x5B8F;&#x5B9A;&#x4E49;&#xFF0C;&#x90FD;&#x4E0D;&#x4F1A;&#x5F71;&#x54CD;&#x4EE5;&#x4E0A;&#x7A0B;&#x5E8F;&#x7684;&#x529F;&#x80FD;&#x3002;&#x4F46;&#x662F;&#x4E5F;&#x6709;&#x4E00;&#x4E2A;&#x7F3A;&#x70B9;&#xFF0C;&#x9700;&#x8981;&#x5B9A;&#x4E49;&#x597D;&#x591A;&#x4E2A;&#x5B8F;&#x624D;&#x80FD;&#x5B8C;&#x6210;&#x5DE5;&#x4F5C;&#x3002;C&#x8BED;&#x8A00;&#x5B9A;&#x4E49;&#x4E00;&#x79CD;&#x65B0;&#x7684;&#x6570;&#x636E;&#x7C7B;&#x578B;&#xFF0C;&#x5E0C;&#x671B;&#x5B83;&#x80FD;&#x5B8C;&#x6210;&#x540C;&#x6837;&#x7684;&#x5DE5;&#x4F5C;&#xFF0C;&#x8FD9;&#x79CD;&#x65B0;&#x7684;&#x6570;&#x636E;&#x7C7B;&#x578B;&#x53EB;&#x679A;&#x4E3E;&#x578B;&#x3002;</p>
+<p>&#x6211;&#x4EEC;&#x5148;&#x6765;&#x770B;&#x679A;&#x4E3E;&#x662F;&#x5982;&#x4F55;&#x6539;&#x5584;&#x4EE5;&#x4E0A;&#x7A0B;&#x5E8F;&#x7684;&#xFF1A;</p>
+<pre><code>#include&lt;stdio.h&gt;
+#include&lt;string.h&gt;
+
+enum days {SUN, MON, TUE, WED, THU, FRI, SAT};
+
+void printf_today(int day);
+
+int main(void) {
+
+    int today = FRI;
+    printf_today(today);
+
+    return 0;
+}
+
+void printf_today(int day) {
+    /*...&#x7701;&#x7565;...*/
+}
+</code></pre><p>&#x4EE5;&#x4E0A;&#x7A0B;&#x5E8F;&#x53EA;&#x662F;&#x7B80;&#x5355;&#x5730;&#x628A;&#x5B8F;&#x5B9A;&#x4E49;&#x6362;&#x6210;<code>enum days {SUN, MON, TUE, WED, THU, FRI, SAT};</code>&#x679A;&#x4E3E;&#x5B9A;&#x4E49;&#xFF0C;&#x8FD0;&#x884C;&#x7ED3;&#x679C;&#x4ECD;&#x7136;&#x662F;&#x4E00;&#x6837;&#x7684;&#x3002;&#x4ECE;&#x4EE5;&#x4E0A;&#x7A0B;&#x5E8F;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x770B;&#x51FA;&#x679A;&#x4E3E;&#x7C7B;&#x578B;&#x4E2D;&#x7684;&#x6210;&#x5458;&#x662F;&#x4E00;&#x4E9B;&#x547D;&#x540D;&#x7684;&#x6574;&#x578B;&#x5E38;&#x91CF;&#x3002;</p>
+<h1 id="%E6%9E%9A%E4%B8%BE%E7%9A%84%E6%A6%82%E5%BF%B5">&#x679A;&#x4E3E;&#x7684;&#x6982;&#x5FF5;</h1>
+<p>&#x679A;&#x4E3E;&#x662F;&#x4E00;&#x79CD;&#x81EA;&#x5B9A;&#x4E49;&#x7684;&#x6570;&#x636E;&#x7C7B;&#x578B;&#xFF0C;&#x5B83;&#x7528;&#x6765;&#x5B58;&#x50A8;&#x4E00;&#x7CFB;&#x5217;&#x547D;&#x540D;&#x6574;&#x578B;&#x5E38;&#x91CF;&#x7684;&#x503C;&#xFF0C;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x6210;&#x5458;&#x540D;&#x5B57;&#x6765;&#x5F15;&#x7528;&#x8FD9;&#x4E9B;&#x503C;&#xFF0C;&#x8FD9;&#x4E9B;&#x503C;&#x9ED8;&#x8BA4;&#x662F;<code>signed int</code>&#x7C7B;&#x578B;&#x3002;
+&#x867D;&#x7136;&#x679A;&#x4E3E;&#x80FD;&#x8868;&#x793A;&#x4E00;&#x7CFB;&#x5217;&#x7684;&#x6574;&#x578B;&#x5E38;&#x91CF;&#xFF0C;&#x4F46;&#x662F;&#x6BCF;&#x6B21;&#x53EA;&#x80FD;&#x4F7F;&#x7528;&#x5176;&#x4E2D;&#x4E00;&#x4E2A;&#x5177;&#x4F53;&#x7684;&#x5E38;&#x91CF;&#x503C;&#x3002;&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#x4E00;&#x4E2A;&#x679A;&#x4E3E;&#x53D8;&#x91CF;&#x7684;&#x503C;&#x53EA;&#x80FD;&#x662F;&#x679A;&#x4E3E;&#x4E2D;&#x7684;&#x4E00;&#x4E2A;&#x547D;&#x540D;&#x5E38;&#x91CF;&#x7684;&#x503C;&#x3002;&#x4ECE;&#x8FD9;&#x4E2A;&#x89D2;&#x5EA6;&#x7406;&#x89E3;&#xFF0C;&#x679A;&#x4E3E;&#x66F4;&#x50CF;&#x662F;&#x5B9A;&#x4E49;&#x4E86;&#x4E00;&#x79CD;&#x53D6;&#x503C;&#x8303;&#x56F4;&#x6709;&#x9650;&#x7684;&#x6574;&#x578B;&#x3002;</p>
+<h1 id="%E5%AE%9A%E4%B9%89%E6%9E%9A%E4%B8%BE%E7%B1%BB%E5%9E%8B">&#x5B9A;&#x4E49;&#x679A;&#x4E3E;&#x7C7B;&#x578B;</h1>
+<p>&#x4E0B;&#x9762;&#x7684;&#x4EE3;&#x7801;&#x5B9A;&#x4E49;&#x4E00;&#x79CD;&#x679A;&#x4E3E;&#x7C7B;&#x578B;&#xFF1A;</p>
+<pre><code>#include&lt;stdio.h&gt;
+
+enum fruit {grape, cherry, lemon, kiwi};
+
+int main(void) {
+
+    printf(&quot;grape  = %d\n&quot;, grape);
+    printf(&quot;cherry = %d\n&quot;, cherry);
+    printf(&quot;lemon  = %d\n&quot;, lemon);
+    printf(&quot;kiwi   = %d\n&quot;, kiwi);
+
+    return 0;
+}
+</code></pre><p>&#x8F93;&#x51FA;&#x7ED3;&#x679C;&#xFF1A;</p>
+<pre><code>grape  = 0
+cherry = 1
+lemon  = 2
+kiwi   = 3
+</code></pre><p>&#x4E0A;&#x4F8B;&#x5B9A;&#x4E86;&#x4E00;&#x4E2A;&#x679A;&#x4E3E;fruit&#xFF0C;&#x5B83;&#x5305;&#x542B;&#x56DB;&#x4E2A;&#x6574;&#x578B;&#x5E38;&#x91CF;&#x503C;&#xFF0C;grape, cherry, lemon, kiwi&#x3002;&#x4ECE;&#x8F93;&#x51FA;&#x7ED3;&#x679C;&#x53EF;&#x4EE5;&#x770B;&#x51FA;&#x5B83;&#x4EEC;&#x7684;&#x503C;&#x4F9D;&#x6B21;&#x662F;0&#xFF0C;1&#xFF0C;2&#xFF0C;3&#x3002;&#x4FEE;&#x6539;&#x4E0A;&#x4F8B;&#x7A0B;&#x5E8F;&#xFF1A;</p>
+<pre><code>#include&lt;stdio.h&gt;
+
+enum fruit {grape, cherry, lemon, kiwi};
+enum more_fruit {banana = -17, apple, blueberry, mango};
+
+int main(void) {
+
+    printf(&quot;grape  = %d\n&quot;, grape);
+    printf(&quot;cherry = %d\n&quot;, cherry);
+    printf(&quot;lemon  = %d\n&quot;, lemon);
+    printf(&quot;kiwi   = %d\n&quot;, kiwi);
+
+    printf(&quot;\n&quot;);
+
+    printf(&quot;banana     = %d\n&quot;, banana);
+    printf(&quot;apple      = %d\n&quot;, apple);
+    printf(&quot;blueberry  = %d\n&quot;, blueberry);
+    printf(&quot;mango      = %d\n&quot;, mango);
+
+    return 0;
+}
+</code></pre><p>&#x8F93;&#x51FA;&#x7ED3;&#x679C;&#xFF1A;</p>
+<pre><code>grape  = 0
+cherry = 1
+lemon  = 2
+kiwi   = 3
+
+banana     = -17
+apple      = -16
+blueberry  = -15
+mango      = -14
+</code></pre><p>&#x4ECE;&#x4EE5;&#x4E0A;&#x4E24;&#x4F8B;&#x53EF;&#x4EE5;&#x770B;&#x51FA;&#xFF0C;&#x679A;&#x4E3E;&#x4E2D;&#x503C;&#x9ED8;&#x8BA4;&#x662F;&#x4ECE;0&#x5F00;&#x59CB;&#x7684;&#xFF0C;&#x540E;&#x4E00;&#x4E2A;&#x503C;&#x5728;&#x524D;&#x4E00;&#x4E2A;&#x57FA;&#x7840;&#x4E0A;&#x81EA;&#x52A8;&#x52A0;1&#xFF0C;&#x4F60;&#x4E5F;&#x53EF;&#x4EE5;&#x624B;&#x52A8;&#x6307;&#x5B9A;&#x5176;&#x4E2D;&#x67D0;&#x4E00;&#x4E2A;&#x91CF;&#x7684;&#x503C;&#x3002;&#x518D;&#x6B21;&#x4FEE;&#x6539;&#x7A0B;&#x5E8F;&#xFF1A;</p>
+<pre><code>#include&lt;stdio.h&gt;
+
+enum fruit {grape, cherry, lemon, kiwi};
+enum more_fruit {banana = -17, apple, blueberry, mango};
+enum yet_more_fruit {kumquat, raspberry, peach, plum = peach + 2};
+
+int main(void) {
+
+    printf(&quot;grape  = %d\n&quot;, grape);
+    printf(&quot;cherry = %d\n&quot;, cherry);
+    printf(&quot;lemon  = %d\n&quot;, lemon);
+    printf(&quot;kiwi   = %d\n&quot;, kiwi);
+
+    printf(&quot;\n&quot;);
+
+    printf(&quot;banana     = %d\n&quot;, banana);
+    printf(&quot;apple      = %d\n&quot;, apple);
+    printf(&quot;blueberry  = %d\n&quot;, blueberry);
+    printf(&quot;mango      = %d\n&quot;, mango);
+
+
+    printf(&quot;\n&quot;);
+
+    printf(&quot;kumquat        = %d\n&quot;, kumquat);
+    printf(&quot;raspberry    = %d\n&quot;, raspberry);
+    printf(&quot;peach        = %d\n&quot;, peach);
+    printf(&quot;plum        = %d\n&quot;, plum);
+
+    return 0;
+}
+</code></pre><p>&#x8F93;&#x51FA;&#x7ED3;&#x679C;&#xFF1A;</p>
+<pre><code>grape  = 0
+cherry = 1
+lemon  = 2
+kiwi   = 3
+
+banana     = -17
+apple      = -16
+blueberry  = -15
+mango      = -14
+
+kumquat         = 0
+raspberry       = 1
+peach           = 2
+plum            = 4
+</code></pre><p>&#x4E0A;&#x4F8B;&#x8BF4;&#x660E;&#xFF0C;&#x679A;&#x4E3E;&#x5B9A;&#x4E49;&#x4E2D;&#x4E00;&#x4E2A;&#x679A;&#x4E3E;&#x6210;&#x5458;&#x503C;&#x53EF;&#x4EE5;&#x5F15;&#x7528;&#x53E6;&#x4E00;&#x4E2A;&#xFF0C;&#x6B63;&#x786E;&#x7684;&#x8BB2;&#x5E94;&#x8BE5;&#x662F;&#x540E;&#x9762;&#x7684;&#x53EF;&#x4EE5;&#x5F15;&#x7528;&#x524D;&#x9762;&#x7684;&#x3002;</p>
+<h1 id="%E5%A3%B0%E6%98%8E%E6%9E%9A%E4%B8%BE%E5%8F%98%E9%87%8F">&#x58F0;&#x660E;&#x679A;&#x4E3E;&#x53D8;&#x91CF;</h1>
+<p>&#x5B9A;&#x4E49;&#x679A;&#x4E3E;&#x7C7B;&#x578B;&#x540E;&#xFF0C;&#x4F60;&#x53EF;&#x4EE5;&#x58F0;&#x660E;&#x4E00;&#x4E2A;&#x679A;&#x4E3E;&#x7C7B;&#x578B;&#x7684;&#x53D8;&#x91CF;&#x3002;&#x4E0B;&#x9762;&#x7684;&#x4F8B;&#x5B50;&#x58F0;&#x660E;&#x4E86;&#x4E00;&#x4E2A;&#x679A;&#x4E3E;&#x53D8;&#x91CF;&#xFF0C;&#x679A;&#x4E3E;&#x7C7B;&#x578B;&#x7684;&#x5B9A;&#x4E49;&#x548C;&#x53D8;&#x91CF;&#x7684;&#x58F0;&#x660E;&#x53EF;&#x4EE5;&#x5728;&#x4E00;&#x4E2A;&#x8BED;&#x53E5;&#x4E2D;&#x5B8C;&#x6210;&#xFF1A;</p>
+<pre><code>/*&#x5B9A;&#x4E49;&#x7C7B;&#x578B;&#x540C;&#x65F6;&#x58F0;&#x660E;&#x53D8;&#x91CF;*/
+enum fruit {banana, apple, blueberry, mango} my_fruit;
+
+/*&#x5B9A;&#x4E49;&#x7C7B;&#x578B;*/
+enum fruit {banana, apple, blueberry, mango};
+/*&#x58F0;&#x660E;&#x53D8;&#x91CF;*/
+enum fruit my_fruit;
+</code></pre><p>&#x867D;&#x7136;&#x5728;&#x524D;&#x9762;&#x6211;&#x4EEC;&#x8BB2;&#x679A;&#x4E3E;&#x5B9E;&#x9645;&#x4E0A;&#x53D6;&#x503C;&#x8303;&#x56F4;&#x6709;&#x9650;&#x7684;&#x6574;&#x578B;&#xFF0C;&#x4F46;&#x8FD9;&#x53EA;&#x662F;C&#x8BED;&#x8A00;&#x63A8;&#x8350;&#x7684;&#x4E00;&#x79CD;&#x7C7B;&#x578B;&#xFF0C;&#x5B83;&#x5E76;&#x4E0D;&#x4F1A;&#x68C0;&#x67E5;&#x679A;&#x4E3E;&#x7C7B;&#x578B;&#x53D8;&#x91CF;&#x7684;&#x53D6;&#x503C;&#x662F;&#x5426;&#x662F;&#x679A;&#x4E3E;&#x4E2D;&#x5B9A;&#x4E49;&#x8FC7;&#x7684;&#x503C;&#x3002;C&#x8BED;&#x8A00;&#x628A;&#x8FD9;&#x4E9B;&#x68C0;&#x67E5;&#x4EA4;&#x7ED9;&#x7A0B;&#x5E8F;&#x5458;&#x53BB;&#x505A;&#xFF0C;&#x8FD9;&#x4E5F;&#x4F53;&#x9A8C;&#x4E86;C&#x9AD8;&#x6027;&#x80FD;&#x7684;&#x8BBE;&#x8BA1;&#x51B3;&#x7B56;&#x3002;&#x5982;&#x4E0B;&#x4F8B;&#x6240;&#x793A;&#xFF1A;</p>
+<pre><code>#include&lt;stdio.h&gt;
+
+enum fruit {grape, cherry, lemon, kiwi};
+
+int main(void) {
+
+    enum fruit myf = cherry;
+
+    myf = 30;
+
+    printf(&quot;myf = %d\n&quot;, myf);
+
+    return 0;
+}
+/* &#x8F93;&#x51FA;&#x7ED3;&#x679C;&#xFF1A; myf = 30 */
+</code></pre><p>&#x8FD9;&#x6837;&#x6211;&#x4EEC;&#x5C31;&#x80FD;&#x770B;&#x5230;C&#x8BED;&#x8A00;&#x679A;&#x4E3E;&#x7C7B;&#x578B;&#x7684;&#x672C;&#x8D28;&#x5C31;&#x662F;&#x4E00;&#x4E2A;&#x6574;&#x578B;&#xFF0C;&#x679A;&#x4E3E;&#x6210;&#x5458;&#x53EA;&#x662F;&#x4E3A;&#x4E86;&#x66F4;&#x597D;&#x7684;&#x8F85;&#x52A9;&#x7F16;&#x7A0B;&#xFF0C;&#x63D0;&#x9AD8;&#x53EF;&#x8BFB;&#x6027;&#x548C;&#x62D3;&#x5C55;&#x6027;&#x3002;&#x679A;&#x4E3E;&#x6210;&#x5458;&#x5C31;&#x662F;&#x4E00;&#x7CFB;&#x5217;&#x7684;&#x547D;&#x540D;&#x6574;&#x578B;&#x5E38;&#x91CF;&#x3002;&#x5B83;&#x4EEC;&#x7684;&#x503C;&#x662F;&#x53EA;&#x8BFB;&#x7684;&#xFF0C;&#x4E0D;&#x80FD;&#x88AB;&#x4FEE;&#x6539;&#x3002;&#x53E6;&#x5916;&#xFF0C;&#x5728;switch&#x8BED;&#x53E5;&#x4E2D;&#x4F7F;&#x7528;&#x679A;&#x4E3E;&#x5BF9;&#x7F16;&#x8BD1;&#x5668;&#x6BD4;&#x8F83;&#x53CB;&#x597D;&#xFF0C;&#x5982;&#x679C;&#x4F60;&#x5FD8;&#x6389;&#x5728;switch&#x4E2D;&#x5904;&#x7406;&#x4E00;&#x4E9B;&#x679A;&#x4E3E;&#x6210;&#x5458;&#x7684;&#x5206;&#x652F;&#xFF0C;&#x6709;&#x7684;&#x7F16;&#x8BD1;&#x5668;&#x4F1A;&#x7ED9;&#x4F60;&#x4E00;&#x4E2A;&#x8B66;&#x544A;&#x4FE1;&#x606F;&#x3002;</p>
+<p>&#x4F60;&#x8FD8;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;typedef&#x6765;&#x5B9A;&#x4E49;&#x679A;&#x4E3E;&#x7C7B;&#x578B;&#x7684;&#x522B;&#x540D;&#xFF1A;</p>
+<pre><code>#include&lt;stdio.h&gt;
+#include&lt;string.h&gt;
+
+typedef enum { 
+    SUN, 
+    MON,
+    TUE,
+    WED,
+    THU,
+    FRI,
+    SAT
+} days;
+
+void printf_today(int day);
+
+int main(void) {
+
+    days today = FRI;
+    printf_today(today);
+
+    return 0;
+}
+
+void printf_today(int day) {
+    /*...&#x7701;&#x7565;...*/
+}
+</code></pre><p>&#x806A;&#x660E;&#x7684;&#x4F60;&#xFF0C;&#x53EF;&#x4EE5;&#x518D;&#x770B;&#x770B;&#x4E0B;&#x9762;&#x7684;&#x7A0B;&#x5E8F;&#xFF0C;&#x6216;&#x8BB8;&#x80FD;&#x5F97;&#x5230;&#x4E00;&#x4E9B;&#x542F;&#x53D1;&#xFF1A;</p>
+<pre><code>#include&lt;stdio.h&gt;
+
+typedef enum { FALSE, TRUE, false = 0, true } boolean;
+
+void printf_bool(boolean b) {
+    if (b)
+        printf(&quot;b = %4d, boolean val is TRUE\n&quot;, b);
+    else
+        printf(&quot;b = %4d, boolean val is FALSE\n&quot;, b);
+
+}
+
+int main(void) {
+
+    boolean b = TRUE;
+    printf_bool(b);
+
+    b = FALSE;
+    printf_bool(b);
+
+    b = -100;
+    printf_bool(b);
+
+    b = 0;
+    printf_bool(b);
+
+    b = 0.0;
+    printf_bool(b);
+
+    b = false;
+    printf_bool(b);
+
+    b = true;
+    printf_bool(b);
+
+    return 0;
+}
+</code></pre><p>&#x4E0A;&#x9762;&#x7684;&#x7A0B;&#x5E8F;&#x901A;&#x8FC7;&#x679A;&#x4E3E;&#x7684;&#x5F62;&#x5F0F;&#x5B9E;&#x73B0;&#x4E86;boolean&#x7C7B;&#x578B;&#xFF0C;&#x4F46;&#x662F;&#x5B83;&#x6709;&#x4E00;&#x4E2A;&#x5751;&#xFF0C;&#x5F53;&#x4F5C;&#x6761;&#x4EF6;&#x5224;&#x65AD;&#x65F6;&#xFF0C;&#x5982;&#x679C;&#x4F7F;&#x7528;if (b == TRUE)&#x8FD9;&#x79CD;&#x8BED;&#x6CD5;&#xFF0C;&#x4F1A;&#x8DDF;&#x610F;&#x60F3;&#x7684;&#x6709;&#x9519;&#x8BEF;&#x3002;&#x56E0;&#x4E3A;TRUE&#x5728;&#x4E0A;&#x9762;&#x7A0B;&#x5E8F;&#x5458;&#x88AB;&#x5B9A;&#x4E49;&#x6210;&#x503C;&#x4E3A;1&#x7684;&#x5E38;&#x91CF;&#x3002;b = 100&#x5F53;&#x7136;&#x4E0D;&#x4F1A;==1&#x5566;&#x3002;&#x4F46;b == 100&#x5173;&#x7CFB;&#x8868;&#x8FBE;&#x5F0F;&#x7684;&#x503C;&#x786E;&#x4E3A;&#x771F;&#x3002;&#x56E0;&#x4E3A;&#x672C;&#x8D28;&#x662F;&#x6574;&#x6570;&#xFF0C;&#x4E24;&#x4E2A;&#x4E3A;&#x771F;&#x7684;&#x6574;&#x6570; == &#x6BD4;&#x8F83;&#x7684;&#x7ED3;&#x679C;&#x4E0D;&#x4E00;&#x5B9A;&#x4E3A;&#x771F;&#xFF0C;&#x6240;&#x4EE5;&#x5E94;&#x8BE5;&#x5199;&#x6210;if (b)&#x5373;&#x53EF;&#x3002;&#x5982;&#x4E0B;&#xFF1A;</p>
+<pre><code>#include&lt;stdio.h&gt;
+
+typedef enum { FALSE, TRUE, false = 0, true } boolean;
+
+void printf_bool(boolean b) {
+    if (b)
+        printf(&quot;b = %4d, boolean val is TRUE\n&quot;, b);
+    else
+        printf(&quot;b = %4d, boolean val is FALSE\n&quot;, b);
+
+}
+
+int main(void) {
+
+    boolean b;
+    printf_bool(b);
+
+    b = -100;
+    printf_bool(b);
+
+    /* &#x5E94;&#x8BE5;&#x5199;&#x6210;if (b) */
+    if (b == TRUE) {
+        printf(&quot;b is TRUE\n&quot;);
+    } else {
+        printf(&quot;b is FALSE\n&quot;);
+    }
+
+    return 0;
+}
+</code></pre>
+                    
+                    </section>
+                
+                
+                </div>
+            </div>
+        </div>
+
+        
+        <a href="../index.html" class="navigation navigation-prev " aria-label="Previous page: Introduction"><i class="fa fa-angle-left"></i></a>
+        
+        
+        <a href="../blog/20150608.html" class="navigation navigation-next " aria-label="Next page: C语言真假判断的理解"><i class="fa fa-angle-right"></i></a>
+        
+    </div>
+</div>
+
+        
+<script src="../gitbook/app.js"></script>
+
+<script>
+require(["gitbook"], function(gitbook) {
+    var config = {"fontSettings":{"theme":null,"family":"sans","size":2}};
+    gitbook.start(config);
+});
+</script>
+
+        
+    </body>
+    
+</html>

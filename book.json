@@ -2,6 +2,6 @@
     "gitbook": ">=2.0.0",
     "title": "jockchou",
     "description": "This is jockchou's blog",
-    "language": "zh",
+    "language": "en",
     "direction": "ltr"
 }
