@@ -5,7 +5,7 @@
         
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>JavaScript类型检测最佳实践 | jockchou</title>
+        <title>Mosquitto服务器日志分析总结 | jockchou</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="generator" content="GitBook 2.1.0">
@@ -25,10 +25,10 @@
         
     
     
-    <link rel="next" href="../blog/20150602.html" />
+    <link rel="next" href="../blog/20150606.html" />
     
     
-    <link rel="prev" href="../blog/20150605.html" />
+    <link rel="prev" href="../blog/20150607.html" />
     
 
         
@@ -36,7 +36,7 @@
     <body>
         
         
-    <div class="book" data-level="8" data-basepath=".." data-revision="Thu Jun 11 2015 10:44:22 GMT+0800 (中国标准时间)">
+    <div class="book" data-level="5" data-basepath=".." data-revision="Thu Jun 11 2015 10:44:22 GMT+0800 (中国标准时间)">
     
 
 <div class="book-summary">
@@ -126,7 +126,7 @@
             
         </li>
     
-        <li class="chapter " data-level="5" data-path="blog/20150611.html">
+        <li class="chapter active" data-level="5" data-path="blog/20150611.html">
             
                 
                     <a href="../blog/20150611.html">
@@ -171,7 +171,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="8" data-path="blog/20150603.html">
+        <li class="chapter " data-level="8" data-path="blog/20150603.html">
             
                 
                     <a href="../blog/20150603.html">
@@ -321,22 +321,82 @@
                 
                     <section class="normal" id="section-">
                     
-                        <h1 id="javascript%E7%B1%BB%E5%9E%8B%E6%A3%80%E6%B5%8B%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5">JavaScript&#x7C7B;&#x578B;&#x68C0;&#x6D4B;&#x6700;&#x4F73;&#x5B9E;&#x8DF5;</h1>
+                        <h1 id="mosquitto%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90%E6%80%BB%E7%BB%93">Mosquitto&#x670D;&#x52A1;&#x5668;&#x65E5;&#x5FD7;&#x5206;&#x6790;&#x603B;&#x7ED3;</h1>
+<p>Mosquitto&#x5B98;&#x7F51;&#xFF1A;<a href="http://mosquitto.org/" title="mosquitto" target="_blank">http://mosquitto.org/</a><br>MQTT&#x534F;&#x8BAE;&#xFF1A;<a href="http://mqtt.org/" title="mqtt" target="_blank">http://mqtt.org/</a></p>
 <hr>
-<pre><code>- String: typeof object === &quot;string&quot;
-- Number: typeof object === &quot;number&quot;
-- Boolean: typeof object === &quot;boolean&quot;
-- Object: typeof object === &quot;object&quot;
-- Plain Object: jQuery.isPlainObject( object )
-- Function: jQuery.isFunction( object )
-- Array: jQuery.isArray( object )
-- Element: object.nodeType
-- null: object === null
-- null or undefined: object == null
-- undefined:
-- Global Variables: typeof variable === &quot;undefined&quot;
-- Local Variables: variable === undefined
-- Properties: object.prop === undefined
+<h2 id="%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%BF%9E%E6%8E%A5%E6%97%A5%E5%BF%97">&#x5BA2;&#x6237;&#x7AEF;&#x8FDE;&#x63A5;&#x65E5;&#x5FD7;</h2>
+<pre><code>1403334375: New connection from 121.201.8.163 on port 1883.
+
+1403334375: New client connected from 121.201.8.163 as zhoujing (c0, k60, ujoyo).
+
+1403334375: Sending CONNACK to zhoujing (0)
+</code></pre><p>&#x4EE5;&#x4E0A;&#x662F;&#x4E00;&#x4E2A;&#x5BA2;&#x6237;&#x7AEF;&#x6B63;&#x5E38;&#x8FDE;&#x63A5;&#x7684;&#x65E5;&#x5FD7;&#x3002;</p>
+<ul>
+<li>&#x7B2C;&#x4E00;&#x884C;&#xFF1A;&#x670D;&#x52A1;&#x5668;&#x6536;&#x5230;&#x4E00;&#x4E2A;&#x65B0;&#x7684;&#x8FDE;&#x63A5;&#x8BF7;&#x6C42;</li>
+</ul>
+<blockquote>
+<p>1403334375: &#x8868;&#x793A;&#x8FDE;&#x63A5;&#x7684;&#x65F6;&#x95F4;&#x70B9;<br>121.201.8.163: &#x5BA2;&#x6237;&#x7AEF;&#x7684;IP&#x5730;&#x5740;<br>1883: &#x8FDE;&#x63A5;&#x7684;&#x670D;&#x52A1;&#x5668;&#x7AEF;&#x53E3;&#x53F7;  </p>
+</blockquote>
+<ul>
+<li>&#x7B2C;&#x4E8C;&#x884C;&#xFF1A;&#x670D;&#x52A1;&#x5668;&#x4E3A;&#x5BA2;&#x6237;&#x7AEF;&#x5EFA;&#x7ACB;&#x8FDE;&#x63A5;</li>
+</ul>
+<blockquote>
+<p>zhoujing (c0, k60, ujoyo)&#xFF1A; &#x5BA2;&#x6237;&#x7AEF;&#x8FDE;&#x63A5;&#x6307;&#x5B9A;&#x7684;ClientID&#x4E3A;&apos;zhoujing&apos;<br>c0: &#x8868;&#x793A;cleanSession=false&#xFF0C;&#x4E0D;&#x6E05;&#x9664;session<br>k60: &#x8868;&#x793A;keep-alive=60s<br>ujoyo: &#x8868;&#x793A;&#x4F7F;&#x7528;&#x7684;&#x670D;&#x52A1;&#x5668;&#x8D26;&#x53F7;&#x4E3A;joyo  </p>
+</blockquote>
+<ul>
+<li>&#x7B2C;&#x4E09;&#x884C;&#xFF1A;&#x53D1;&#x9001;&#x8FDE;&#x63A5;ACK&#x5305;&#x7ED9;&#x5BA2;&#x6237;&#x7AEF;</li>
+</ul>
+<h2 id="%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%AE%A2%E9%98%85%E8%BF%87%E7%A8%8B%E6%97%A5%E5%BF%97">&#x5BA2;&#x6237;&#x7AEF;&#x8BA2;&#x9605;&#x8FC7;&#x7A0B;&#x65E5;&#x5FD7;</h2>
+<pre><code>1403334375: Received SUBSCRIBE from zhoujing
+1403334375: jiji/chat/9 (QoS 2)
+1403334375: zhoujing 2 jiji/chat/9
+1403334375: Sending SUBACK to zhoujing
+</code></pre><ul>
+<li>&#x7B2C;&#x4E00;&#x884C;&#xFF1A;&#x670D;&#x52A1;&#x5668;&#x6536;&#x5230;&#x4E00;&#x4E2A;&#x6765;&#x81EA;ClientID&#x4E3A;zhoujing&#x7684;&#x8BA2;&#x9605;&#x8BF7;&#x6C42;</li>
+<li>&#x7B2C;&#x4E8C;&#x884C;&#xFF1A;&#x670D;&#x52A1;&#x5668;&#x8BC6;&#x522B;zhoujing&#x8BA2;&#x9605;&#x7684;&#x4E3B;&#x9898;&#x4E3A; jiji/chat/9&#xFF0C;&#x6307;&#x5B9A;&#x7684;QOS=2&#xFF08;&#x6709;&#x4E14;&#x53EA;&#x53D1;&#x9001;&#x4E00;&#x6B21;&#xFF09;</li>
+<li>&#x7B2C;&#x4E09;&#x884C;&#xFF1A;&#x7ED9;ClientID=zhoujing&#x5BA2;&#x6237;&#x7AEF;&#x53D1;&#x9001;&#x8BA2;&#x9605;ACK&#x56DE;&#x5305;</li>
+</ul>
+<h2 id="%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%8F%91%E9%80%81%E5%86%85%E5%AE%B9%E7%BB%99%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%97%A5%E5%BF%97">&#x670D;&#x52A1;&#x5668;&#x53D1;&#x9001;&#x5185;&#x5BB9;&#x7ED9;&#x5BA2;&#x6237;&#x7AEF;&#x65E5;&#x5FD7;</h2>
+<pre><code>1403334378: Sending PUBLISH to zhoujing (d0, q2, r0, m1, &apos;jiji/chat/9&apos;, ... (396 bytes))
+1403334378: Received PUBREC from zhoujing (Mid: 1)
+1403334378: Sending PUBREL to zhoujing (Mid: 1)
+1403334378: Received PUBCOMP from zhoujing (Mid: 1)
+</code></pre><ul>
+<li>&#x7B2C;&#x4E00;&#x884C;&#xFF1A;&#x670D;&#x52A1;&#x5668;&#x6B63;&#x5728;&#x53D1;&#x9001;&#x4E00;&#x4E2A;&#x6D88;&#x606F;&#x7ED9;ClientID=zhoujing&#x7684;&#x5BA2;&#x6237;&#x7AEF;&#xFF0C;&#x6D88;&#x606F;&#x4F53;&#x5927;&#x5C0F;&#x4E3A;396 bytes&#xFF0C;&#x6D88;&#x606F;&#x4E3B;&#x9898;&#x4E3A;&#x2018;jiji/chat/9&#x2019; </li>
+</ul>
+<blockquote>
+<p>(d0, q2, r0, m1)&#x7684;&#x89E3;&#x91CA;, &#x4EE5;&#x4E0B;&#x53C2;&#x6570;&#x5177;&#x4F53;&#x542B;&#x4E49;&#xFF0C;&#x53C2;&#x8003;MQTT&#x534F;&#x8BAE;<br>d: &#x8868;&#x793A;mqtt&#x62A5;&#x5934;&#x7684;DUP&#x5B57;&#x6BB5;<br>q: &#x8868;&#x793A;&#x7684;QOS&#x5B57;&#x6BB5;<br>r: &#x8868;&#x793A;&#x7684;&#x662F;RETAIN<br>m: &#x8868;&#x793A;&#x7684;&#x662F;&#x6D88;&#x606F;ID,&#x5373;mid   </p>
+</blockquote>
+<ul>
+<li>&#x7B2C;&#x4E8C;&#x884C;&#xFF1A;&#x53D1;&#x5E03;&#x6536;&#x7A3F;&#x9636;&#x6BB5;&#xFF0C;&#x6709;&#x4FDD;&#x8BC1;&#x7684;&#x4EA4;&#x4ED8;&#x7B2C;&#x4E00;&#x90E8;&#x5206;</li>
+<li>&#x7B2C;&#x4E09;&#x884C;&#xFF1A;&#x51FA;&#x7248;&#x53D1;&#x884C;&#x9636;&#x6BB5;&#xFF0C;&#x6709;&#x4FDD;&#x8BC1;&#x7684;&#x4EA4;&#x4ED8;&#x7B2C;&#x4E8C;&#x90E8;&#x5206;</li>
+<li>&#x7B2C;&#x56DB;&#x884C;&#xFF1A;&#x53D1;&#x5E03;&#x5B8C;&#x6210;&#xFF0C;&#x6709;&#x4FDD;&#x8BC1;&#x7684;&#x4EA4;&#x4ED8;&#x7B2C;&#x4E09;&#x90E8;&#x5206;&#xFF0C;&#x81F3;&#x6B64;&#x4E00;&#x4E2A;&#x5185;&#x5BB9;&#x53D1;&#x90E8;&#x8FC7;&#x7A0B;&#x5B8C;&#x6210;</li>
+</ul>
+<h2 id="%E5%AE%A2%E6%88%B7%E7%AB%AF%E4%B8%BB%E5%8A%A8%E6%96%AD%E5%BC%80%E8%BF%9E%E6%8E%A5%E7%9A%84%E6%97%A5%E5%BF%97">&#x5BA2;&#x6237;&#x7AEF;&#x4E3B;&#x52A8;&#x65AD;&#x5F00;&#x8FDE;&#x63A5;&#x7684;&#x65E5;&#x5FD7;</h2>
+<p>&#x5BA2;&#x6237;&#x7AEF;&#x4E3B;&#x52A8;&#x65AD;&#x5F00;&#x8FDE;&#x63A5;&#x7684;&#x53EA;&#x6709;&#x4E00;&#x884C;&#x65E5;&#x5FD7;&#xFF0C;&#x5F88;&#x7B80;&#x5355;&#x3002;&#x5982;&#x4E0B;&#x6240;&#x793A;&#xFF1A;</p>
+<pre><code>1403334380: Received DISCONNECT from JY_API_PUSH_CLIENT
+</code></pre><h2 id="%E6%8E%A5%E6%94%B6%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%8F%91%E5%B8%83%E5%86%85%E5%AE%B9%E7%9A%84%E8%BF%87%E7%A8%8B%E6%97%A5%E5%BF%97">&#x63A5;&#x6536;&#x5BA2;&#x6237;&#x7AEF;&#x53D1;&#x5E03;&#x5185;&#x5BB9;&#x7684;&#x8FC7;&#x7A0B;&#x65E5;&#x5FD7;</h2>
+<pre><code>1403334389: Received PUBLISH from JY_API_PUSH_CLIENT (d0, q2, r0, m1, &apos;jiji/chat/9&apos;, ... (396 bytes))
+1403334389: Sending PUBREC to JY_API_PUSH_CLIENT (Mid: 1)
+1403334389: Received PUBREL from JY_API_PUSH_CLIENT (Mid: 1)
+1403334389: Sending PUBCOMP to JY_API_PUSH_CLIENT (Mid: 1)
+</code></pre><ul>
+<li>&#x7B2C;&#x4E00;&#x884C;&#xFF1A;&#x63A5;&#x6536;&#x6765;&#x81EA;ClientID=JY_API_PUSH_CLIENT&#x7684;&#x53D1;&#x5E03;&#x8BF7;&#x6C42;&#xFF0C;&#x53D1;&#x5E03;&#x7684;&#x6D88;&#x606F;&#x4E3B;&#x9898;&#x4E3A;&apos;jiji/chat/9&apos;&#xFF0C;&#x6D88;&#x606F;&#x5927;&#x5C0F;&#x4E3A;396 bytes</li>
+<li>&#x7B2C;&#x4E8C;&#x884C;&#xFF1A;&#x670D;&#x52A1;&#x5668;&#x53D1;&#x9001;PUBREC&#x7ED9;&#x5BA2;&#x6237;&#x7AEF;&#xFF0C;&#x6B64;&#x8FC7;&#x7A0B;&#x4E0E;&#x53D1;&#x9001;&#x6D88;&#x606F;&#x7ED9;&#x5BA2;&#x6237;&#x7AEF;&#x6B63;&#x597D;&#x5BF9;&#x79F0;&#xFF0C;&#x53EA;&#x4E0D;&#x8FC7;&#x662F;Received&#x548C;Sending&#x7684;&#x5BF9;&#x8C61;&#x53CD;&#x8FC7;&#x6765;&#x800C;&#x5DF2;</li>
+<li>&#x7B2C;&#x4E09;&#x884C;&#xFF1A;&#x670D;&#x52A1;&#x5668;&#x63A5;&#x6536;&#x5230;&#x5BA2;&#x6237;&#x7AEF;&#x5DF2;&#x7ECF;&#x91CA;&#x653E;&#x7684;&#x547D;&#x4EE4;&#xFF0C;&#x5185;&#x5BB9;&#x4EA4;&#x4ED8;&#x7B2C;&#x4E8C;&#x6B65;&#x5B8C;&#x6210;</li>
+<li>&#x7B2C;&#x56DB;&#x884C;&#xFF1A;&#x901A;&#x77E5;&#x5BA2;&#x6237;&#x7AEF;&#xFF0C;&#x63A5;&#x6536;&#x5B8C;&#x6210;&#xFF0C;&#x81F3;&#x6B64;&#x4E00;&#x4E2A;&#x6D88;&#x606F;&#x53D1;&#x5E03;&#x5B8C;&#x6210;&#xFF0C;&#x5185;&#x5BB9;&#x4EA4;&#x4ED8;&#x7B2C;&#x4E09;&#x6B65;&#x5B8C;&#x6210;</li>
+</ul>
+<h2 id="%E5%90%8C%E4%B8%80%E4%B8%AAclientid%E9%87%8D%E5%A4%8D%E8%BF%9E%E6%8E%A5%E6%97%B6">&#x540C;&#x4E00;&#x4E2A;ClientID&#x91CD;&#x590D;&#x8FDE;&#x63A5;&#x65F6;</h2>
+<pre><code>1403334510: New connection from 121.201.7.150 on port 1883.
+1403334510: Client JY_API_PUSH_CLIENT already connected, closing old connection.
+</code></pre><h2 id="%E6%8E%A5%E6%94%B6%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%BF%83%E8%B7%B3%E5%8C%85">&#x63A5;&#x6536;&#x5BA2;&#x6237;&#x7AEF;&#x5FC3;&#x8DF3;&#x5305;</h2>
+<pre><code>1403336716: Received PINGREQ from 36383A64663A6464003V0
+1403336716: Sending PINGRESP to 36383A64663A6464003V0
+</code></pre><h2 id="%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%BF%9E%E6%8E%A5%E8%B6%85%E6%97%B6%EF%BC%8C%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%BB%E5%8A%A8%E6%B8%85%E9%99%A4%E8%BF%9E%E6%8E%A5%E4%BF%A1%E6%81%AF">&#x5BA2;&#x6237;&#x7AEF;&#x8FDE;&#x63A5;&#x8D85;&#x65F6;&#xFF0C;&#x670D;&#x52A1;&#x5668;&#x4E3B;&#x52A8;&#x6E05;&#x9664;&#x8FDE;&#x63A5;&#x4FE1;&#x606F;</h2>
+<pre><code>1403336671: Client 33303A33393A3236003V0 has exceeded timeout, disconnecting.
+</code></pre><h2 id="%E5%AE%A2%E6%88%B7%E7%AB%AFscoket%E5%BC%82%E5%B8%B8%E6%97%B6%E7%9A%84%E6%97%A5%E5%BF%97">&#x5BA2;&#x6237;&#x7AEF;scoket&#x5F02;&#x5E38;&#x65F6;&#x7684;&#x65E5;&#x5FD7;</h2>
+<pre><code>1403337602: Socket error on client 351BBJKFX62C1, disconnecting.
+1403337602: Socket error on client 351BBJKFX62C0, disconnecting.
 </code></pre>
                     
                     </section>
@@ -347,10 +407,10 @@
         </div>
 
         
-        <a href="../blog/20150605.html" class="navigation navigation-prev " aria-label="Previous page: 半小时速成PHP基础"><i class="fa fa-angle-left"></i></a>
+        <a href="../blog/20150607.html" class="navigation navigation-prev " aria-label="Previous page: C语言常用字符串操作函数"><i class="fa fa-angle-left"></i></a>
         
         
-        <a href="../blog/20150602.html" class="navigation navigation-next " aria-label="Next page: 两个实用函数camelize，hyphenate"><i class="fa fa-angle-right"></i></a>
+        <a href="../blog/20150606.html" class="navigation navigation-next " aria-label="Next page: 用CSS3画公司logo"><i class="fa fa-angle-right"></i></a>
         
     </div>
 </div>
