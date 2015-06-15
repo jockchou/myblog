@@ -1,0 +1,581 @@
+<!DOCTYPE HTML>
+<html lang="en" >
+    
+    <head>
+        
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>MongoDB-更新数据 | jockchou</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 2.1.0">
+        
+        
+        <meta name="HandheldFriendly" content="true"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+        <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="../../gitbook/style.css">
+    
+    
+
+        
+    
+    
+    <link rel="next" href="../../blog/mongodb/remove.html" />
+    
+    
+    <link rel="prev" href="../../blog/mongodb/query.html" />
+    
+
+        
+    </head>
+    <body>
+        
+        
+    <div class="book" data-level="1.7" data-basepath="../.." data-revision="Mon Jun 15 2015 19:11:23 GMT+0800 (中国标准时间)">
+    
+
+<div class="book-summary">
+    <div class="book-search">
+        <input type="text" placeholder="Type to search" class="form-control" />
+    </div>
+    <ul class="summary">
+        
+        
+        
+        
+
+        
+
+        
+    
+        <li class="chapter " data-level="0" data-path="index.html">
+            
+                
+                    <a href="../../index.html">
+                        <i class="fa fa-check"></i>
+                        
+                        Introduction
+                    </a>
+                
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1" >
+            
+            <span><b>1.</b> [MongoDB数据库]</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.1" data-path="blog/mongodb/introduction.html">
+            
+                
+                    <a href="../../blog/mongodb/introduction.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.1.</b>
+                        
+                        MongoDB-简介
+                    </a>
+                
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="blog/mongodb/install.html">
+            
+                
+                    <a href="../../blog/mongodb/install.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.2.</b>
+                        
+                        MongoDB-安装
+                    </a>
+                
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="blog/mongodb/import.html">
+            
+                
+                    <a href="../../blog/mongodb/import.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.3.</b>
+                        
+                        MongoDB-导入数据
+                    </a>
+                
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="blog/mongodb/shell.html">
+            
+                
+                    <a href="../../blog/mongodb/shell.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.4.</b>
+                        
+                        MongoDB-命令行
+                    </a>
+                
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="blog/mongodb/insert.html">
+            
+                
+                    <a href="../../blog/mongodb/insert.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.5.</b>
+                        
+                        MongoDB-插入数据
+                    </a>
+                
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="blog/mongodb/query.html">
+            
+                
+                    <a href="../../blog/mongodb/query.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.6.</b>
+                        
+                        MongoDB-查询数据
+                    </a>
+                
+            
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.7" data-path="blog/mongodb/update.html">
+            
+                
+                    <a href="../../blog/mongodb/update.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.7.</b>
+                        
+                        MongoDB-更新数据
+                    </a>
+                
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="blog/mongodb/remove.html">
+            
+                
+                    <a href="../../blog/mongodb/remove.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.8.</b>
+                        
+                        MongoDB-删除数据
+                    </a>
+                
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="blog/mongodb/aggregation.html">
+            
+                
+                    <a href="../../blog/mongodb/aggregation.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.9.</b>
+                        
+                        MongoDB-数据聚集
+                    </a>
+                
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2" >
+            
+            <span><b>2.</b> [C语言相关]</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1" data-path="blog/20150610.html">
+            
+                
+                    <a href="../../blog/20150610.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.1.</b>
+                        
+                        C语言枚举类型
+                    </a>
+                
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="blog/20150608.html">
+            
+                
+                    <a href="../../blog/20150608.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.2.</b>
+                        
+                        C语言真假判断的理解
+                    </a>
+                
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="blog/20150604.html">
+            
+                
+                    <a href="../../blog/20150604.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.3.</b>
+                        
+                        C语言常用的输入输出函数
+                    </a>
+                
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4" data-path="blog/20150607.html">
+            
+                
+                    <a href="../../blog/20150607.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.4.</b>
+                        
+                        C语言常用字符串操作函数
+                    </a>
+                
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="3" >
+            
+            <span><b>3.</b> [Web前端开发]</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.1" data-path="blog/20150606.html">
+            
+                
+                    <a href="../../blog/20150606.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.1.</b>
+                        
+                        用CSS3画公司logo
+                    </a>
+                
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2" data-path="blog/20150603.html">
+            
+                
+                    <a href="../../blog/20150603.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.2.</b>
+                        
+                        JavaScript类型检测最佳实践
+                    </a>
+                
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.3" data-path="blog/20150602.html">
+            
+                
+                    <a href="../../blog/20150602.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.3.</b>
+                        
+                        两个实用函数camelize，hyphenate
+                    </a>
+                
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.4" data-path="blog/20150601.html">
+            
+                
+                    <a href="../../blog/20150601.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.4.</b>
+                        
+                        前端函数getPageSize，getPageScroll
+                    </a>
+                
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="4" data-path="blog/20150605.html">
+            
+                
+                    <a href="../../blog/20150605.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.</b>
+                        
+                        半小时速成PHP基础
+                    </a>
+                
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5" data-path="blog/20150611.html">
+            
+                
+                    <a href="../../blog/20150611.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.</b>
+                        
+                        Mosquitto服务器日志分析总结
+                    </a>
+                
+            
+            
+        </li>
+    
+
+
+        
+        <li class="divider"></li>
+        <li>
+            <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+                Published with GitBook
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+    <div class="book-body">
+        <div class="body-inner">
+            <div class="book-header">
+    <!-- Actions Left -->
+    <a href="#" class="btn pull-left toggle-summary" aria-label="Table of Contents"><i class="fa fa-align-justify"></i></a>
+    <a href="#" class="btn pull-left toggle-search" aria-label="Search"><i class="fa fa-search"></i></a>
+    
+    <div id="font-settings-wrapper" class="dropdown pull-left">
+        <a href="#" class="btn toggle-dropdown" aria-label="Font Settings"><i class="fa fa-font"></i>
+        </a>
+        <div class="dropdown-menu font-settings">
+    <div class="dropdown-caret">
+        <span class="caret-outer"></span>
+        <span class="caret-inner"></span>
+    </div>
+
+    <div class="buttons">
+        <button type="button" id="reduce-font-size" class="button size-2">A</button>
+        <button type="button" id="enlarge-font-size" class="button size-2">A</button>
+    </div>
+
+    <div class="buttons font-family-list">
+        <button type="button" data-font="0" class="button">Serif</button>
+        <button type="button" data-font="1" class="button">Sans</button>
+    </div>
+
+    <div class="buttons color-theme-list">
+        <button type="button" id="color-theme-preview-0" class="button size-3" data-theme="0">White</button>
+        <button type="button" id="color-theme-preview-1" class="button size-3" data-theme="1">Sepia</button>
+        <button type="button" id="color-theme-preview-2" class="button size-3" data-theme="2">Night</button>
+    </div>
+</div>
+
+    </div>
+
+    <!-- Actions Right -->
+    
+    <div class="dropdown pull-right">
+        <a href="#" class="btn toggle-dropdown" aria-label="Share"><i class="fa fa-share-alt"></i>
+        </a>
+        <div class="dropdown-menu font-settings dropdown-left">
+            <div class="dropdown-caret">
+                <span class="caret-outer"></span>
+                <span class="caret-inner"></span>
+            </div>
+            <div class="buttons">
+                <button type="button" data-sharing="twitter" class="button">
+                    Share on Twitter
+                </button>
+                <button type="button" data-sharing="google-plus" class="button">
+                    Share on Google
+                </button>
+                <button type="button" data-sharing="facebook" class="button">
+                    Share on Facebook
+                </button>
+                <button type="button" data-sharing="weibo" class="button">
+                    Share on Weibo
+                </button>
+                <button type="button" data-sharing="instapaper" class="button">
+                    Share on Instapaper
+                </button>
+            </div>
+        </div>
+    </div>
+    
+
+    
+    <a href="#" target="_blank" class="btn pull-right google-plus-sharing-link sharing-link" data-sharing="google-plus" aria-label="Google"><i class="fa fa-google-plus"></i></a>
+    
+    
+    <a href="#" target="_blank" class="btn pull-right facebook-sharing-link sharing-link" data-sharing="facebook" aria-label="Facebook"><i class="fa fa-facebook"></i></a>
+    
+    
+    <a href="#" target="_blank" class="btn pull-right twitter-sharing-link sharing-link" data-sharing="twitter" aria-label="Twitter"><i class="fa fa-twitter"></i></a>
+    
+    
+    
+
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../../" >jockchou</a>
+    </h1>
+</div>
+
+            <div class="page-wrapper" tabindex="-1">
+                <div class="page-inner">
+                
+                
+                    <section class="normal" id="section-">
+                    
+                        <h1 id="%E4%BD%BF%E7%94%A8mongo%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%9B%B4%E6%96%B0%E6%95%B0%E6%8D%AE">&#x4F7F;&#x7528;mongo&#x547D;&#x4EE4;&#x884C;&#x66F4;&#x65B0;&#x6570;&#x636E;</h1>
+<h2 id="%E6%A6%82%E8%BF%B0">&#x6982;&#x8FF0;</h2>
+<p>&#x4F7F;&#x7528;<code>update()</code>&#x65B9;&#x6CD5;&#x66F4;&#x65B0;&#x6587;&#x6863;&#x3002;&#x8FD9;&#x4E2A;&#x65B9;&#x6CD5;&#x63A5;&#x6536;&#x4EE5;&#x4E0B;&#x53C2;&#x6570;&#xFF1A;</p>
+<ul>
+<li>&#x4E00;&#x4E2A;&#x65B9;&#x6863;&#x5339;&#x914D;&#x7684;&#x8FC7;&#x6EE4;&#x5668;&#xFF0C;&#x7528;&#x4E8E;&#x8FC7;&#x6EE4;&#x8981;&#x66F4;&#x65B0;&#x7684;&#x6587;&#x6863;</li>
+<li>&#x4E00;&#x4E2A;&#x7528;&#x6765;&#x6267;&#x884C;&#x4FEE;&#x6539;&#x64CD;&#x4F5C;&#x7684;&#x66F4;&#x65B0;&#x6587;&#x6863;</li>
+<li>&#x4E00;&#x4E2A;&#x53EF;&#x9009;&#x7684;&#x53C2;&#x6570;</li>
+</ul>
+<p>&#x6307;&#x5B9A;&#x8FC7;&#x6EE4;&#x5668;&#x548C;&#x6307;&#x5B9A;&#x67E5;&#x8BE2;&#x7684;&#x65F6;&#x5019;&#x662F;&#x4E00;&#x6837;&#x7684;&#x3002;<code>update()</code>&#x65B9;&#x6CD5;&#x9ED8;&#x8BA4;&#x53EA;&#x66F4;&#x65B0;&#x5355;&#x4E2A;&#x6587;&#x6863;&#xFF0C;&#x4F7F;&#x7528;<code>multi</code>&#x53EF;&#x9009;&#x53C2;&#x6570;&#x6307;&#x5B9A;&#x66F4;&#x65B0;&#x6240;&#x6709;&#x5339;&#x914D;&#x7684;&#x6587;&#x6863;&#x3002;</p>
+<p>&#x4E0D;&#x80FD;&#x66F4;&#x65B0;&#x6587;&#x6863;&#x7684;<code>_id</code>&#x5B57;&#x6BB5;&#x3002;</p>
+<h2 id="%E6%9B%B4%E6%96%B0%E6%8C%87%E5%AE%9A%E5%AD%97%E6%AE%B5">&#x66F4;&#x65B0;&#x6307;&#x5B9A;&#x5B57;&#x6BB5;</h2>
+<p>&#x8981;&#x6539;&#x53D8;&#x67D0;&#x4E2A;&#x5B57;&#x6BB5;&#x7684;&#x503C;&#xFF0C;MongoDB&#x63D0;&#x4F9B;&#x4E86;&#x66F4;&#x65B0;&#x64CD;&#x4F5C;&#xFF0C;&#x6BD4;&#x5982;<code>$set</code>&#x7528;&#x6765;&#x4FEE;&#x6539;&#x503C;&#x3002;&#x5982;&#x679C;&#x5B57;&#x6BB5;&#x4E0D;&#x5B58;&#x5728;&#xFF0C;<code>$set</code>&#x4F1A;&#x521B;&#x5EFA;&#x8FD9;&#x4E2A;&#x5B57;&#x6BB5;&#x3002;</p>
+<h2 id="%E6%9B%B4%E6%96%B0%E9%A1%B6%E7%BA%A7%E5%AD%97%E6%AE%B5">&#x66F4;&#x65B0;&#x9876;&#x7EA7;&#x5B57;&#x6BB5;</h2>
+<p>&#x4E0B;&#x9762;&#x7684;&#x64CD;&#x4F5C;&#x66F4;&#x65B0;<code>name</code>&#x5B57;&#x6BB5;&#x503C;&#x4E3A;&quot;Juni&quot;&#x7684;&#x7B2C;&#x4E00;&#x4E2A;&#x6587;&#x6863;&#xFF0C;&#x4F7F;&#x7528;<code>$set</code>&#x64CD;&#x4F5C;&#x66F4;&#x65B0;cuisine&#x5B57;&#x6BB5;&#xFF0C;&#x4F7F;&#x7528;<code>$currentDate</code>&#x64CD;&#x4F5C;&#x66F4;&#x65B0;lastModified&#x5B57;&#x6BB5;&#x3002;</p>
+<pre><code>db.restaurants.update(
+    { &quot;name&quot; : &quot;Juni&quot; },
+    {
+      $set: { &quot;cuisine&quot;: &quot;American (New)&quot; },
+      $currentDate: { &quot;lastModified&quot;: true }
+    }
+)
+</code></pre><p>&#x66F4;&#x65B0;&#x64CD;&#x4F5C;&#x4F1A;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;<code>WriteResult</code>&#x5BF9;&#x8C61;&#xFF0C;&#x5B83;&#x5305;&#x542B;&#x66F4;&#x65B0;&#x64CD;&#x4F5C;&#x8FD4;&#x56DE;&#x7684;&#x4E00;&#x4E9B;&#x72B6;&#x6001;&#x4FE1;&#x606F;&#x3002;</p>
+<h2 id="%E6%9B%B4%E6%96%B0%E5%86%85%E5%B5%8C%E6%96%87%E6%A1%A3%E5%AD%97%E6%AE%B5">&#x66F4;&#x65B0;&#x5185;&#x5D4C;&#x6587;&#x6863;&#x5B57;&#x6BB5;</h2>
+<p>&#x66F4;&#x65B0;&#x5185;&#x5D4C;&#x6587;&#x6863;&#x7684;&#x5B57;&#x6BB5;&#xFF0C;&#x9700;&#x8981;&#x4F7F;&#x7528;&#x201C;.&#x201D;&#x53F7;&#x3002;&#x5982;&#x4E0B;&#x6240;&#x793A;&#xFF1A;</p>
+<pre><code>db.restaurants.update(
+  { &quot;restaurant_id&quot; : &quot;41156888&quot; },
+  { $set: { &quot;address.street&quot;: &quot;East 31st Street&quot; } }
+)
+</code></pre><h2 id="%E6%9B%B4%E6%96%B0%E5%A4%9A%E4%B8%AA%E6%96%87%E6%A1%A3">&#x66F4;&#x65B0;&#x591A;&#x4E2A;&#x6587;&#x6863;</h2>
+<p>&#x9ED8;&#x8BA4;&#x5730;&#xFF0C;<code>update()</code>&#x65B9;&#x6CD5;&#x53EA;&#x66F4;&#x65B0;&#x4E00;&#x4E2A;&#x6587;&#x6863;&#x3002;&#x5982;&#x679C;&#x8981;&#x66F4;&#x65B0;&#x591A;&#x4E2A;&#x6587;&#x6863;&#xFF0C;&#x9700;&#x8981;&#x6307;&#x5B9A;<code>multi</code>&#x53EF;&#x9009;&#x53C2;&#x6570;&#x3002;</p>
+<pre><code>db.restaurants.update(
+  { &quot;address.zipcode&quot;: &quot;10016&quot;, cuisine: &quot;Other&quot; },
+  {
+    $set: { cuisine: &quot;Category To Be Determined&quot; },
+    $currentDate: { &quot;lastModified&quot;: true }
+  },
+  { multi: true}
+)
+</code></pre><h2 id="%E6%9B%BF%E6%8D%A2%E6%96%87%E6%A1%A3">&#x66FF;&#x6362;&#x6587;&#x6863;</h2>
+<p>&#x8981;&#x66FF;&#x6362;&#x4E00;&#x4E2A;&#x6587;&#x6863;&#xFF0C;&#x53EA;&#x9700;&#x8981;&#x628A;&#x4E00;&#x4E2A;&#x65B0;&#x7684;&#x6587;&#x6863;&#x4F20;&#x9012;&#x7ED9;<code>update()</code>&#x7684;&#x7B2C;&#x4E8C;&#x4E2A;&#x53C2;&#x6570;&#xFF0C;&#x5E76;&#x4E14;&#x4E0D;&#x9700;&#x8981;&#x5305;&#x542B;<code>_id</code>&#x5B57;&#x6BB5;&#x3002;&#x5982;&#x679C;&#x5305;&#x542B;<code>_id</code>&#x5B57;&#x6BB5;&#xFF0C;&#x53EA;&#x4FDD;&#x8BC1;&#x8DDF;&#x539F;&#x6587;&#x6863;&#x662F;&#x540C;&#x4E00;&#x4E2A;&#x503C;&#x3002;&#x7528;&#x4E8E;&#x66FF;&#x6362;&#x7684;&#x6587;&#x6863;&#x53EF;&#x4EE5;&#x8DDF;&#x539F;&#x6587;&#x6863;&#x5177;&#x6709;&#x5B8C;&#x5168;&#x4E0D;&#x540C;&#x7684;&#x5B57;&#x6BB5;&#x3002;</p>
+<pre><code>db.restaurants.update(
+   { &quot;restaurant_id&quot; : &quot;41704620&quot; },
+   {
+     &quot;name&quot; : &quot;Vella 2&quot;,
+     &quot;address&quot; : {
+              &quot;coord&quot; : [ -73.9557413, 40.7720266 ],
+              &quot;building&quot; : &quot;1480&quot;,
+              &quot;street&quot; : &quot;2 Avenue&quot;,
+              &quot;zipcode&quot; : &quot;10075&quot;
+     }
+   }
+)
+</code></pre>
+                    
+                    </section>
+                
+                
+                </div>
+            </div>
+        </div>
+
+        
+        <a href="../../blog/mongodb/query.html" class="navigation navigation-prev " aria-label="Previous page: MongoDB-查询数据"><i class="fa fa-angle-left"></i></a>
+        
+        
+        <a href="../../blog/mongodb/remove.html" class="navigation navigation-next " aria-label="Next page: MongoDB-删除数据"><i class="fa fa-angle-right"></i></a>
+        
+    </div>
+</div>
+
+        
+<script src="../../gitbook/app.js"></script>
+
+<script>
+require(["gitbook"], function(gitbook) {
+    var config = {"fontSettings":{"theme":null,"family":"sans","size":2}};
+    gitbook.start(config);
+});
+</script>
+
+        
+    </body>
+    
+</html>
