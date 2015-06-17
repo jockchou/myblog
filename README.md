@@ -1,4 +1,4 @@
-<p><img class="logo" src="./img/logo.jpg" alt="jockchou"></p>
+<p><img class="logo" src="./img/head_small.png" alt="jockchou"></p>
 
 # jockchou#
 

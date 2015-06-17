@@ -12,16 +12,16 @@
 	* [MongoDB-数据聚集](./blog/mongodb/aggregation.md)
 
 * [C语言相关]
-	* [C语言枚举类型](./blog/20150610.md)
-	* [C语言真假判断的理解](./blog/20150608.md)
-	* [C语言常用的输入输出函数](./blog/20150604.md)
-	* [C语言常用字符串操作函数](./blog/20150607.md)
+	* [C语言枚举类型](./blog/clang/20150610-enum.md)
+	* [C语言真假判断的理解](./blog/clang/20150608-true-false.md)
+	* [C语言常用的输入输出函数](./blog/clang/20150604-input-ouput.md)
+	* [C语言常用字符串操作函数](./blog/clang/20150607-string-fuc.md)
 
 * [Web前端开发]
-	* [用CSS3画公司logo](./blog/20150606.md)
-	* [JavaScript类型检测最佳实践](./blog/20150603.md)
-	* [两个实用函数camelize，hyphenate](./blog/20150602.md)
-	* [前端函数getPageSize，getPageScroll](./blog/20150601.md)
+	* [用CSS3画公司logo](./blog/webfront/20150606-css3-draw-logo.md)
+	* [JavaScript类型检测最佳实践](./blog/webfront/20150603-type-check.md)
+	* [两个实用函数camelize，hyphenate](./blog/webfront/20150602-hyphenate.md)
+	* [前端函数getPageSize，getPageScroll](./blog/webfront/20150601-getpagesize.md)
 
-* [半小时速成PHP基础](./blog/20150605.md)
-* [Mosquitto服务器日志分析总结](./blog/20150611.md)
+* [半小时速成PHP基础](./blog/20150605-php-tutor.md)
+* [Mosquitto服务器日志分析总结](./blog/20150611-mosquitto-log.md)
