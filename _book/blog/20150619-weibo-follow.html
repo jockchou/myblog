@@ -5,7 +5,7 @@
         
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>Mosquitto服务器日志分析总结 | jockchou</title>
+        <title>用MySQL实现微博关注关系的方案分析 | jockchou</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="generator" content="GitBook 2.1.0">
@@ -25,8 +25,10 @@
         
     
     
+    <link rel="next" href="../blog/mongodb/introduction.html" />
     
-    <link rel="prev" href="../blog/20150605-php-tutor.html" />
+    
+    <link rel="prev" href="../index.html" />
     
 
         
@@ -34,7 +36,7 @@
     <body>
         
         
-    <div class="book" data-level="6" data-basepath=".." data-revision="Fri Jun 19 2015 18:38:00 GMT+0800 (中国标准时间)">
+    <div class="book" data-level="1" data-basepath=".." data-revision="Fri Jun 19 2015 18:38:00 GMT+0800 (中国标准时间)">
     
 
 <div class="book-summary">
@@ -64,7 +66,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1" data-path="blog/20150619-weibo-follow.html">
+        <li class="chapter active" data-level="1" data-path="blog/20150619-weibo-follow.html">
             
                 
                     <a href="../blog/20150619-weibo-follow.html">
@@ -388,7 +390,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="6" data-path="blog/20150611-mosquitto-log.html">
+        <li class="chapter " data-level="6" data-path="blog/20150611-mosquitto-log.html">
             
                 
                     <a href="../blog/20150611-mosquitto-log.html">
@@ -508,82 +510,126 @@
                 
                     <section class="normal" id="section-">
                     
-                        <h1 id="mosquitto%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90%E6%80%BB%E7%BB%93">Mosquitto&#x670D;&#x52A1;&#x5668;&#x65E5;&#x5FD7;&#x5206;&#x6790;&#x603B;&#x7ED3;</h1>
-<p>Mosquitto&#x5B98;&#x7F51;&#xFF1A;<a href="http://mosquitto.org/" title="mosquitto" target="_blank">http://mosquitto.org/</a><br>MQTT&#x534F;&#x8BAE;&#xFF1A;<a href="http://mqtt.org/" title="mqtt" target="_blank">http://mqtt.org/</a></p>
+                        <h1 id="%E7%94%A8mysql%E5%AE%9E%E7%8E%B0%E5%BE%AE%E5%8D%9A%E5%85%B3%E6%B3%A8%E5%85%B3%E7%B3%BB%E7%9A%84%E6%96%B9%E6%A1%88%E5%88%86%E6%9E%90">&#x7528;MySQL&#x5B9E;&#x73B0;&#x5FAE;&#x535A;&#x5173;&#x6CE8;&#x5173;&#x7CFB;&#x7684;&#x65B9;&#x6848;&#x5206;&#x6790;</h1>
 <hr>
-<h2 id="%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%BF%9E%E6%8E%A5%E6%97%A5%E5%BF%97">&#x5BA2;&#x6237;&#x7AEF;&#x8FDE;&#x63A5;&#x65E5;&#x5FD7;</h2>
-<pre><code>1403334375: New connection from 121.201.8.163 on port 1883.
+<h1 id="%E5%85%B3%E6%B3%A8%E5%85%B3%E7%B3%BB%E4%BA%A7%E7%94%9F%E7%9A%84%E5%9B%9B%E7%A7%8D%E5%85%B3%E7%B3%BB%E7%8A%B6%E6%80%81">&#x5173;&#x6CE8;&#x5173;&#x7CFB;&#x4EA7;&#x751F;&#x7684;&#x56DB;&#x79CD;&#x5173;&#x7CFB;&#x72B6;&#x6001;</h1>
+<ul>
+<li>&#x5173;&#x6CE8;</li>
+<li>&#x7C89;&#x4E1D;</li>
+<li>&#x53CC;&#x5411;&#x5173;&#x6CE8;(&#x4E92;&#x7C89;)</li>
+<li>&#x65E0;&#x5173;&#x7CFB;</li>
+</ul>
+<p>&#x7528;&#x8BCD;follower&#x8868;&#x793A;&#x7C89;&#x4E1D;        -- &#x8FFD;&#x968F;&#x8005;<br>&#x7528;&#x8BCD;following&#x8868;&#x793A;&#x5173;&#x6CE8;        -- &#x8FFD;&#x968F;  </p>
+<h1 id="%E8%AE%BE%E8%AE%A1%E7%9A%84%E7%BB%93%E6%9E%84%E5%BF%85%E9%A1%BB%E8%83%BD%E6%BB%A1%E8%B6%B3%E4%BB%A5%E4%B8%8B%E5%8A%9F%E8%83%BD%EF%BC%9A">&#x8BBE;&#x8BA1;&#x7684;&#x7ED3;&#x6784;&#x5FC5;&#x987B;&#x80FD;&#x6EE1;&#x8DB3;&#x4EE5;&#x4E0B;&#x529F;&#x80FD;&#xFF1A;</h1>
+<ul>
+<li>&#x67E5;&#x8BE2;&#x5173;&#x6CE8;&#x5217;&#x8868;</li>
+<li>&#x67E5;&#x8BE2;&#x7C89;&#x4E1D;&#x5217;&#x8868;</li>
+<li>&#x67E5;&#x8BE2;&#x53CC;&#x5411;&#x5173;&#x6CE8;&#x5217;&#x8868;</li>
+<li>&#x5224;&#x65AD;&#x4E24;&#x4E2A;&#x7528;&#x6237;&#x7684;&#x5173;&#x7CFB;</li>
+<li>&#x67E5;&#x8BE2;&#x5E26;&#x5173;&#x7CFB;&#x72B6;&#x6001;&#x7684;&#x4EFB;&#x4E00;&#x5217;&#x8868;</li>
+</ul>
+<h1 id="%E7%AC%AC%E4%B8%80%E7%A7%8D%E6%96%B9%E6%A1%88">&#x7B2C;&#x4E00;&#x79CD;&#x65B9;&#x6848;</h1>
+<p>&#x7528;&#x4E00;&#x884C;&#x7EAA;&#x5F55;&#x8868;&#x793A;&#x5173;&#x6CE8;&#x548C;&#x7C89;&#x4E1D;&#xFF0C;&#x5B57;&#x6BB5;u2&#x7684;&#x503C;&#x8868;&#x793A;&#x7C89;&#x4E1D;&#xFF0C;u1&#x8868;&#x793A;&#x88AB;&#x5173;&#x6CE8;&#x8005;&#x3002;</p>
+<p>Table: user(&#x7528;&#x6237;&#x8868;)
+<img src="../img/3.png" alt=""></p>
+<p>Table: follower(u2&#x8868;&#x793A;&#x7C89;&#x4E1D;&#xFF0C; u1&#x8868;&#x793A;&#x88AB;&#x5173;&#x6CE8;&#x7684;&#x4EBA;)
+<img src="../img/1.png" alt=""></p>
+<p>&#x67E5;&#x8BE2;&#x7528;&#x6237;id = 1&#x7684;&#x5173;&#x6CE8;&#x5217;&#x8868;</p>
+<pre><code>SELECT * FROM follower WHERE u2 = 1
+</code></pre><p>&#x67E5;&#x8BE2;&#x7528;&#x6237;id = 1&#x7684;&#x7C89;&#x4E1D;&#x5217;&#x8868;</p>
+<pre><code>SELECT * FROM follower WHERE u1 = 1
+</code></pre><p>&#x67E5;&#x8BE2;&#x7528;&#x6237;id = 1&#x7684;&#x53CC;&#x5411;&#x5173;&#x6CE8;&#x5217;&#x8868;</p>
+<pre><code>SELECT t1.* FROM (SELECT * FROM follower WHERE u2 = 1)  AS t1 INNER JOIN follower t2 ON t1.u1 = t2.u2 LIMIT 10
+</code></pre><p>&#x5224;&#x65AD;&#x4E24;&#x4E2A;&#x7528;&#x6237;&#x7684;&#x5173;&#x7CFB;(id = 1  --&gt; id = 5)</p>
+<pre><code>SELECT * FROM follower WHERE (u2 = 1 or u1 = 1) AND (u2 = 5 or u1 = 5) LIMIT 3
+</code></pre><p>id = 1&#x7684;&#x7528;&#x6237;&#x67E5;&#x8BE2;&#x6240;&#x6709; id &lt; 5&#x7684;&#x7528;&#x6237;&#xFF0C;&#x5E76;&#x663E;&#x793A;&#x5173;&#x7CFB;</p>
+<p><img src="../img/2.png" alt=""></p>
+<p>&#x5982;&#x4E0A;&#x56FE;&#x6240;&#x793A;&#xFF0C;&#x8981;&#x67E5;&#x8BE2;&#x7684;&#x7528;&#x6237;&#x7684;&#x90A3;&#x4E2A;&#x5708;&#xFF0C;&#x88AB;&#x5206;&#x6210;&#x4E86;&#x56DB;&#x4E2A;&#x90E8;&#x5206;&#xFF08;&#x4E0A;&#x9762;&#x8BB2;&#x7684;&#x56DB;&#x79CD;&#x72B6;&#x6001;&#xFF09;&#xFF1A;</p>
+<ul>
+<li>&#x5173;&#x6CE8;&#x4E86;&#x6211;&#x7684;&#x7528;&#x6237;</li>
+<li>&#x548C;&#x6211;&#x4E92;&#x7C89;&#x7684;&#x7528;&#x6237;</li>
+<li>&#x6211;&#x5173;&#x6CE8;&#x4E86;&#x7684;&#x7528;&#x6237;</li>
+<li>&#x6211;&#x672A;&#x5173;&#x6CE8;&#x7684;&#x7528;&#x6237;</li>
+</ul>
+<p>&#x4EE5;&#x4E0A;&#x590D;&#x6742;&#x7684;&#x96C6;&#x5408;&#x5173;&#x7CFB;&#xFF0C;&#x901A;&#x8FC7;&#x5355;&#x4E00;SQL&#x6839;&#x672C;&#x65E0;&#x6CD5;&#x5B9E;&#x73B0;&#x3002;</p>
+<p>&#x8981;&#x67E5;&#x8BE2;&#x7684;&#x7528;&#x6237;&#x4E0E;&#x7C89;&#x4E1D;&#x96C6;&#x5408;&#x7684;&#x4EA4;&#x96C6;:</p>
+<pre><code>SELECT * FROM 
 
-1403334375: New client connected from 121.201.8.163 as zhoujing (c0, k60, ujoyo).
+(SELECT * FROM user WHERE id &lt; 5) AS t1
+INNER JOIN
 
-1403334375: Sending CONNACK to zhoujing (0)
-</code></pre><p>&#x4EE5;&#x4E0A;&#x662F;&#x4E00;&#x4E2A;&#x5BA2;&#x6237;&#x7AEF;&#x6B63;&#x5E38;&#x8FDE;&#x63A5;&#x7684;&#x65E5;&#x5FD7;&#x3002;</p>
+(SELECT * FROM follower WHERE u1 = 1) AS t2
+
+ON t1.id = t2.u2
+</code></pre><p>&#x8981;&#x67E5;&#x8BE2;&#x7684;&#x7528;&#x6237;&#x4E0E;&#x5173;&#x6CE8;&#x96C6;&#x5408;&#x7684;&#x4EA4;&#x96C6;:</p>
+<pre><code>SELECT * FROM 
+
+(SELECT * FROM user WHERE id &lt; 5) AS t1
+INNER JOIN
+
+(SELECT * FROM follower WHERE u2 = 1) AS t3
+
+ON t1.id = t3.u1
+</code></pre><p>&#x5176;&#x4ED6;&#x7684;&#x90E8;&#x5206;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x4EE5;&#x4E0A;&#x4E24;&#x6B65;&#x67E5;&#x8BE2;&#x51FA;&#x6765;&#x7684;&#x6570;&#x636E;&#xFF0C;&#x5728;&#x5185;&#x5B58;&#x4E2D;&#x4F5C;&#x8BA1;&#x7B97;&#x5F97;&#x51FA;&#x3002;</p>
+<p>&#x56E0;&#x4E3A;&#x5173;&#x6CE8;&#x5173;&#x7CFB;&#x662F;&#x4E92;&#x76F8;&#x7684;&#xFF0C;&#x7528;&#x4E00;&#x884C;&#x7EAA;&#x5F55;&#x5373;&#x53EF;&#x8868;&#x793A;&#x3002;&#x4EE5;&#x4E0A;&#x7684;&#x8BBE;&#x8BA1;&#x5176;&#x5B9E;&#x662F;&#x628A;&#x5173;&#x6CE8;&#x548C;&#x7C89;&#x4E1D;&#x7684;&#x6982;&#x5FF5;&#x7528;&#x4E00;&#x884C;&#x7EAA;&#x5F55;&#x8868;&#x8FBE;&#x3002;&#x8FD9;&#x6837;&#x4F1A;&#x5F15;&#x6765;&#x4E00;&#x4E2A;&#x7F3A;&#x70B9;&#xFF0C;&#x5F53;follower&#x975E;&#x5E38;&#x5927;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5BF9;follower&#x8868;&#x8FDB;&#x884C;&#x5206;&#x7247;&#xFF0C;&#x5982;&#x679C;&#x6309;u1&#x6216;&#x8005;u2&#x5206;&#x7247;&#xFF0C;&#x5047;&#x8BBE;&#x6309;u1&#x5206;&#x7247;&#xFF0C;&#x90A3;&#x4E48;&#x5C06;&#x5BFC;&#x81F4;&#x5173;&#x6CE8;&#x5217;&#x8868;&#xFF0C;&#x5373;&#x4E0B;&#x9762;&#x7684;&#x67E5;&#x8BE2;&#x8981;&#x505A;&#x805A;&#x5408;&#x3002;</p>
+<pre><code>SELECT * FROM follower WHERE u2 = 1
+</code></pre><p>&#x9009;&#x62E9;u1&#x5206;&#x7247;&#x540E;&#xFF0C;u2 = 1&#x7684;&#x6570;&#x636E;&#x884C;&#x5C06;&#x4F1A;&#x843D;&#x5230;&#x4E0D;&#x540C;&#x7684;&#x5206;&#x7247;&#x4E0A;&#x3002;</p>
+<pre><code>SELECT * FROM follower_0 WHERE u2 = 1
+UNION 
+SELECT * FROM follower_1 WHERE u2 = 1
+</code></pre><p>&#x800C;&#x7C89;&#x4E1D;&#x5217;&#x8868;&#x7684;&#x67E5;&#x8BE2;&#x4E0D;&#x4F1A;&#x53D7;&#x5F71;&#x54CD;&#xFF0C;&#x540C;&#x4E00;&#x4E2A;&#x7528;&#x6237;&#x7684;&#x6240;&#x6709;&#x7C89;&#x4E1D;&#x5206;&#x5728;&#x4E00;&#x4E2A;&#x7247;&#x4E0A;&#x3002;</p>
+<pre><code>SELECT * FROM follower_1 WHERE u1 = 1
+</code></pre><p>&#x5982;&#x679C;&#x6309;u2&#x5206;&#x7247;&#xFF0C;&#x540C;&#x6837;&#x4E5F;&#x4F1A;&#x5BFC;&#x81F4;&#x7C89;&#x4E1D;&#x5217;&#x8868;&#x4F1A;&#x843D;&#x5728;&#x4E0D;&#x540C;&#x7684;&#x5206;&#x7247;&#x4E0A;&#x3002;&#x4E24;&#x4E2A;&#x67E5;&#x8BE2;&#x4E0D;&#x53EF;&#x80FD;&#x540C;&#x65F6;&#x6EE1;&#x8DB3;&#x5206;&#x7247;&#x3002;</p>
+<p>&#x5982;&#x679C;&#x5206;&#x7247;&#x662F;&#x8DE8;&#x6570;&#x636E;&#x5E93;&#x6216;&#x8005;&#x662F;&#x8DE8;&#x4E3B;&#x673A;&#x7684;&#x65B9;&#x6848;&#xFF0C;&#x95EE;&#x9898;&#x4F1A;&#x53D8;&#x5F97;&#x66F4;&#x590D;&#x6742;&#x3002;</p>
+<h1 id="%E9%92%88%E5%AF%B9%E6%96%B9%E7%89%87%E7%9A%84%E4%BC%98%E5%8C%96%E6%96%B9%E6%A1%88">&#x9488;&#x5BF9;&#x65B9;&#x7247;&#x7684;&#x4F18;&#x5316;&#x65B9;&#x6848;</h1>
+<p>&#x53EF;&#x4EE5;&#x7528;&#x5197;&#x4F59;&#x6570;&#x636E;&#x7684;&#x529E;&#x6CD5;&#x6765;&#x89E3;&#x51B3;&#x6570;&#x636E;&#x5206;&#x7247;&#x5E26;&#x6765;&#x7684;&#x95EE;&#x9898;&#xFF0C;&#x5373;&#x5C06;&#x5173;&#x6CE8;&#x548C;&#x7C89;&#x4E1D;&#x5206;2&#x4E2A;&#x8868;&#x5B58;&#x653E;&#x3002;
+&#x7528;follower&#x8868;&#x5B58;&#x653E;&#x7C89;&#x4E1D;<br>&#x7528;following&#x8868;&#x5B58;&#x653E;&#x5173;&#x6CE8;  </p>
+<p>&#x5F53;&#x7528;&#x6237;Ub&#x5173;&#x6CE8;Ua&#xFF0C;&#x5206;&#x522B;&#x5F80;follower, following&#x5199;&#x5165;&#x4E00;&#x884C;&#x7EAA;&#x5F55;&#x3002; &#xFF08;Ua -&gt; Ub&#xFF09; &#x53EA;&#x662F;&#x4ED6;&#x4EEC;&#x8868;&#x793A;&#x7684;&#x542B;&#x4E49;&#x4E0D;&#x540C;&#x3002;</p>
+<p>follower&#x8868;&#x793A;Ua&#x7684;&#x7C89;&#x4E1D;&#x662F;Ub<br>following&#x8868;&#x793A;Ub&#x5173;&#x6CE8;Ua  </p>
+<p>&#x5206;&#x7247;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x540C;&#x65F6;&#x5BF9;follower&#x548C;following&#x8FDB;&#x884C;&#x5206;&#x7247;&#x3002;&#x540C;&#x65F6;&#x4E0A;&#x9762;&#x5206;&#x6790;&#x7684;&#x6240;&#x6709;&#x67E5;&#x8BE2;&#x65B9;&#x6CD5;&#x4E5F;&#x8981;&#x76F8;&#x5E94;&#x6539;&#x53D8;&#xFF0C;&#x601D;&#x8DEF;&#x8FD8;&#x662F;&#x4E00;&#x6837;&#xFF0C;&#x53EA;&#x662F;&#x5355;&#x4E2A;&#x8868;&#x7684;&#x81EA;&#x8054;&#x63A5;&#x53D8;&#x6210;2&#x4E2A;&#x8868;&#x7684;&#x8054;&#x63A5;&#x3002;</p>
+<p>&#x4EE5;&#x4E0A;&#x65B9;&#x6848;&#x7F3A;&#x70B9;&#x5C31;&#x662F;&#x6570;&#x636E;&#x91CF;&#x4F1A;&#x589E;&#x52A0;&#x4E00;&#x500D;&#xFF0C;&#x8FDB;&#x884C;&#x5173;&#x6CE8;&#x6216;&#x8005;&#x53D6;&#x6D88;&#x5173;&#x6CE8;&#x7684;&#x5199;&#x64CD;&#x4F5C;&#x4F1A;&#x591A;&#x4E00;&#x6B21;&#xFF0C;&#x8981;&#x540C;&#x65F6;&#x7EF4;&#x62A4;2&#x4E2A;&#x8868;&#x7684;&#x6570;&#x636E;&#x3002;</p>
+<p>&#x4EE5;&#x4E0A;&#x4F18;&#x5316;&#x867D;&#x7136;&#x89E3;&#x51B3;&#x4E86;&#x4E00;&#x4E9B;&#x95EE;&#x9898;&#xFF0C;&#x4F46;&#x540C;&#x65F6;&#x4E5F;&#x5E26;&#x6765;&#x4E00;&#x4E9B;&#x95EE;&#x9898;&#x3002;&#x53EF;&#x89C1;&#x5173;&#x7CFB;&#x578B;&#x6570;&#x636E;&#x5E93;&#x5728;&#x5904;&#x7406;&#x7528;&#x6237;&#x5173;&#x7CFB;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x8868;&#x73B0;&#x5F97;&#x5F88;&#x5403;&#x529B;&#x3002;&#x6211;&#x4EEC;&#x4E0D;&#x5F97;&#x4E0D;&#x627F;&#x8BA4;&#xFF0C;&#x867D;&#x7136;&#x53EB;&#x201C;&#x5173;&#x7CFB;&#x201D;&#x578B;&#x6570;&#x636E;&#x5E93;&#x5374;&#x4E0D;&#x592A;&#x61C2;&#x5F97;&#x5904;&#x7406;&#x96C6;&#x5408;&#x5173;&#x7CFB;&#x3002;</p>
+<h1 id="%E5%8F%A6%E4%B8%80%E7%A7%8D%E6%96%B9%E6%A1%88">&#x53E6;&#x4E00;&#x79CD;&#x65B9;&#x6848;</h1>
+<p>&#x8FD8;&#x6709;&#x4E00;&#x79CD;&#x65B9;&#x6848;&#xFF0C;&#x5373;&#x7528;&#x4E00;&#x884C;&#x7EAA;&#x5F55;&#x8868;&#x793A;&#x51FA;&#x4E24;&#x4E2A;&#x7528;&#x6237;&#x4E4B;&#x95F4;&#x7684;&#x6240;&#x6709;&#x5173;&#x7CFB;&#xFF0C;&#x6B64;&#x65B9;&#x6848;&#x80FD;&#x8282;&#x7701;&#x5F88;&#x5927;&#x7684;&#x6570;&#x636E;&#x7A7A;&#x5360;&#x7528;&#x3002;</p>
+<p>&#x5B57;&#x6BB5;: u1, u2, type</p>
+<p>type=1 &#x8868;&#x793A;u2&#x5173;&#x6CE8;u1<br>type=2 &#x8868;&#x793A;u1,u2&#x4E92;&#x76F8;&#x5173;&#x6CE8;<br>type=0 &#x8868;&#x793A;u1,u2&#x65E0;&#x5173;&#x7CFB;(&#x9ED8;&#x8BA4;)  </p>
+<p>&#x4FDD;&#x8BC1;&#x63D2;&#x5165;&#x6570;&#x636E;&#x65F6;&#xFF0C;u1&#x662F;&#x88AB;&#x5173;&#x6CE8;&#x8005;&#xFF0C;u2&#x662F;&#x7C89;&#x4E1D;&#xFF08;&#x5F53;&#x7136;&#x4F60;&#x4E5F;&#x53EF;&#x4EE5;&#x6362;&#x8FC7;&#x6765;&#xFF0C;&#x53EA;&#x662F;&#x903B;&#x8F91;&#x4F1A;&#x53D8;&#x4E86;&#xFF09;</p>
+<p>&#x6BCF;&#x6B21;&#x5199;&#x5165;&#x6570;&#x636E;&#x65F6;&#x8981;&#x68C0;&#x67E5;&#x5F53;&#x524D;&#x7684;&#x72B6;&#x6001;&#xFF1A;</p>
+<p>&#x5982;&#x679C;u1(1) -&gt; u2(2)&#x7EAA;&#x5F55;&#x5DF2;&#x7ECF;&#x5B58;&#x5728;&#xFF08;u2&#x5DF2;&#x7ECF;&#x5173;&#x6CE8;u1&#xFF09;&#xFF0C;&#x8FD9;&#x4E2A;&#x65F6;&#x5019;u1&#x518D;&#x5173;&#x6CE8;u2&#xFF0C;&#x53EA;&#x9700;&#x8981;&#x5C06;type&#x5B57;&#x6BB5;&#x7684;&#x503C;&#x53D8;&#x4E3A;type = 2&#x3002;</p>
+<p>&#x5982;&#x679C;u1(1) -&gt; u2(2) type(2)&#x65F6;&#xFF0C;&#x5373;u1&#x548C;u2&#x4E92;&#x76F8;&#x5173;&#x6CE8;&#xFF0C;&#x5982;&#x679C;&#x6709;&#x4E00;&#x4E2A;&#x4EBA;&#x53D6;&#x6D88;&#x5173;&#x6CE8;&#xFF0C;&#x95EE;&#x9898;&#x4F1A;&#x5F88;&#x590D;&#x6742;&#xFF0C;&#x6700;&#x574F;&#x7684;&#x60C5;&#x51B5;&#x8981;&#x4FEE;&#x6539;&#x6574;&#x884C;&#x7EAA;&#x5F55;&#xFF0C;&#x4EA4;&#x6362;u1,u2&#x8FD9;&#x4E24;&#x4E2A;&#x5B57;&#x6BB5;&#x7684;&#x503C;&#xFF0C;&#x518D;&#x4FEE;&#x6539;type=1&#x3002;</p>
+<p>&#x540C;&#x65F6;&#x4E0A;&#x9762;&#x7684;&#x65B9;&#x6848;&#x67E5;&#x8BE2;&#x4E5F;&#x4F1A;&#x53D8;&#x5316;&#x3002;&#x4F8B;&#x5982;&#x8981;&#x67E5;&#x8BE2;id = 1&#x7684;&#x7C89;&#x4E1D;&#x5217;&#x8868;&#xFF1A;</p>
+<pre><code>SELECT * FROM table WHERE u1 = 1 OR (u2 = 1 AND type = 2)
+</code></pre><p>&#x4F8B;&#x5982;&#x8981;&#x67E5;&#x8BE2;id = 1&#x7684;&#x5173;&#x6CE8;&#x5217;&#x8868;&#xFF1A;</p>
+<pre><code>SELECT * FROM table WHERE u2 = 1 OR (u1 = 1 AND type = 2)
+</code></pre><p>&#x4E0A;&#x9762;&#x7684;&#x65B9;&#x6848;&#x53EA;&#x5F3A;&#x8C03;&#x5173;&#x6CE8;&#x5173;&#x7CFB;&#xFF0C;&#x53CC;&#x5411;&#x5173;&#x7CFB;&#x53EA;&#x662F;&#x5728;&#x5355;&#x4E00;&#x5173;&#x7CFB;&#x4E0A;&#x7528;&#x5B57;&#x6BB5;&#x533A;&#x5206;&#xFF0C;&#x5173;&#x6CE8;&#x7684;&#x5148;&#x540E;&#x5173;&#x7CFB;&#x5F88;&#x660E;&#x663E;&#xFF0C;&#x4E8B;&#x52A1;&#x6027;&#x66F4;&#x5F3A;&#x3002;</p>
+<p>&#x67E5;&#x8BE2;id = 1&#x7684;&#x53CC;&#x5411;&#x5173;&#x6CE8;</p>
+<pre><code>SELECT * FROM table WHERE type = 2 AND (u1 = 1 OR u2 = 1)
+</code></pre><p>&#x8FD9;&#x4E2A;&#x65B9;&#x6848;&#x867D;&#x7136;&#x8282;&#x7701;&#x6570;&#x636E;&#x7A7A;&#x95F4;&#xFF0C;&#x4F46;&#x662F;&#x4E0D;&#x5BB9;&#x6613;&#x7406;&#x89E3;&#xFF0C;&#x800C;&#x4E14;&#x5199;&#x5165;&#x65F6;&#x6BCF;&#x6B21;&#x8981;&#x68C0;&#x67E5;&#x5224;&#x65AD;&#x5F53;&#x524D;&#x7684;&#x5173;&#x7CFB;&#xFF0C;&#x903B;&#x8F91;&#x4E0A;&#x8FC7;&#x4E8E;&#x590D;&#x6742;&#x3002;&#x800C;&#x4E14;&#x6570;&#x636E;&#x91CF;&#x5927;&#x540E;&#xFF0C;&#x7531;&#x4E8E;&#x67E5;&#x8BE2;WHERE&#x6761;&#x4EF6;&#x540C;&#x65F6;&#x6709;u1&#x548C;u2&#xFF0C;&#x5F88;&#x96BE;&#x8FDB;&#x884C;&#x5206;&#x7247;&#x3002;</p>
+<h1 id="%E5%85%B6%E4%BB%96%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98">&#x5176;&#x4ED6;&#x4E00;&#x4E9B;&#x95EE;&#x9898;</h1>
 <ul>
-<li>&#x7B2C;&#x4E00;&#x884C;&#xFF1A;&#x670D;&#x52A1;&#x5668;&#x6536;&#x5230;&#x4E00;&#x4E2A;&#x65B0;&#x7684;&#x8FDE;&#x63A5;&#x8BF7;&#x6C42;</li>
+<li>ua&#x4E0E;ub&#x7684;&#x5171;&#x540C;&#x5173;&#x6CE8;&#x5217;&#x8868;</li>
+<li>ua&#x4E0E;ub&#x7684;&#x5171;&#x540C;&#x7C89;&#x4E1D;&#x5217;&#x8868;</li>
+<li>ua&#x7684;&#x5173;&#x6CE8;&#x5217;&#x8868;&#x91CC;&#x8C01;&#x5173;&#x6CE8;&#x4E86;ub</li>
 </ul>
-<blockquote>
-<p>1403334375: &#x8868;&#x793A;&#x8FDE;&#x63A5;&#x7684;&#x65F6;&#x95F4;&#x70B9;<br>121.201.8.163: &#x5BA2;&#x6237;&#x7AEF;&#x7684;IP&#x5730;&#x5740;<br>1883: &#x8FDE;&#x63A5;&#x7684;&#x670D;&#x52A1;&#x5668;&#x7AEF;&#x53E3;&#x53F7;  </p>
-</blockquote>
-<ul>
-<li>&#x7B2C;&#x4E8C;&#x884C;&#xFF1A;&#x670D;&#x52A1;&#x5668;&#x4E3A;&#x5BA2;&#x6237;&#x7AEF;&#x5EFA;&#x7ACB;&#x8FDE;&#x63A5;</li>
-</ul>
-<blockquote>
-<p>zhoujing (c0, k60, ujoyo)&#xFF1A; &#x5BA2;&#x6237;&#x7AEF;&#x8FDE;&#x63A5;&#x6307;&#x5B9A;&#x7684;ClientID&#x4E3A;&apos;zhoujing&apos;<br>c0: &#x8868;&#x793A;cleanSession=false&#xFF0C;&#x4E0D;&#x6E05;&#x9664;session<br>k60: &#x8868;&#x793A;keep-alive=60s<br>ujoyo: &#x8868;&#x793A;&#x4F7F;&#x7528;&#x7684;&#x670D;&#x52A1;&#x5668;&#x8D26;&#x53F7;&#x4E3A;joyo  </p>
-</blockquote>
-<ul>
-<li>&#x7B2C;&#x4E09;&#x884C;&#xFF1A;&#x53D1;&#x9001;&#x8FDE;&#x63A5;ACK&#x5305;&#x7ED9;&#x5BA2;&#x6237;&#x7AEF;</li>
-</ul>
-<h2 id="%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%AE%A2%E9%98%85%E8%BF%87%E7%A8%8B%E6%97%A5%E5%BF%97">&#x5BA2;&#x6237;&#x7AEF;&#x8BA2;&#x9605;&#x8FC7;&#x7A0B;&#x65E5;&#x5FD7;</h2>
-<pre><code>1403334375: Received SUBSCRIBE from zhoujing
-1403334375: jiji/chat/9 (QoS 2)
-1403334375: zhoujing 2 jiji/chat/9
-1403334375: Sending SUBACK to zhoujing
-</code></pre><ul>
-<li>&#x7B2C;&#x4E00;&#x884C;&#xFF1A;&#x670D;&#x52A1;&#x5668;&#x6536;&#x5230;&#x4E00;&#x4E2A;&#x6765;&#x81EA;ClientID&#x4E3A;zhoujing&#x7684;&#x8BA2;&#x9605;&#x8BF7;&#x6C42;</li>
-<li>&#x7B2C;&#x4E8C;&#x884C;&#xFF1A;&#x670D;&#x52A1;&#x5668;&#x8BC6;&#x522B;zhoujing&#x8BA2;&#x9605;&#x7684;&#x4E3B;&#x9898;&#x4E3A; jiji/chat/9&#xFF0C;&#x6307;&#x5B9A;&#x7684;QOS=2&#xFF08;&#x6709;&#x4E14;&#x53EA;&#x53D1;&#x9001;&#x4E00;&#x6B21;&#xFF09;</li>
-<li>&#x7B2C;&#x4E09;&#x884C;&#xFF1A;&#x7ED9;ClientID=zhoujing&#x5BA2;&#x6237;&#x7AEF;&#x53D1;&#x9001;&#x8BA2;&#x9605;ACK&#x56DE;&#x5305;</li>
-</ul>
-<h2 id="%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%8F%91%E9%80%81%E5%86%85%E5%AE%B9%E7%BB%99%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%97%A5%E5%BF%97">&#x670D;&#x52A1;&#x5668;&#x53D1;&#x9001;&#x5185;&#x5BB9;&#x7ED9;&#x5BA2;&#x6237;&#x7AEF;&#x65E5;&#x5FD7;</h2>
-<pre><code>1403334378: Sending PUBLISH to zhoujing (d0, q2, r0, m1, &apos;jiji/chat/9&apos;, ... (396 bytes))
-1403334378: Received PUBREC from zhoujing (Mid: 1)
-1403334378: Sending PUBREL to zhoujing (Mid: 1)
-1403334378: Received PUBCOMP from zhoujing (Mid: 1)
-</code></pre><ul>
-<li>&#x7B2C;&#x4E00;&#x884C;&#xFF1A;&#x670D;&#x52A1;&#x5668;&#x6B63;&#x5728;&#x53D1;&#x9001;&#x4E00;&#x4E2A;&#x6D88;&#x606F;&#x7ED9;ClientID=zhoujing&#x7684;&#x5BA2;&#x6237;&#x7AEF;&#xFF0C;&#x6D88;&#x606F;&#x4F53;&#x5927;&#x5C0F;&#x4E3A;396 bytes&#xFF0C;&#x6D88;&#x606F;&#x4E3B;&#x9898;&#x4E3A;&#x2018;jiji/chat/9&#x2019; </li>
-</ul>
-<blockquote>
-<p>(d0, q2, r0, m1)&#x7684;&#x89E3;&#x91CA;, &#x4EE5;&#x4E0B;&#x53C2;&#x6570;&#x5177;&#x4F53;&#x542B;&#x4E49;&#xFF0C;&#x53C2;&#x8003;MQTT&#x534F;&#x8BAE;<br>d: &#x8868;&#x793A;mqtt&#x62A5;&#x5934;&#x7684;DUP&#x5B57;&#x6BB5;<br>q: &#x8868;&#x793A;&#x7684;QOS&#x5B57;&#x6BB5;<br>r: &#x8868;&#x793A;&#x7684;&#x662F;RETAIN<br>m: &#x8868;&#x793A;&#x7684;&#x662F;&#x6D88;&#x606F;ID,&#x5373;mid   </p>
-</blockquote>
-<ul>
-<li>&#x7B2C;&#x4E8C;&#x884C;&#xFF1A;&#x53D1;&#x5E03;&#x6536;&#x7A3F;&#x9636;&#x6BB5;&#xFF0C;&#x6709;&#x4FDD;&#x8BC1;&#x7684;&#x4EA4;&#x4ED8;&#x7B2C;&#x4E00;&#x90E8;&#x5206;</li>
-<li>&#x7B2C;&#x4E09;&#x884C;&#xFF1A;&#x51FA;&#x7248;&#x53D1;&#x884C;&#x9636;&#x6BB5;&#xFF0C;&#x6709;&#x4FDD;&#x8BC1;&#x7684;&#x4EA4;&#x4ED8;&#x7B2C;&#x4E8C;&#x90E8;&#x5206;</li>
-<li>&#x7B2C;&#x56DB;&#x884C;&#xFF1A;&#x53D1;&#x5E03;&#x5B8C;&#x6210;&#xFF0C;&#x6709;&#x4FDD;&#x8BC1;&#x7684;&#x4EA4;&#x4ED8;&#x7B2C;&#x4E09;&#x90E8;&#x5206;&#xFF0C;&#x81F3;&#x6B64;&#x4E00;&#x4E2A;&#x5185;&#x5BB9;&#x53D1;&#x90E8;&#x8FC7;&#x7A0B;&#x5B8C;&#x6210;</li>
-</ul>
-<h2 id="%E5%AE%A2%E6%88%B7%E7%AB%AF%E4%B8%BB%E5%8A%A8%E6%96%AD%E5%BC%80%E8%BF%9E%E6%8E%A5%E7%9A%84%E6%97%A5%E5%BF%97">&#x5BA2;&#x6237;&#x7AEF;&#x4E3B;&#x52A8;&#x65AD;&#x5F00;&#x8FDE;&#x63A5;&#x7684;&#x65E5;&#x5FD7;</h2>
-<p>&#x5BA2;&#x6237;&#x7AEF;&#x4E3B;&#x52A8;&#x65AD;&#x5F00;&#x8FDE;&#x63A5;&#x7684;&#x53EA;&#x6709;&#x4E00;&#x884C;&#x65E5;&#x5FD7;&#xFF0C;&#x5F88;&#x7B80;&#x5355;&#x3002;&#x5982;&#x4E0B;&#x6240;&#x793A;&#xFF1A;</p>
-<pre><code>1403334380: Received DISCONNECT from JY_API_PUSH_CLIENT
-</code></pre><h2 id="%E6%8E%A5%E6%94%B6%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%8F%91%E5%B8%83%E5%86%85%E5%AE%B9%E7%9A%84%E8%BF%87%E7%A8%8B%E6%97%A5%E5%BF%97">&#x63A5;&#x6536;&#x5BA2;&#x6237;&#x7AEF;&#x53D1;&#x5E03;&#x5185;&#x5BB9;&#x7684;&#x8FC7;&#x7A0B;&#x65E5;&#x5FD7;</h2>
-<pre><code>1403334389: Received PUBLISH from JY_API_PUSH_CLIENT (d0, q2, r0, m1, &apos;jiji/chat/9&apos;, ... (396 bytes))
-1403334389: Sending PUBREC to JY_API_PUSH_CLIENT (Mid: 1)
-1403334389: Received PUBREL from JY_API_PUSH_CLIENT (Mid: 1)
-1403334389: Sending PUBCOMP to JY_API_PUSH_CLIENT (Mid: 1)
-</code></pre><ul>
-<li>&#x7B2C;&#x4E00;&#x884C;&#xFF1A;&#x63A5;&#x6536;&#x6765;&#x81EA;ClientID=JY_API_PUSH_CLIENT&#x7684;&#x53D1;&#x5E03;&#x8BF7;&#x6C42;&#xFF0C;&#x53D1;&#x5E03;&#x7684;&#x6D88;&#x606F;&#x4E3B;&#x9898;&#x4E3A;&apos;jiji/chat/9&apos;&#xFF0C;&#x6D88;&#x606F;&#x5927;&#x5C0F;&#x4E3A;396 bytes</li>
-<li>&#x7B2C;&#x4E8C;&#x884C;&#xFF1A;&#x670D;&#x52A1;&#x5668;&#x53D1;&#x9001;PUBREC&#x7ED9;&#x5BA2;&#x6237;&#x7AEF;&#xFF0C;&#x6B64;&#x8FC7;&#x7A0B;&#x4E0E;&#x53D1;&#x9001;&#x6D88;&#x606F;&#x7ED9;&#x5BA2;&#x6237;&#x7AEF;&#x6B63;&#x597D;&#x5BF9;&#x79F0;&#xFF0C;&#x53EA;&#x4E0D;&#x8FC7;&#x662F;Received&#x548C;Sending&#x7684;&#x5BF9;&#x8C61;&#x53CD;&#x8FC7;&#x6765;&#x800C;&#x5DF2;</li>
-<li>&#x7B2C;&#x4E09;&#x884C;&#xFF1A;&#x670D;&#x52A1;&#x5668;&#x63A5;&#x6536;&#x5230;&#x5BA2;&#x6237;&#x7AEF;&#x5DF2;&#x7ECF;&#x91CA;&#x653E;&#x7684;&#x547D;&#x4EE4;&#xFF0C;&#x5185;&#x5BB9;&#x4EA4;&#x4ED8;&#x7B2C;&#x4E8C;&#x6B65;&#x5B8C;&#x6210;</li>
-<li>&#x7B2C;&#x56DB;&#x884C;&#xFF1A;&#x901A;&#x77E5;&#x5BA2;&#x6237;&#x7AEF;&#xFF0C;&#x63A5;&#x6536;&#x5B8C;&#x6210;&#xFF0C;&#x81F3;&#x6B64;&#x4E00;&#x4E2A;&#x6D88;&#x606F;&#x53D1;&#x5E03;&#x5B8C;&#x6210;&#xFF0C;&#x5185;&#x5BB9;&#x4EA4;&#x4ED8;&#x7B2C;&#x4E09;&#x6B65;&#x5B8C;&#x6210;</li>
-</ul>
-<h2 id="%E5%90%8C%E4%B8%80%E4%B8%AAclientid%E9%87%8D%E5%A4%8D%E8%BF%9E%E6%8E%A5%E6%97%B6">&#x540C;&#x4E00;&#x4E2A;ClientID&#x91CD;&#x590D;&#x8FDE;&#x63A5;&#x65F6;</h2>
-<pre><code>1403334510: New connection from 121.201.7.150 on port 1883.
-1403334510: Client JY_API_PUSH_CLIENT already connected, closing old connection.
-</code></pre><h2 id="%E6%8E%A5%E6%94%B6%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%BF%83%E8%B7%B3%E5%8C%85">&#x63A5;&#x6536;&#x5BA2;&#x6237;&#x7AEF;&#x5FC3;&#x8DF3;&#x5305;</h2>
-<pre><code>1403336716: Received PINGREQ from 36383A64663A6464003V0
-1403336716: Sending PINGRESP to 36383A64663A6464003V0
-</code></pre><h2 id="%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%BF%9E%E6%8E%A5%E8%B6%85%E6%97%B6%EF%BC%8C%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%BB%E5%8A%A8%E6%B8%85%E9%99%A4%E8%BF%9E%E6%8E%A5%E4%BF%A1%E6%81%AF">&#x5BA2;&#x6237;&#x7AEF;&#x8FDE;&#x63A5;&#x8D85;&#x65F6;&#xFF0C;&#x670D;&#x52A1;&#x5668;&#x4E3B;&#x52A8;&#x6E05;&#x9664;&#x8FDE;&#x63A5;&#x4FE1;&#x606F;</h2>
-<pre><code>1403336671: Client 33303A33393A3236003V0 has exceeded timeout, disconnecting.
-</code></pre><h2 id="%E5%AE%A2%E6%88%B7%E7%AB%AFscoket%E5%BC%82%E5%B8%B8%E6%97%B6%E7%9A%84%E6%97%A5%E5%BF%97">&#x5BA2;&#x6237;&#x7AEF;scoket&#x5F02;&#x5E38;&#x65F6;&#x7684;&#x65E5;&#x5FD7;</h2>
-<pre><code>1403337602: Socket error on client 351BBJKFX62C1, disconnecting.
-1403337602: Socket error on client 351BBJKFX62C0, disconnecting.
+<p>&#x4EE5;&#x4E0A;&#x7684;&#x5173;&#x7CFB;&#x8BA1;&#x7B97;&#x5927;&#x5BB6;&#x53EF;&#x80FD;&#x5F88;&#x5BB9;&#x6613;&#x7406;&#x89E3;&#xFF0C;&#x4F46;&#x8981;&#x5728;MySQL&#x91CC;&#x5B9E;&#x73B0;&#xFF0C;&#x662F;&#x975E;&#x5E38;&#x96BE;&#x7684;&#x3002;</p>
+<p>id = 3&#x4E0E;id = 2&#x7684;&#x5171;&#x540C;&#x5173;&#x6CE8;&#x5217;&#x8868;&#xFF1A;</p>
+<pre><code>SELECT  u1, COUNT(id) AS num FROM follower WHERE u2 = 3 OR u2 = 2
+GROUP BY u1 HAVING num &gt; 1
+</code></pre><p>id = 3&#x4E0E;id = 1&#x7684;&#x5171;&#x540C;&#x7C89;&#x4E1D;&#x5217;&#x8868;&#xFF1A;</p>
+<pre><code>SELECT  u2, COUNT(id) AS num FROM follower WHERE u1 = 3 OR u1 = 1
+GROUP BY u2 HAVING num &gt; 1
+</code></pre><p>&#x5F53;&#x7136;&#x4F60;&#x53EF;&#x4EE5;&#x7528;&#x96C6;&#x5408;&#x7684;&#x65B9;&#x6CD5;&#x67E5;&#x8BE2;:</p>
+<pre><code>SELECT t1.u2 FROM 
+(SELECT  u2 FROM follower WHERE u1 = 3) AS t1
+ INNER JOIN
+(SELECT  u2 FROM follower WHERE u1 = 1) AS t2
+
+ON t1.u2 = t2.u2
+</code></pre><p>id = 1&#x7684;&#x5173;&#x6CE8;&#x5217;&#x8868;&#x91CC;&#x8C01;&#x5173;&#x6CE8;&#x4E86;id = 5</p>
+<pre><code>SELECT u2 FROM (SELECT u2 FROM follower WHERE u1 = 2) AS t1
+INNER JOIN 
+(SELECT u1 FROM follower WHERE u2 = 1) AS t2
+ON t2.u1 = t1.u2
 </code></pre>
                     
                     </section>
@@ -594,8 +640,10 @@
         </div>
 
         
-        <a href="../blog/20150605-php-tutor.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: 半小时速成PHP基础"><i class="fa fa-angle-left"></i></a>
+        <a href="../index.html" class="navigation navigation-prev " aria-label="Previous page: Introduction"><i class="fa fa-angle-left"></i></a>
         
+        
+        <a href="../blog/mongodb/introduction.html" class="navigation navigation-next " aria-label="Next page: MongoDB-简介"><i class="fa fa-angle-right"></i></a>
         
     </div>
 </div>

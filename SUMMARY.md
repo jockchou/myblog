@@ -1,5 +1,7 @@
 # Summary
 
+* [用MySQL实现微博关注关系的方案分析](./blog/20150619-weibo-follow.md)
+
 * [MongoDB数据库]
 	* [MongoDB-简介](./blog/mongodb/introduction.md)
 	* [MongoDB-安装](./blog/mongodb/install.md)
