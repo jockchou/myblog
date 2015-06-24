@@ -4,7 +4,7 @@
 本练习主要用到CSS3的元素形变，圆角的一些属性。
 
 公司的Logo如下图
-![pingo-logo](../img/pingo.png)
+![pingo-logo](../../img/pingo.png)
 
 首先构造三个圆圈的HTML结构:
 ```

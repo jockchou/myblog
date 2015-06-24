@@ -12,6 +12,7 @@
 	* [MongoDB-更新数据](./blog/mongodb/update.md)
 	* [MongoDB-删除数据](./blog/mongodb/remove.md)
 	* [MongoDB-数据聚集](./blog/mongodb/aggregation.md)
+	* [MongoDB-Journaling日志](./blog/mongodb/journal.md)
 
 * [C语言相关]
 	* [C语言枚举类型](./blog/clang/20150610-enum.md)
