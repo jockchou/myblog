@@ -11,7 +11,7 @@
 	* [MongoDB-查询数据](./blog/mongodb/query.md)
 	* [MongoDB-更新数据](./blog/mongodb/update.md)
 	* [MongoDB-删除数据](./blog/mongodb/remove.md)
-	* [MongoDB-数据聚集](./blog/mongodb/aggregation.md)
+	* [MongoDB-数据聚合](./blog/mongodb/aggregation.md)
 	* [MongoDB-Journaling日志](./blog/mongodb/journal.md)
 
 * [C语言相关]

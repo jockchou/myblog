@@ -112,7 +112,7 @@ MQTT协议：[http://mqtt.org/](http://mqtt.org/ "mqtt")
 1403336671: Client 33303A33393A3236003V0 has exceeded timeout, disconnecting.
 ```
 
-## 客户端scoket异常时的日志 ##
+## 客户端socket异常时的日志 ##
 
 ```
 1403337602: Socket error on client 351BBJKFX62C1, disconnecting.
