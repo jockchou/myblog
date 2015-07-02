@@ -36,7 +36,7 @@
     <body>
         
         
-    <div class="book" data-level="2" data-basepath=".." data-revision="Thu Jul 02 2015 16:27:40 GMT+0800 (中国标准时间)">
+    <div class="book" data-level="2" data-basepath=".." data-revision="Thu Jul 02 2015 17:00:00 GMT+0800 (中国标准时间)">
     
 
 <div class="book-summary">
@@ -573,21 +573,17 @@
 <p>&#x4E0D;&#x5728;&#x8FD9;&#x4E09;&#x4E2A;&#x5C0F;&#x4EA4;&#x96C6;&#x4E2D;&#x7684;&#x7528;&#x6237;&#x5C31;&#x662F;&#x65E0;&#x5173;&#x7CFB;&#x72B6;&#x6001;&#x7684;&#x7528;&#x6237;&#x3002;</p>
 <p>&#x5047;&#x5982;&#x6211;&#x4EEC;&#x91C7;&#x7528;&#x5982;&#x4E0B;&#x4E00;&#x5957;&#x547D;&#x540D;:</p>
 <blockquote>
-<p>&#x5173;&#x6CE8;&#x96C6;&#x5408;
-follow:userID</p>
-<p>&#x7C89;&#x4E1D;
-fans:userID</p>
-<p>&#x4E92;&#x7C89;&#x96C6;&#x5408;(&#x4E34;&#x65F6;)
-fofa:userID</p>
-<p>&#x8981;&#x67E5;&#x8BE2;&#x7684;&#x96C6;&#x5408;(&#x4E34;&#x65F6;)
-find:userID</p>
+<p>&#x5173;&#x6CE8;&#x96C6;&#x5408;<br>follow:userID</p>
+<p>&#x7C89;&#x4E1D;&#x96C6;&#x5408;<br>fans:userID</p>
+<p>&#x4E92;&#x7C89;&#x96C6;&#x5408;(&#x4E34;&#x65F6;)<br>fofa:userID</p>
+<p>&#x8981;&#x67E5;&#x8BE2;&#x7684;&#x96C6;&#x5408;(&#x4E34;&#x65F6;)<br>find:userID</p>
 <p>&#x8981;&#x67E5;&#x8BE2;&#x7684;&#x96C6;&#x5408;&#x4E0E;&#x6211;&#x7684;&#x5173;&#x6CE8;&#x4EA4;&#x96C6;(&#x4E34;&#x65F6;)<br>find_inter_follow:userID  </p>
 <p>&#x8981;&#x67E5;&#x8BE2;&#x7684;&#x96C6;&#x7684;&#x4E0E;&#x6211;&#x7684;&#x7C89;&#x4E1D;&#x4EA4;&#x96C6;(&#x4E34;&#x65F6;)<br>find_inter_fans:userID</p>
 <p>&#x8981;&#x67E5;&#x8BE2;&#x7684;&#x96C6;&#x5408;&#x4E0E;&#x6211;&#x7684;&#x4E92;&#x7C89;&#x4EA4;&#x96C6;(&#x4E34;&#x65F6;)<br>find_inter_fofa:userID</p>
 <p>find&#x4E2D;&#x5176;&#x4ED6;&#x5C31;&#x662F;&#x672A;&#x5173;&#x6CE8;</p>
 </blockquote>
 <h1 id="%E4%BD%BF%E7%94%A8sorted-set%E5%AD%98%E5%82%A8%E5%85%B3%E7%B3%BB">&#x4F7F;&#x7528;Sorted Set&#x5B58;&#x50A8;&#x5173;&#x7CFB;</h1>
-<p>score&#x7528;&#x6765;&#x5B58;&#x50A8;&#x5173;&#x6CE8;&#x7684;&#x65F6;&#x95F4;&#xFF0C;&#x6BCF;&#x4E2A;&#x7528;&#x6237;&#x5B58;&#x50A8;&#x4E24;&#x4E2A;&#x96C6;&#x5408;&#x3002;follow:userID&#x5B58;&#x50A8;&#x7528;&#x6237;&#x7684;&#x5173;&#x6CE8;&#xFF0C;fans:userID&#x5B58;&#x50A8;&#x7528;&#x6237;&#x7684;&#x7C89;&#x4E1D;&#x3002;&#x5BF9;&#x4E8E;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x8BBE;&#x8BA1;&#x4E00;&#x4E2A;&#x51FD;&#x6570;&#x6765;&#x6C42;&#x51FA;&#x8FD9;&#x4E9B;&#x72B6;&#x6001;&#x7684;&#x96C6;&#x5408;&#x3002;</p>
+<p>score&#x7528;&#x6765;&#x5B58;&#x50A8;&#x5173;&#x6CE8;&#x7684;&#x65F6;&#x95F4;&#xFF0C;&#x6BCF;&#x4E2A;&#x7528;&#x6237;&#x5B58;&#x50A8;&#x4E24;&#x4E2A;&#x96C6;&#x5408;&#x3002;follow:userID&#x5B58;&#x50A8;&#x7528;&#x6237;&#x7684;&#x5173;&#x6CE8;&#xFF0C;fans:userID&#x5B58;&#x50A8;&#x7528;&#x6237;&#x7684;&#x7C89;&#x4E1D;&#x3002;&#x4E8E;&#x662F;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x8BBE;&#x8BA1;&#x4E00;&#x4E2A;&#x51FD;&#x6570;&#x6765;&#x6C42;&#x51FA;&#x8FD9;&#x4E9B;&#x72B6;&#x6001;&#x7684;&#x96C6;&#x5408;&#x3002;</p>
 <p>&#x51FD;&#x6570;&#x8FD4;&#x56DE;&#xFF1A;</p>
 <pre><code>&quot;findSet&quot; =&gt; $findSet, //&#x8981;&#x67E5;&#x8BE2;&#x7684;&#x96C6;&#x5408;
 &quot;fofaSet&quot; =&gt; $fofaSet, //&#x4E92;&#x7C89;&#x7684;&#x96C6;&#x5408;
