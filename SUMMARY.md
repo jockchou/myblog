@@ -1,7 +1,7 @@
 # Summary
 
-* [用MySQL实现微博关注关系的方案分析](./blog/20150619-weibo-follow.md)
-* [用Redis实现微博关注关系的方案分析](./blog/20150702-weibo-redis-follow.md)
+* [用MySQL实现微博关注关系](./blog/20150619-weibo-follow.md)
+* [用Redis实现微博关注关系](./blog/20150702-weibo-redis-follow.md)
 
 * [MongoDB数据库]
 	* [MongoDB-简介](./blog/mongodb/introduction.md)
@@ -14,6 +14,7 @@
 	* [MongoDB-删除数据](./blog/mongodb/remove.md)
 	* [MongoDB-数据聚合](./blog/mongodb/aggregation.md)
 	* [MongoDB-Journaling日志](./blog/mongodb/journal.md)
+	* [MongoDB-原子性和事务](./blog/mongodb/transactions.md)
 
 * [C语言相关]
 	* [C语言枚举类型](./blog/clang/20150610-enum.md)
