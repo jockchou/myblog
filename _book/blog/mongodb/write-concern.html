@@ -5,7 +5,7 @@
         
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>MongoDB-安装 | jockchou</title>
+        <title>MongoDB-写关注 | jockchou</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="generator" content="GitBook 2.1.0">
@@ -25,10 +25,10 @@
         
     
     
-    <link rel="next" href="../../blog/mongodb/import.html" />
+    <link rel="next" href="../../blog/clang/20150610-enum.html" />
     
     
-    <link rel="prev" href="../../blog/mongodb/introduction.html" />
+    <link rel="prev" href="../../blog/mongodb/transactions.html" />
     
 
         
@@ -36,7 +36,7 @@
     <body>
         
         
-    <div class="book" data-level="3.2" data-basepath="../.." data-revision="Mon Jul 06 2015 19:04:15 GMT+0800 (中国标准时间)">
+    <div class="book" data-level="3.12" data-basepath="../.." data-revision="Mon Jul 06 2015 19:04:15 GMT+0800 (中国标准时间)">
     
 
 <div class="book-summary">
@@ -119,7 +119,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="3.2" data-path="blog/mongodb/install.html">
+        <li class="chapter " data-level="3.2" data-path="blog/mongodb/install.html">
             
                 
                     <a href="../../blog/mongodb/install.html">
@@ -269,7 +269,7 @@
             
         </li>
     
-        <li class="chapter " data-level="3.12" data-path="blog/mongodb/write-concern.html">
+        <li class="chapter active" data-level="3.12" data-path="blog/mongodb/write-concern.html">
             
                 
                     <a href="../../blog/mongodb/write-concern.html">
@@ -570,28 +570,52 @@
                 
                     <section class="normal" id="section-">
                     
-                        <h1 id="%E5%AE%89%E8%A3%85mongodb">&#x5B89;&#x88C5;MongoDB</h1>
-<p>MongoDB&#x80FD;&#x591F;&#x8FD0;&#x884C;&#x5728;&#x591A;&#x79CD;&#x5E73;&#x53F0;&#xFF0C;&#x5E76;&#x652F;&#x6301;32&#x4F4D;&#x548C;64&#x7684;&#x6784;&#x67B6;&#x3002;</p>
-<p>&#x7531;&#x4E8E;&#x672C;&#x6559;&#x7A0B;&#x662F;&#x5728;Windows&#x4E0A;&#x5F00;&#x5C55;&#xFF0C;&#x6240;&#x4EE5;&#x53EA;&#x8BB2;Windows&#x4E0A;&#x7684;&#x5B89;&#x88C5;&#x3002;&#x5176;&#x4ED6;&#x5E73;&#x53F0;&#x53C2;&#x8003;MongoDB&#x5B98;&#x65B9;&#x624B;&#x518C;&#x3002;</p>
-<h2 id="%E5%9C%A8windows%E4%B8%8A%E5%AE%89%E8%A3%85mongodb">&#x5728;Windows&#x4E0A;&#x5B89;&#x88C5;MongoDB</h2>
-<p>MongoDB2.2&#x7248;&#x672C;&#x4E4B;&#x524D;&#x4E0D;&#x652F;&#x6301;Windows XP&#xFF0C;&#x672C;&#x6559;&#x7A0B;&#x4F7F;&#x7528;&#x7684;&#x7248;&#x672C;&#x662F;&#x6700;&#x65B0;&#x7684;3.0&#x7684;&#x7248;&#x672C;&#x3002;&#x4E3A;&#x4E86;&#x65B9;&#x4FBF;&#x64CD;&#x4F5C;&#x548C;&#x7406;&#x89E3;&#xFF0C;&#x6240;&#x4EE5;&#x9009;&#x62E9;&#x5728;Windows&#x8BB2;&#x89E3;&#xFF0C;&#x751F;&#x4EA7;&#x73AF;&#x5883;&#x8BF7;&#x4F7F;&#x7528;Linux&#x7248;&#x672C;&#x3002;</p>
-<p>MongoDB&#x652F;&#x6301;32&#x4F4D;&#x548C;64&#x7684;CPU&#x6784;&#x67B6;&#x3002;32&#x4F4D;&#x7248;&#x672C;&#x53EA;&#x662F;&#x4E3A;&#x4E86;&#x9002;&#x5E94;&#x8001;&#x7684;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#xFF0C;&#x7528;&#x4E8E;&#x5F00;&#x53D1;&#x5B66;&#x4E60;&#xFF0C;&#x5B83;&#x6709;&#x5F88;&#x591A;&#x5C40;&#x9650;&#x6027;&#xFF0C;&#x4EC5;&#x652F;&#x6301;&#x6570;&#x636E;&#x5E93;&#x5C11;&#x4E8E;2G&#x7684;&#x7CFB;&#x7EDF;&#x3002;64&#x4F4D;&#x7248;&#x672C;&#x8FD8;&#x6709;&#x4E00;&#x4E2A;Legacy&#x7248;&#x672C;&#xFF0C;&#x5B83;&#x4E0D;&#x5305;&#x62EC;&#x6700;&#x8FD1;&#x7684;&#x6027;&#x80FD;&#x4F18;&#x5316;&#xFF0C;&#x4E0D;&#x5EFA;&#x8BAE;&#x4F7F;&#x7528;&#x3002;</p>
-<p>&#x5728;&#x8FD9;&#x91CC;&#x6211;&#x4EEC;&#x76F4;&#x63A5;&#x4E0B;&#x8F7D;&#x8FD9;&#x4E2A;64&#x4F4D;&#x7248;&#x672C;&#xFF08;<a href="https://fastdl.mongodb.org/win32/mongodb-win32-x86_64-2008plus-ssl-3.0.3-signed.msi" target="_blank">MongoDB for Windows 64-bit</a>&#xFF09;&#x3002;&#x5B89;&#x88C5;&#x8FC7;&#x7A0B;&#x975E;&#x5E38;&#x7B80;&#x5355;&#xFF0C;&#x8DDF;&#x5B89;&#x88C5;&#x5176;&#x4ED6;&#x8F6F;&#x4EF6;&#x4E00;&#x6837;&#xFF0C;&#x4E00;&#x76F4;&#x4E0B;&#x4E00;&#x6B65;&#x5C31;&#x884C;&#x4E86;&#x3002;&#x6BD4;&#x5982;&#x6211;&#x7684;&#x673A;&#x5668;&#x4E0A;&#x5B89;&#x88C5;&#x5230;&#x4E86;<code>C:\mongodb</code>&#xFF0C;&#x5728;&#x5B89;&#x88C5;&#x76EE;&#x5F55;&#x4E0B;&#x9762;&#x6709;&#x4E00;&#x4E2A;<code>bin</code>&#x76EE;&#x5F55;&#x3002;&#x8FD9;&#x4E2A;&#x76EE;&#x5F55;&#x5305;&#x542B;&#x4E86;MongoDB&#x6240;&#x6709;&#x7684;&#x547D;&#x4EE4;&#x548C;&#x5DE5;&#x5177;&#x96C6;&#x5408;&#xFF0C;&#x628A;&#x5B83;&#x914D;&#x7F6E;&#x5230;&#x73AF;&#x5883;&#x53D8;&#x91CF;PATH&#x4E2D;&#x3002;&#x5982;&#x679C;&#x4F60;&#x9009;&#x62E9;&#x5176;&#x4ED6;&#x76EE;&#x5F55;&#x5B89;&#x88C5;&#xFF0C;&#x8BF7;&#x786E;&#x4FDD;&#x8DEF;&#x5F84;&#x4E0A;&#x6CA1;&#x6709;&#x7A7A;&#x683C;&#xFF0C;&#x4E0D;&#x7136;&#x5230;&#x65F6;&#x5019;&#x4F1A;&#x6709;&#x5F88;&#x591A;&#x5751;&#x3002;</p>
-<h2 id="%E8%AE%BE%E7%BD%AEmongodb%E7%8E%AF%E5%A2%83">&#x8BBE;&#x7F6E;MongoDB&#x73AF;&#x5883;</h2>
-<p>MongoDB&#x9700;&#x8981;&#x4E00;&#x4E2A;&#x76EE;&#x5F55;&#x6765;&#x4FDD;&#x5B58;&#x6570;&#x636E;&#xFF0C;&#x9ED8;&#x8BA4;&#x7684;&#x6570;&#x636E;&#x76EE;&#x5F55;&#x662F;<code>\data\db</code>&#x3002;&#x5728;&#x6211;&#x7684;&#x673A;&#x5668;&#x4E0A;&#x4F7F;&#x7528;&#x4E0B;&#x9762;&#x7684;&#x76EE;&#x5F55;&#x4F5C;&#x4E3A;&#x6570;&#x636E;&#x76EE;&#x5F55;&#x3002;</p>
-<pre><code>C:\data\mongo
-</code></pre><p>&#x4F60;&#x53EF;&#x4EE5;&#x5728;&#x542F;&#x52A8;MongoDB&#x7684;&#x65F6;&#x5019;&#x4E3A;&#x5B83;&#x6307;&#x5B9A;&#x4E00;&#x4E2A;&#x6570;&#x636E;&#x76EE;&#x5F55;&#x3002;&#x4F8B;&#x5982;&#x6211;&#x4EEC;&#x7528;&#x5982;&#x4E0B;&#x547D;&#x4EE4;&#x542F;&#x52A8;MongoDB:</p>
-<pre><code>C:\mongodb\bin\mongod.exe --dbpath C:\data\mongo
-</code></pre><p>&#x6570;&#x636E;&#x76EE;&#x5F55;&#x4E0D;&#x5E94;&#x8BE5;&#x5305;&#x542B;&#x7A7A;&#x683C;&#xFF0C;&#x5426;&#x5219;&#x8981;&#x7528; mongod.exe --dbpath &quot;C:\data\mongo&quot;&#x3002;&#x8FD9;&#x4E9B;&#x542F;&#x52A8;&#x53C2;&#x6570;&#x90FD;&#x662F;&#x53EF;&#x4EE5;&#x653E;&#x5230;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x5F53;&#x4E2D;&#x7684;&#xFF0C;&#x542F;&#x52A8;&#x7684;&#x65F6;&#x5019;&#x6307;&#x5B9A;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x3002;&#x7531;&#x4E8E;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x7684;&#x53C2;&#x6570;&#x6BD4;&#x8F83;&#x591A;&#xFF0C;&#x6211;&#x4EEC;&#x8FD9;&#x91CC;&#x6682;&#x65F6;&#x4E0D;&#x9700;&#x8981;&#x7406;&#x89E3;&#x90A3;&#x4E48;&#x591A;&#xFF0C;&#x5148;&#x4E0D;&#x4F7F;&#x7528;&#x3002;</p>
-<pre><code>mongod.exe --config /etc/mongod.conf
-</code></pre><h2 id="%E8%BF%90%E8%A1%8Cmongodb">&#x8FD0;&#x884C;MongoDB</h2>
-<p>&#x542F;&#x52A8;MongoDB&#xFF0C;&#x4F7F;&#x7528;<code>mongod.exe</code>&#x547D;&#x4EE4;&#xFF0C;&#x4F8B;&#x5982;&#xFF1A;</p>
-<pre><code>C:\mongodb\bin\mongod.exe --dbpath C:\data\mongo
-</code></pre><p>&#x4EE5;&#x4E0A;&#x547D;&#x4EE4;&#x7528;&#x6765;&#x542F;&#x52A8;MongoDB&#x670D;&#x52A1;&#x4E3B;&#x8FDB;&#x7A0B;&#xFF0C;&#x5E76;&#x6307;&#x5B9A;&#x6570;&#x636E;&#x76EE;&#x5F55;&#x3002;&#x6267;&#x884C;&#x5B8C;&#x6B64;&#x547D;&#x4EE4;&#x540E;&#xFF0C;&#x5728;&#x63A7;&#x5236;&#x53F0;&#x4F1A;&#x6253;&#x5370;&#x4E00;&#x7CFB;&#x5217;&#x7684;&#x542F;&#x52A8;&#x4FE1;&#x606F;&#xFF0C;&#x5305;&#x62EC;MongoDB&#x7684;&#x7248;&#x672C;&#xFF0C;&#x662F;&#x5426;&#x6839;&#x636E;journal&#x65E5;&#x5FD7;&#x6267;&#x884C;recovery&#xFF0C;&#x8FDB;&#x7A0B;&#x7684;&#x4FE1;&#x53F7;&#xFF0C;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x7684;&#x4FE1;&#x606F;&#x7B49;&#x4E56;&#x3002;&#x6700;&#x540E;&#x4E00;&#x884C;&#x4F1A;&#x63D0;&#x793A;&#x4F60;&#x542F;&#x52A8;&#x6210;&#x529F;&#xFF0C;&#x76D1;&#x542C;&#x4E86;27017&#x7AEF;&#x53E3;&#xFF0C;&#x7B49;&#x5F85;&#x8FDE;&#x63A5;&#x6D88;&#x606F;&#x3002;</p>
-<h2 id="%E8%BF%9E%E6%8E%A5mongodb">&#x8FDE;&#x63A5;MongoDB</h2>
-<p>&#x4F7F;&#x7528;<code>mongo.exe</code>&#x547D;&#x4EE4;&#x8FDE;&#x63A5;&#x3002;&#x6253;&#x5F00;&#x53E6;&#x4E00;&#x4E2A;&#x547D;&#x4EE4;&#x884C;&#x7A97;&#x53E3;&#xFF0C;&#x8F93;&#x5165;&#x5982;&#x4E0B;&#x547D;&#x4EE4;&#xFF1A;</p>
-<pre><code>C:\mongodb\bin\mongo.exe
-</code></pre><p>&#x6267;&#x884C;&#x4E9B;&#x547D;&#x4EE4;&#x540E;&#xFF0C;&#x5C31;&#x80FD;&#x8FDE;&#x63A5;&#x4E0A;MongoDB&#x670D;&#x52A1;&#x3002;&#x7531;&#x4E8E;&#x6CA1;&#x6709;&#x914D;&#x7F6E;&#x4EFB;&#x4F55;&#x5176;&#x4ED6;&#x7AEF;&#x53E3;&#xFF0C;&#x4E5F;&#x6CA1;&#x6709;&#x914D;&#x7F6E;&#x6743;&#x9650;&#x8BA4;&#x8BC1;&#xFF0C;&#x6240;&#x4EE5;&#x4E00;&#x5207;&#x90FD;&#x662F;&#x9ED8;&#x8BA4;&#x7684;&#x672C;&#x5730;&#x8FDE;&#x63A5;&#xFF0C;&#x76F8;&#x5F53;&#x7B80;&#x5355;&#x3002;&#x8FDE;&#x63A5;&#x6210;&#x529F;&#x540E;&#xFF0C;&#x6267;&#x884C;help&#x547D;&#x4EE4;&#xFF0C;&#x770B;&#x770B;&#x6709;&#x4EC0;&#x4E48;&#x5185;&#x5BB9;&#x5427;&#x3002;</p>
+                        <h1 id="mongodb%E5%86%99%E5%85%B3%E6%B3%A8">MongoDB&#x5199;&#x5173;&#x6CE8;</h1>
+<p>MongoDB&#x63D0;&#x4F9B;&#x4E86;&#x5199;&#x5173;&#x6CE8;&#xFF0C;&#x7528;&#x6765;&#x63CF;&#x8FF0;&#x6570;&#x636E;&#x5E93;&#x5199;&#x64CD;&#x4F5C;&#x8FD4;&#x56DE;&#x4FE1;&#x606F;&#x7684;&#x4FDD;&#x8BC1;&#x7EA7;&#x522B;&#x3002;&#x5199;&#x5173;&#x6CE8;&#x7684;&#x5F3A;&#x5EA6;&#x51B3;&#x5B9A;&#x4E86;&#x4FDD;&#x8BC1;&#x7684;&#x7EA7;&#x522B;&#x3002;&#x5F53;&#x63D2;&#x5165;&#xFF0C;&#x66F4;&#x65B0;&#xFF0C;&#x5220;&#x9664;&#x662F;&#x5F31;&#x5199;&#x5173;&#x6CE8;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x64CD;&#x4F5C;&#x8FD4;&#x56DE;&#x7684;&#x901F;&#x5EA6;&#x5219;&#x5FEB;&#x3002;&#x5982;&#x679C;&#x5199;&#x5173;&#x6CE8;&#x662F;&#x5F31;&#x7684;&#xFF0C;&#x5728;&#x4E00;&#x4E9B;&#x5199;&#x5931;&#x8D25;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5199;&#x64CD;&#x4F5C;&#x53EF;&#x80FD;&#x4E0D;&#x4F1A;&#x6301;&#x4E45;&#x3002;&#x5199;&#x5173;&#x6CE8;&#x7EA7;&#x522B;&#x8D8A;&#x5F3A;&#xFF0C;&#x5BA2;&#x6237;&#x7AEF;&#x5219;&#x9700;&#x8981;&#x8D8A;&#x957F;&#x7684;&#x65F6;&#x95F4;&#x6765;&#x7B49;&#x5F85;MongoDB&#x786E;&#x8BA4;&#x5199;&#x64CD;&#x4F5C;&#x3002;</p>
+<p>MongoDB&#x63D0;&#x4F9B;&#x4E86;&#x4E0D;&#x540C;&#x7684;&#x5199;&#x5173;&#x6CE8;&#x7684;&#x7EA7;&#x522B;&#x6765;&#x66F4;&#x597D;&#x7684;&#x6EE1;&#x8DB3;&#x4E0D;&#x540C;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x7684;&#x9700;&#x6C42;&#x3002;&#x5728;&#x4E00;&#x4E2A;&#x5B9E;&#x9645;&#x7684;MongoDB&#x90E8;&#x7F72;&#x4E2D;&#xFF0C;&#x5BA2;&#x6237;&#x7AEF;&#x9700;&#x8981;&#x8C03;&#x6574;&#x5199;&#x5173;&#x6CE8;&#x7684;&#x7EA7;&#x522B;&#x6765;&#x786E;&#x4FDD;&#x91CD;&#x8981;&#x5199;&#x64CD;&#x4F5C;&#x7684;&#x6301;&#x4E45;&#x6027;&#x3002;&#x5BF9;&#x4E8E;&#x5176;&#x4ED6;&#x4E00;&#x4E9B;&#x4E0D;&#x90A3;&#x4E48;&#x91CD;&#x8981;&#x7684;&#x5199;&#x64CD;&#x4F5C;&#xFF0C;&#x5BA2;&#x6237;&#x7AEF;&#x9700;&#x8981;&#x8C03;&#x6574;&#x5230;&#x5F31;&#x5199;&#x5173;&#x6CE8;&#x6765;&#x4FDD;&#x8BC1;&#x66F4;&#x597D;&#x7684;&#x6027;&#x80FD;&#x3002;</p>
+<h1 id="%E5%86%99%E5%85%B3%E6%B3%A8%E7%BA%A7%E5%88%AB">&#x5199;&#x5173;&#x6CE8;&#x7EA7;&#x522B;</h1>
+<p>MongoDB&#x5B9A;&#x4E49;&#x4E86;&#x5982;&#x4E0B;&#x56DB;&#x79CD;&#x5199;&#x5173;&#x6CE8;&#x7EA7;&#x522B;&#xFF0C;&#x4F9D;&#x6B21;&#x4ECE;&#x5F31;&#x5230;&#x5F3A;&#xFF1A;</p>
+<ul>
+<li>Unacknowledged</li>
+<li>Acknowledged</li>
+<li>Journaled</li>
+<li>Replica Acknowledged</li>
+</ul>
+<p>&#x5B9E;&#x9645;&#x5E94;&#x7528;&#x4E2D;&#x4E00;&#x822C;&#x662F;&#x5728;Client Driver&#x91CC;&#x8BBE;&#x7F6E;&#x5199;&#x5173;&#x6CE8;&#x7684;&#xFF0C;&#x5B83;&#x548C;db.getLastError()&#x65B9;&#x6CD5;&#x5173;&#x7CFB;&#x5F88;&#x5927;&#x3002;&#x4E00;&#x822C;&#x6765;&#x8BF4;&#xFF0C;Mongo Driver&#x5728;&#x6267;&#x884C;&#x4E00;&#x4E2A;&#x5199;&#x64CD;&#x4F5C;&#xFF08;insert&#xFF0C;update&#xFF0C;delete&#xFF09;&#x4E4B;&#x540E;&#xFF0C;&#x90FD;&#x4F1A;&#x7ACB;&#x523B;&#x8C03;&#x7528;db.getLastError()&#x547D;&#x4EE4;&#x3002;&#x8FD9;&#x6837;&#x624D;&#x6709;&#x673A;&#x4F1A;&#x77E5;&#x9053;&#x521A;&#x624D;&#x7684;&#x5199;&#x64CD;&#x4F5C;&#x662F;&#x5426;&#x6210;&#x529F;&#xFF0C;&#x5982;&#x679C;&#x6355;&#x83B7;&#x5230;&#x9519;&#x8BEF;&#xFF0C;&#x5C31;&#x53EF;&#x4EE5;&#x8FDB;&#x884C;&#x76F8;&#x5E94;&#x7684;&#x5904;&#x7406;&#x3002;MongoDB Server&#x5E76;&#x4E0D;&#x5173;&#x5FC3;&#x9519;&#x8BEF;&#xFF0C;&#x53EA;&#x8D1F;&#x8D23;&#x901A;&#x77E5;Client&#x53D1;&#x751F;&#x4E86;&#x9519;&#x8BEF;&#x3002;</p>
+<p>&#x8FD9;&#x91CC;&#x6709;2&#x70B9;&#x9700;&#x8981;&#x6CE8;&#x610F;&#xFF1A;</p>
+<ol>
+<li>db.getLastError()&#x65B9;&#x6CD5;&#x662F;&#x7531;Driver&#x8D1F;&#x8D23;&#x8C03;&#x7528;&#x7684;&#xFF0C;&#x6240;&#x4EE5;&#x4E1A;&#x52A1;&#x4EE3;&#x7801;&#x4E0D;&#x9700;&#x8981;&#x53BB;&#x663E;&#x5F0F;&#x8C03;&#x7528;&#x3002;</li>
+<li>Driver&#x8C03;&#x7528;db.getLastError()&#x51FD;&#x6570;&#xFF0C;&#x4F46;&#x662F;&#x5E76;&#x4E0D;&#x4E00;&#x5B9A;&#x80FD;&#x6355;&#x83B7;&#x5230;&#x9519;&#x8BEF;&#xFF0C;&#x8FD9;&#x4E3B;&#x8981;&#x53D6;&#x51B3;&#x4E8E;Write Concern&#x7684;&#x8BBE;&#x7F6E;&#x7EA7;&#x522B;&#x3002;</li>
+</ol>
+<h2 id="unacknowledged">Unacknowledged</h2>
+<p><img src="../../img/mongo-1.png" alt="Unacknowledged"></p>
+<p>&#x5728;&#x8FD9;&#x79CD;&#x5199;&#x5173;&#x6CE8;&#x7EA7;&#x522B;&#x65F6;&#xFF0C;MongoDB&#x7ACB;&#x523B;&#x8FD4;&#x56DE;&#x7ED3;&#x679C;&#xFF0C;&#x7136;&#x540E;&#x6267;&#x884C;&#x5199;&#x5165;&#x64CD;&#x4F5C;&#xFF0C;&#x7C7B;&#x4F3C;&#x4E8E;&#x5FFD;&#x7565;&#x5199;&#x9519;&#x8BEF;&#x3002;&#x7136;&#x800C;&#xFF0C;&#x9A71;&#x52A8;&#x7A0B;&#x5E8F;&#x4F1A;&#x53BB;&#x63A5;&#x6536;&#x548C;&#x5904;&#x7406;&#x7F51;&#x7EDC;&#x9519;&#x8BEF;&#x3002;&#x6240;&#x4EE5;getLastError()&#x7684;&#x8FD4;&#x56DE;&#x503C;&#x4E00;&#x5B9A;&#x662F;null&#xFF0C;&#x5373;&#x4F7F;&#x4E4B;&#x540E;&#x7684;Apply&#x53D1;&#x751F;&#x4E86;&#x9519;&#x8BEF;&#xFF0C;Driver&#x4E5F;&#x4E0D;&#x77E5;&#x9053;&#x3002;&#x4F7F;&#x7528;&#x8FD9;&#x4E2A;&#x7EA7;&#x522B;&#x7684;Write Concern&#xFF0C;Driver&#x7684;&#x5199;&#x5165;&#x8C03;&#x7528;&#x7ACB;&#x523B;&#x8FD4;&#x56DE;&#xFF0C;&#x6240;&#x4EE5;&#x6027;&#x80FD;&#x662F;&#x6700;&#x597D;&#x7684;&#xFF0C;&#x4F46;&#x662F;&#x53EF;&#x9760;&#x6027;&#x662F;&#x6700;&#x5DEE;&#x7684;&#xFF0C;&#x56E0;&#x6B64;&#x5E76;&#x4E0D;&#x63A8;&#x8350;&#x4F7F;&#x7528;&#x3002;&#x5728;&#x5404;&#x5E73;&#x53F0;&#x6700;&#x65B0;&#x7248;&#x672C;&#x7684;Driver&#x4E2D;&#xFF0C;&#x4E5F;&#x4E0D;&#x518D;&#x4EE5;0&#x4F5C;&#x4E3A;&#x9ED8;&#x8BA4;&#x7EA7;&#x522B;&#x3002;&#x5176;&#x5B9E;&#x8FD8;&#x6709;&#x4E00;&#x4E2A;w:-1&#x7684;&#x7EA7;&#x522B;&#xFF0C;&#x662F;error ignored&#xFF0C;&#x57FA;&#x672C;&#x4E0A;&#x548C;w:0&#x5DEE;&#x4E0D;&#x591A;&#x3002;&#x533A;&#x522B;&#x5728;&#x4E8E;&#xFF0C;w:-1&#x4E0D;&#x4F1A;&#x6355;&#x83B7;&#x4EFB;&#x4F55;&#x9519;&#x8BEF;&#xFF0C;&#x800C;w:0&#x53EF;&#x4EE5;&#x6355;&#x83B7;network error&#x3002;</p>
+<h2 id="acknowledged">Acknowledged</h2>
+<p><img src="../../img/mongo-2.png" alt="Acknowledged"></p>
+<p>&#x5728;&#x8FD9;&#x79CD;&#x5199;&#x5173;&#x6CE8;&#x7EA7;&#x522B;&#x65F6;&#xFF0C;mongod&#x786E;&#x8BA4;&#x5199;&#x64CD;&#x4F5C;&#xFF0C;&#x5E76;&#x4E14;&#x5728;&#x5185;&#x5B58;&#x89C6;&#x56FE;&#x4E0A;&#x5B8C;&#x6210;&#x6570;&#x636E;&#x6539;&#x53D8;&#x3002;&#x5B83;&#x5141;&#x8BB8;&#x5BA2;&#x6237;&#x7AEF;&#x6355;&#x83B7;&#x7F51;&#x7EDC;&#xFF0C;&#x91CD;&#x590D;&#x952E;&#x7B49;&#x5176;&#x5B83;&#x9519;&#x8BEF;&#x3002;&#x548C;Unacknowledged&#x7684;&#x533A;&#x522B;&#x662F;&#xFF0C;&#x73B0;&#x5728;MongoDB&#x53EA;&#x6709;&#x5728;Apply&#xFF08;&#x5B9E;&#x9645;&#x5199;&#x5165;&#x64CD;&#x4F5C;&#xFF09;&#x5B8C;&#x6210;&#x4E4B;&#x540E;&#xFF0C;&#x624D;&#x4F1A;&#x8FD4;&#x56DE;getLastError()&#x7684;&#x54CD;&#x5E94;&#x3002;&#x6240;&#x4EE5;&#x5982;&#x679C;&#x5199;&#x5165;&#x65F6;&#x53D1;&#x751F;&#x9519;&#x8BEF;&#xFF0C;Driver&#x5C31;&#x80FD;&#x6355;&#x83B7;&#x5230;&#xFF0C;&#x5E76;&#x8FDB;&#x884C;&#x5904;&#x7406;&#x3002;&#x8FD9;&#x4E2A;&#x7EA7;&#x522B;&#x7684;Write Concern&#x5177;&#x5907;&#x57FA;&#x672C;&#x53EF;&#x9760;&#x6027;&#x3002;&#x4F46;&#x662F;Acknowledged&#x7EA7;&#x522B;&#x7684;&#x5199;&#x5173;&#x6CE8;&#x5E76;&#x4E0D;&#x786E;&#x4FDD;&#x6570;&#x636E;&#x5DF2;&#x7ECF;&#x6301;&#x4E45;&#x5316;&#x5230;&#x7CFB;&#x7EDF;&#x786C;&#x76D8;&#xFF0C;&#x5B83;&#x662F;MongoDB&#x9ED8;&#x8BA4;&#x7684;&#x5199;&#x5173;&#x6CE8;&#x7EA7;&#x522B;&#x3002;</p>
+<h2 id="journaled">Journaled</h2>
+<p><img src="../../img/mongo-3.png" alt="Journaled"></p>
+<p>Acknowledged&#x7EA7;&#x522B;&#x7684;Write Concern&#x4E5F;&#x4E0D;&#x662F;&#x7EDD;&#x5BF9;&#x53EF;&#x9760;&#x7684;&#x3002;&#x56E0;&#x4E3A;MongoDB&#x7684;Apply&#x64CD;&#x4F5C;&#x662F;&#x5C06;&#x6570;&#x636E;&#x5199;&#x5165;&#x5185;&#x5B58;&#xFF0C;&#x5B9A;&#x671F;&#x901A;&#x8FC7;fsync&#x5199;&#x5165;&#x786C;&#x76D8;&#x3002;&#x5982;&#x679C;&#x5728;Apply&#x4E4B;&#x540E;&#xFF0C;fsync&#x4E4B;&#x524D;mongod&#x6302;&#x4E86;&#xFF0C;&#x6216;&#x8005;&#x751A;&#x81F3;Server&#x6302;&#x4E86;&#xFF0C;&#x90A3;&#x6301;&#x4E45;&#x5316;&#x5B9E;&#x9645;&#x4E0A;&#x662F;&#x5931;&#x8D25;&#x7684;&#x3002;&#x4F46;&#x662F;&#x5728;w:1&#x7684;&#x7EA7;&#x522B;&#x4E0B;&#xFF0C;Driver&#x65E0;&#x6CD5;&#x6355;&#x83B7;&#x5230;&#x8FD9;&#x79CD;&#x60C5;&#x51B5;&#x4E0B;&#x7684;error&#xFF0C;&#x56E0;&#x4E3A;response&#x5728;Apply&#x4E4B;&#x540E;&#x5C31;&#x5DF2;&#x7ECF;&#x8FD4;&#x56DE;&#x5230;Driver&#x3002;MongoDB&#x89E3;&#x51B3;&#x8FD9;&#x4E2A;&#x95EE;&#x9898;&#x7684;&#x529E;&#x6CD5;&#x662F;&#x4F7F;&#x7528;Journal&#x673A;&#x5236;&#xFF0C;&#x5199;&#x64CD;&#x4F5C;&#x5728;&#x5199;&#x5165;&#x5185;&#x5B58;&#x4E4B;&#x540E;&#xFF0C;&#x8FD8;&#x4F1A;&#x5199;&#x5230;journal&#x6587;&#x4EF6;&#x4E2D;&#xFF0C;&#x8FD9;&#x6837;&#x5982;&#x679C;mongod&#x975E;&#x6B63;&#x5E38;down&#x6389;&#xFF0C;&#x91CD;&#x542F;&#x4EE5;&#x540E;&#x5C31;&#x53EF;&#x4EE5;&#x6839;&#x636E;journal&#x6587;&#x4EF6;&#x4E2D;&#x7684;&#x5185;&#x5BB9;&#xFF0C;&#x6765;&#x8FD8;&#x539F;&#x5199;&#x64CD;&#x4F5C;&#x3002;</p>
+<p>&#x5728;Driver&#x5C42;&#x9762;&#xFF0C;&#x5219;&#x662F;&#x9664;&#x4E86;&#x8BBE;&#x7F6E;w:1&#x4E4B;&#x5916;&#xFF0C;&#x518D;&#x8BBE;&#x7F6E;journal:true&#x6216;j:true&#xFF0C;&#x6765;&#x6355;&#x83B7;&#x8FD9;&#x4E2A;&#x60C5;&#x51B5;&#x4E0B;&#x7684;error&#x3002;&#x5728;&#x8FD9;&#x79CD;&#x5173;&#x6CE8;&#x7EA7;&#x522B;&#x4E0B;&#xFF0C;MongoDB&#x80FD;&#x786E;&#x4FDD;&#x5199;&#x64CD;&#x4F5C;&#x5C06;&#x6570;&#x636E;&#x63D0;&#x4EA4;&#x5230;&#x4E86;<code>journal</code>&#x65E5;&#x5FD7;&#x3002;&#x8FD9;&#x79CD;&#x5199;&#x5173;&#x6CE8;&#x80FD;&#x4FDD;&#x8BC1;MongoDB&#x5D29;&#x6E83;&#x540E;&#x6062;&#x590D;&#x6570;&#x636E;&#x3002;&#x5F53;&#x7136;&#xFF0C;&#x524D;&#x63D0;&#x662F;&#x4F60;&#x5FC5;&#x987B;&#x5F00;&#x542F;<code>journal</code>&#x65E5;&#x5FD7;&#x529F;&#x80FD;&#x3002;&#x4F46;&#x8FD9;&#x6837;&#x5199;&#x64CD;&#x4F5C;&#x5FC5;&#x987B;&#x7B49;&#x5230;&#x4E0B;&#x4E00;&#x6B21;&#x65E5;&#x5FD7;&#x63D0;&#x4EA4;&#x624D;&#x8FD4;&#x56DE;&#x7ED3;&#x679C;&#xFF0C;&#x4E3A;&#x4E86;&#x51CF;&#x5C11;&#x64CD;&#x4F5C;&#x5EF6;&#x8FDF;&#xFF0C;&#x8981;&#x63D0;&#x9AD8;&#x65E5;&#x5FD7;&#x63D0;&#x4EA4;&#x7684;&#x9891;&#x7387;&#x914D;&#x7F6E;&#x3002;</p>
+<h2 id="replica-acknowledged">Replica Acknowledged</h2>
+<p><img src="../../img/mongo-4.png" alt="Replica Acknowledged"></p>
+<p>&#x8FD9;&#x4E2A;&#x5199;&#x5173;&#x6CE8;&#x7EA7;&#x522B;&#x4E0B;&#xFF0C;&#x53EA;&#x6709;Secondary&#x4ECE;Primary&#x5B8C;&#x6210;&#x4E86;&#x590D;&#x5236;&#x4E4B;&#x540E;&#xFF0C;getLastError()&#x7684;&#x7ED3;&#x679C;&#x624D;&#x4F1A;&#x8FD4;&#x56DE;&#x3002;&#x4E5F;&#x53EF;&#x4EE5;&#x540C;&#x65F6;&#x8BBE;&#x7F6E;journal:true&#x6216;j:true&#xFF0C;&#x5219;&#x8FD8;&#x8981;&#x7B49;journal&#x5199;&#x5165;&#x4E5F;&#x6210;&#x529F;&#x540E;&#x624D;&#x4F1A;&#x8FD4;&#x56DE;&#x3002;&#x4F46;&#x662F;&#x6CE8;&#x610F;&#xFF0C;&#x53EA;&#x8981;Primary&#x7684;journal&#x5199;&#x5165;&#x5C31;&#x4F1A;&#x8FD4;&#x56DE;&#xFF0C;&#x800C;&#x4E0D;&#x9700;&#x8981;&#x7B49;&#x5F85;Secondary&#x7684;journal&#x4E5F;&#x5199;&#x5165;&#x3002;&#x7C7B;&#x4F3C;&#x7684;&#x4E5F;&#x53EF;&#x4EE5;&#x8BBE;&#x7F6E;w:3&#xFF0C;&#x8868;&#x793A;&#x81F3;&#x5C11;&#x8981;&#x6709;3&#x4E2A;&#x8282;&#x70B9;&#x6709;&#x6570;&#x636E;&#xFF1B;&#x6216;&#x8005;w:majority&#xFF0C;&#x8868;&#x793A;&gt;1/2&#x7684;&#x8282;&#x70B9;&#x6709;&#x6570;&#x636E;&#x3002;&#x4E00;&#x822C;&#x5C0F;&#x89C4;&#x6A21;&#x7684;&#x96C6;&#x7FA4;&#x5C31;&#x662F;3&#x8282;&#x70B9;&#x90E8;&#x7F72;&#xFF0C;&#x6240;&#x4EE5;&#x914D;&#x7F6E;w:2&#x5C31;&#x53EF;&#x4EE5;&#x4E86;&#x3002;</p>
+<h1 id="%E5%B0%8F%E7%BB%93">&#x5C0F;&#x7ED3;</h1>
+<p>&#x8BBE;&#x7F6E;Write Concern&#x7EA7;&#x522B;&#xFF0C;&#x5176;&#x5B9E;&#x5C31;&#x662F;&#x5728;&#x5199;&#x64CD;&#x4F5C;&#x7684;&#x6027;&#x80FD;&#x548C;&#x53EF;&#x9760;&#x6027;&#x4E4B;&#x95F4;&#x505A;&#x6743;&#x8861;&#x3002;&#x5199;&#x64CD;&#x4F5C;&#x7684;&#x7B49;&#x5F85;&#x65F6;&#x95F4;&#x8D8A;&#x957F;&#xFF0C;&#x53EF;&#x9760;&#x6027;&#x5C31;&#x8D8A;&#x597D;&#x3002;&#x5BF9;&#x4E8E;&#x975E;&#x5173;&#x952E;&#x6570;&#x636E;&#xFF0C;&#x5EFA;&#x8BAE;&#x4F7F;&#x7528;&#x9ED8;&#x8BA4;&#x7684;w:1&#x5C31;&#x53EF;&#x4EE5;&#x4E86;&#xFF0C;&#x5BF9;&#x4E8E;&#x5173;&#x952E;&#x6570;&#x636E;&#xFF0C;&#x5219;&#x4F7F;&#x7528;w:1 &amp; j:true&#x6BD4;&#x8F83;&#x597D;&#x3002;&#x8FD9;&#x91CC;&#x8981;&#x6CE8;&#x610F;&#xFF0C;journal&#x65E0;&#x8BBA;&#x5982;&#x4F55;&#x90FD;&#x662F;&#x5EFA;&#x8BAE;&#x6253;&#x5F00;&#x7684;&#xFF0C;&#x8BBE;&#x7F6E;j:true&#xFF0C;&#x53EA;&#x662F;&#x8BF4;Driver&#x8C03;&#x7528;getLastError()&#x4E4B;&#x540E;&#x662F;&#x5426;&#x8981;&#x7B49;&#x5F85;journal&#x5199;&#x5165;&#x5B8C;&#x6210;&#x518D;&#x8FD4;&#x56DE;&#x3002;&#x5E76;&#x4E0D;&#x662F;&#x8BF4;&#x4E0D;&#x8BBE;&#x7F6E;j:true&#x5C31;&#x5173;&#x95ED;&#x4E86;server&#x7AEF;&#x7684;journal&#x3002;</p>
+<h1 id="%E5%85%B3%E4%BA%8Egetlasterror">&#x5173;&#x4E8E;getLastError()</h1>
+<p>&#x4E00;&#x822C;&#x6765;&#x8BF4;&#xFF0C;&#x5F00;&#x53D1;&#x8005;&#x5199;&#x7684;&#x4EE3;&#x7801;&#xFF0C;&#x4E0D;&#x9700;&#x8981;&#x81EA;&#x884C;&#x8C03;&#x7528;db.getLastError()&#x51FD;&#x6570;&#xFF0C;Driver&#x5728;&#x6BCF;&#x4E00;&#x4E2A;&#x5199;&#x64CD;&#x4F5C;&#x4E4B;&#x540E;&#xFF0C;&#x90FD;&#x4F1A;&#x7ACB;&#x523B;&#x81EA;&#x52A8;&#x8C03;&#x7528;&#x8BE5;&#x65B9;&#x6CD5;&#x3002;</p>
+<pre><code>db.collection(&quot;test&quot;, {}, function(err, collection) {
+    collection.insert({
+        name: &quot;world peace&quot;
+    },
+    function(err, result) {
+        assert.equal(null, err);
+        console.log(result);
+        db.close();
+    })
+
+});
+</code></pre><p>&#x8FD9;&#x6BB5;&#x4EE3;&#x7801;&#xFF0C;driver&#x5728;insert()&#x4E4B;&#x540E;&#xFF0C;&#x9690;&#x5F0F;&#x8C03;&#x7528;db.getLastError()&#xFF0C;&#x5982;&#x679C;&#x6355;&#x83B7;&#x5230;&#x4EFB;&#x4F55;&#x9519;&#x8BEF;&#xFF0C;&#x5C31;&#x4F1A;&#x8D4B;&#x7ED9;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#x4E2D;&#x7684;err&#x53C2;&#x6570;&#x3002;&#x533A;&#x522B;&#x5C31;&#x5728;&#x4E8E;&#x662F;&#x5426;&#x80FD;&#x591F;&#x6355;&#x83B7;&#x5230;&#x9519;&#x8BEF;&#x3002;&#x5728;w:-1&#x65F6;&#xFF0C;err&#x6C38;&#x8FDC;&#x662F;null&#xFF08;&#x6CA1;&#x6709;&#x673A;&#x4F1A;&#x6355;&#x83B7;&#x5230;error&#xFF09;&#xFF1B;&#x5728;w:0&#x65F6;&#xFF0C;&#x4E00;&#x822C;&#x4E5F;&#x6355;&#x83B7;&#x4E0D;&#x5230;&#xFF0C;&#x9664;&#x4E86;network error&#xFF1B;&#x5728;w:1&#x65F6;&#xFF0C;&#x5982;&#x679C;mongod apply&#x53D1;&#x751F;&#x9519;&#x8BEF;&#xFF0C;&#x5C31;&#x4F1A;&#x4F20;&#x9012;&#x7ED9;err&#x53C2;&#x6570;&#x4E86;&#x3002;&#x4EE3;&#x7801;&#x90FD;&#x662F;&#x4E00;&#x6837;&#x7684;&#xFF0C;&#x533A;&#x522B;&#x5C31;&#x5728;&#x4E8E;&#x8BBE;&#x7F6E;&#x7684;Write Concern&#x7EA7;&#x522B;&#x3002;&#x8BE6;&#x7EC6;&#x7684;&#x8BF4;&#x660E;&#x8BF7;&#x53C2;&#x8003;<a href="http://docs.mongodb.org/manual/reference/command/getLastError/" title="getLastError" target="_blank">http://docs.mongodb.org/manual/reference/command/getLastError/</a>&#x3002;</p>
 
                     
                     </section>
@@ -602,10 +626,10 @@
         </div>
 
         
-        <a href="../../blog/mongodb/introduction.html" class="navigation navigation-prev " aria-label="Previous page: MongoDB-简介"><i class="fa fa-angle-left"></i></a>
+        <a href="../../blog/mongodb/transactions.html" class="navigation navigation-prev " aria-label="Previous page: MongoDB-原子性和事务"><i class="fa fa-angle-left"></i></a>
         
         
-        <a href="../../blog/mongodb/import.html" class="navigation navigation-next " aria-label="Next page: MongoDB-导入数据"><i class="fa fa-angle-right"></i></a>
+        <a href="../../blog/clang/20150610-enum.html" class="navigation navigation-next " aria-label="Next page: C语言枚举类型"><i class="fa fa-angle-right"></i></a>
         
     </div>
 </div>

@@ -15,6 +15,7 @@
 	* [MongoDB-数据聚合](./blog/mongodb/aggregation.md)
 	* [MongoDB-Journaling日志](./blog/mongodb/journal.md)
 	* [MongoDB-原子性和事务](./blog/mongodb/transactions.md)
+	* [MongoDB-写关注](./blog/mongodb/write-concern.md)
 
 * [C语言相关]
 	* [C语言枚举类型](./blog/clang/20150610-enum.md)
