@@ -35,3 +35,8 @@ innodb_file_per_table=1
 innodb_file_format=barracuda
 innodb_strict_mode=1
 ```
+
+
+innodb_strict_mode=1用来开启innodb严格模式，在严格模式下innodb在一些条件下会直接报错，而不是发出警告或者保守处理某些语法。
+innodb_file_format指定文件格式，InnoDB当前支持两种文件各式，Antelope和Barracuda。Antelope就老的文件格式，它是MySQL5.5默认的格式，以最大限度兼容之前的版本，支持COMPACT和REDUNDANT行格式。Barracuda是新的文件格式，额外支持DYNAMIC和COMPRESSED行格式，同时TRUNCATE TABLE的速度更快。
+innodb_file_per_table=1表示每个表使用独立的表空间，这样做有很多好处，以后会讲到。
