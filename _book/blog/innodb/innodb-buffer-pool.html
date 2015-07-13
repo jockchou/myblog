@@ -5,7 +5,7 @@
         
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>MongoDB-数据聚合 | jockchou</title>
+        <title>InnoDB-内存管理 | jockchou</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="generator" content="GitBook 2.1.0">
@@ -25,10 +25,10 @@
         
     
     
-    <link rel="next" href="../../blog/mongodb/journal.html" />
+    <link rel="next" href="../../blog/innodb/innodb-doublewrite-buffer.html" />
     
     
-    <link rel="prev" href="../../blog/mongodb/remove.html" />
+    <link rel="prev" href="../../blog/innodb/innodb-architecture.html" />
     
 
         
@@ -36,7 +36,7 @@
     <body>
         
         
-    <div class="book" data-level="3.9" data-basepath="../.." data-revision="Mon Jul 13 2015 21:02:14 GMT+0800 (中国标准时间)">
+    <div class="book" data-level="4.4" data-basepath="../.." data-revision="Mon Jul 13 2015 21:02:14 GMT+0800 (中国标准时间)">
     
 
 <div class="book-summary">
@@ -224,7 +224,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="3.9" data-path="blog/mongodb/aggregation.html">
+        <li class="chapter " data-level="3.9" data-path="blog/mongodb/aggregation.html">
             
                 
                     <a href="../../blog/mongodb/aggregation.html">
@@ -342,7 +342,7 @@
             
         </li>
     
-        <li class="chapter " data-level="4.4" data-path="blog/innodb/innodb-buffer-pool.html">
+        <li class="chapter active" data-level="4.4" data-path="blog/innodb/innodb-buffer-pool.html">
             
                 
                     <a href="../../blog/innodb/innodb-buffer-pool.html">
@@ -673,42 +673,84 @@
                 
                     <section class="normal" id="section-">
                     
-                        <h1 id="%E4%BD%BF%E7%94%A8mongo%E5%91%BD%E4%BB%A4%E8%A1%8C%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E8%81%9A%E5%90%88">&#x4F7F;&#x7528;mongo&#x547D;&#x4EE4;&#x884C;&#x8FDB;&#x884C;&#x6570;&#x636E;&#x805A;&#x5408;</h1>
-<h2 id="%E6%A6%82%E8%BF%B0">&#x6982;&#x8FF0;</h2>
-<p>MongoDB&#x53EF;&#x4EE5;&#x6267;&#x884C;&#x6570;&#x636E;&#x805A;&#x5408;&#xFF0C;&#x6BD4;&#x5982;&#x6309;&#x6307;&#x5B9A;Key&#x5206;&#x7EC4;&#xFF0C;&#x8BA1;&#x7B97;&#x603B;&#x6570;&#xFF0C;&#x6C42;&#x4E0D;&#x540C;&#x5206;&#x7EC4;&#x7684;&#x503C;&#x3002;</p>
-<p>&#x4F7F;&#x7528;<code>aggregate()</code>&#x65B9;&#x6CD5;&#x6267;&#x884C;&#x4E00;&#x4E2A;&#x57FA;&#x4E8E;&#x6B65;&#x9AA4;&#x7684;&#x805A;&#x5408;&#x64CD;&#x4F5C;&#xFF08;&#x7C7B;&#x4F3C;&#x4E8E;Linux&#x7BA1;&#x9053;&#xFF09;&#x3002;<code>aggregate()</code>&#x63A5;&#x6536;&#x4E00;&#x4E2A;&#x6B65;&#x9AA4;&#x6570;&#x7EC4;&#x6210;&#x4E3A;&#x5B83;&#x7684;&#x53C2;&#x6570;&#xFF0C;&#x6BCF;&#x4E2A;&#x6B65;&#x9AA4;&#x63CF;&#x8FF0;&#x5BF9;&#x6570;&#x636E;&#x5904;&#x7406;&#x7684;&#x64CD;&#x4F5C;&#x3002;</p>
-<pre><code>db.collection.aggregate( [ &lt;stage1&gt;, &lt;stage2&gt;, ... ] )
-</code></pre><h2 id="%E6%8C%89%E5%AD%97%E6%AE%B5%E5%88%86%E7%BB%84%E5%B9%B6%E8%AE%A1%E7%AE%97%E6%80%BB%E6%95%B0">&#x6309;&#x5B57;&#x6BB5;&#x5206;&#x7EC4;&#x5E76;&#x8BA1;&#x7B97;&#x603B;&#x6570;</h2>
-<p>&#x4F7F;&#x7528;$group&#x7BA1;&#x7406;&#x64CD;&#x4F5C;&#x7B26;&#x8FDB;&#x884C;&#x5206;&#x7EC4;&#x64CD;&#x4F5C;&#x3002;&#x5728;$group&#x64CD;&#x4F5C;&#x7B26;&#x4E2D;&#xFF0C;&#x4F7F;&#x7528;<code>_id</code>&#x6765;&#x8BF4;&#x660E;&#x5206;&#x7EC4;&#x7684;key&#x3002;$gropu&#x7BA1;&#x7406;&#x64CD;&#x4F5C;&#x4F7F;&#x7528;$+&#x5B57;&#x6BB5;&#x540D;&#x7684;&#x65B9;&#x5F0F;&#x6765;&#x8BBF;&#x95EE;&#x5206;&#x7EC4;Key&#x7684;&#x3002;&#x53EF;&#x4EE5;&#x5728;&#x6BCF;&#x4E2A;&#x5206;&#x7EC4;&#x7BA1;&#x7406;&#x64CD;&#x4F5C;&#x4E2D;&#x8FDB;&#x884C;&#x5206;&#x7EC4;&#x8BA1;&#x7B97;&#x3002;&#x4E0B;&#x9762;&#x7684;&#x4F8B;&#x5B50;&#x628A;restaurants&#x96C6;&#x5408;&#x6309;borough&#x5B57;&#x6BB5;&#x5206;&#x7EC4;&#xFF0C;&#x5E76;&#x4F7F;&#x7528;$sum&#x64CD;&#x4F5C;&#x7B26;&#x8BA1;&#x7B97;&#x6BCF;&#x4E2A;&#x5206;&#x7EC4;&#x7684;&#x6587;&#x6863;&#x6570;&#x3002;</p>
-<pre><code>db.restaurants.aggregate(
-   [
-     { $group: { &quot;_id&quot;: &quot;$borough&quot;, &quot;count&quot;: { $sum: 1 } } }
-   ]
-);
-</code></pre><p>&#x7ED3;&#x679C;&#x96C6;&#x5305;&#x542B;&#x4EE5;&#x4E0B;&#x6587;&#x6863;&#xFF1A;</p>
-<pre><code>{ &quot;_id&quot; : &quot;Staten Island&quot;, &quot;count&quot; : 969 }
-{ &quot;_id&quot; : &quot;Brooklyn&quot;, &quot;count&quot; : 6086 }
-{ &quot;_id&quot; : &quot;Manhattan&quot;, &quot;count&quot; : 10259 }
-{ &quot;_id&quot; : &quot;Queens&quot;, &quot;count&quot; : 5656 }
-{ &quot;_id&quot; : &quot;Bronx&quot;, &quot;count&quot; : 2338 }
-{ &quot;_id&quot; : &quot;Missing&quot;, &quot;count&quot; : 51 }
-</code></pre><p><code>_id</code>&#x5B57;&#x6BB5;&#x5305;&#x542B;&#x4E86;&#x4E0D;&#x540C;&#x7684;borough&#x503C;&#xFF0C;&#x5B83;&#x4E5F;&#x662F;&#x5206;&#x7EC4;&#x53C2;&#x7167;&#x7684;Key&#x503C;&#x3002;</p>
-<h2 id="%E8%BF%87%E6%BB%A4%E5%B9%B6%E5%88%86%E7%BB%84%E6%96%87%E6%A1%A3">&#x8FC7;&#x6EE4;&#x5E76;&#x5206;&#x7EC4;&#x6587;&#x6863;</h2>
-<p>&#x4F7F;&#x7528;<code>$match</code>&#x7BA1;&#x9053;&#x64CD;&#x4F5C;&#x7B26;&#x8FC7;&#x6EE4;&#x6587;&#x6863;&#x3002;<code>$match</code>&#x4F7F;&#x7528;&#x7684;&#x662F;MongoDB&#x67E5;&#x8BE2;&#x8BED;&#x6CD5;&#x3002;&#x4E0B;&#x9762;&#x7684;&#x7BA1;&#x9053;&#x4F7F;&#x7528;<code>$macth</code>&#x67E5;&#x8BE2;borough&#x5B57;&#x6BB5;&#x503C;&#x4E3A;&quot;Queens&quot;&#x5E76;&#x4E14;cuisine&#x5B57;&#x6BB5;&#x503C;&#x4E3A;&quot;Brazilian&quot;&#x7684;&#x6240;&#x6709;&#x6587;&#x6863;&#x3002;&#x7136;&#x540E;<code>$group</code>&#x5206;&#x7EC4;&#x7BA1;&#x7406;&#x64CD;&#x4F5C;&#x7B26;&#x628A;&#x5339;&#x914D;&#x7684;&#x6240;&#x6709;&#x6587;&#x6863;&#x6309;address.zipcode&#x5B57;&#x6BB5;&#x6BCF;&#x7EC4;&#xFF0C;&#x5E76;&#x4E14;&#x4F7F;&#x7528;<code>$sum</code>&#x8BA1;&#x7B97;&#x5668;&#x8BA1;&#x7B97;&#x603B;&#x6570;&#x3002;</p>
-<pre><code>db.restaurants.aggregate(
-   [
-     { $match: { &quot;borough&quot;: &quot;Queens&quot;, &quot;cuisine&quot;: &quot;Brazilian&quot; } },
-     { $group: { &quot;_id&quot;: &quot;$address.zipcode&quot; , &quot;count&quot;: { $sum: 1 } } }
-   ]
-);
-</code></pre><p>&#x7ED3;&#x679C;&#x96C6;&#x5305;&#x542B;&#x7684;&#x6587;&#x6863;&#x5982;&#x4E0B;&#xFF1A;</p>
-<pre><code>{ &quot;_id&quot; : &quot;11368&quot;, &quot;count&quot; : 1 }
-{ &quot;_id&quot; : &quot;11106&quot;, &quot;count&quot; : 3 }
-{ &quot;_id&quot; : &quot;11377&quot;, &quot;count&quot; : 1 }
-{ &quot;_id&quot; : &quot;11103&quot;, &quot;count&quot; : 1 }
-{ &quot;_id&quot; : &quot;11101&quot;, &quot;count&quot; : 2 }
-</code></pre><p><code>_id</code>&#x5B57;&#x6BB5;&#x5305;&#x542B;&#x4E0D;&#x540C;&#x7684;zipcode&#x7684;&#x503C;&#x3002;&#x5B83;&#x662F;&#x5206;&#x7EC4;&#x7684;Key&#x3002;</p>
-
+                        <h1 id="innodb%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86">InnoDB&#x5185;&#x5B58;&#x7BA1;&#x7406;</h1>
+<p>InnoDB&#x7F13;&#x51B2;&#x6C60;&#x662F;&#x901A;&#x8FC7;LRU&#x7B97;&#x6CD5;&#x6765;&#x7BA1;&#x7406;page&#x7684;&#x3002;&#x9891;&#x7E41;&#x4F7F;&#x7528;&#x7684;page&#x653E;&#x5728;LRU&#x5217;&#x8868;&#x7684;&#x524D;&#x7AEF;&#xFF0C;&#x6700;&#x5C11;&#x4F7F;&#x7528;&#x7684;page&#x5728;LRU&#x5217;&#x8868;&#x7684;&#x5C3E;&#x7AEF;&#xFF0C;&#x7F13;&#x51B2;&#x6C60;&#x6EE1;&#x4E86;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x4F18;&#x5148;&#x6DD8;&#x6C70;&#x5C3E;&#x7AEF;&#x7684;page&#x3002;</p>
+<h2 id="innodb%E4%B8%AD%E7%9A%84lru%E7%BB%93%E6%9E%84">InnoDB&#x4E2D;&#x7684;LRU&#x7ED3;&#x6784;</h2>
+<p>InnoDB&#x5F15;&#x64CE;&#x4E2D;page&#x7684;&#x9ED8;&#x8BA4;&#x5927;&#x5C0F;&#x4E3A;16KB&#xFF0C;InnoDB&#x5BF9;&#x4F20;&#x7EDF;&#x7684;LRU&#x7B97;&#x6CD5;&#x505A;&#x4E86;&#x4E00;&#x4E9B;&#x4F18;&#x5316;&#x3002;&#x5982;&#x4E0B;&#x56FE;&#x6240;&#x793A;&#xFF1A;</p>
+<p><img src="../../img/innodb-3.png" alt="innod-LRU"></p>
+<p>LRU&#x5217;&#x8868;&#x88AB;&#x5206;&#x6210;&#x4E24;&#x90E8;&#x5206;&#xFF0C;midpoint&#x70B9;&#x4E4B;&#x524D;&#x7684;&#x90E8;&#x5206;&#x79F0;&#x4E3A;new&#x5217;&#x8868;&#xFF0C;&#x4E4B;&#x540E;&#x7684;&#x90E8;&#x5206;&#x79F0;&#x4E3A;old&#x5217;&#x8868;&#xFF0C;new&#x5217;&#x8868;&#x4E2D;&#x7684;&#x9875;&#x90FD;&#x662F;&#x6700;&#x4E3A;&#x6D3B;&#x8DCC;&#x7684;&#x70ED;&#x70B9;&#x6570;&#x636E;&#x3002;midpoint&#x7684;&#x4F4D;&#x7F6E;&#x901A;&#x8FC7;&#x53C2;&#x6570;<code>innodb_old_blocks_pct</code>&#x6765;&#x8BBE;&#x7F6E;&#x3002;</p>
+<p>&#x53C2;&#x6570;<code>innodb_old_blocks_pct</code>&#x9ED8;&#x8BA4;&#x503C;&#x4E3A;37&#xFF0C;&#x8868;&#x793A;&#x65B0;&#x8BFB;&#x53D6;&#x7684;page&#x5C06;&#x88AB;&#x63D2;&#x5165;&#x5230;LRU&#x5217;&#x8868;&#x5DE6;&#x4FA7;&#x7684;37%&#xFF08;&#x5DEE;&#x4E0D;&#x591A;3/8&#x7684;&#x4F4D;&#x7F6E;&#xFF09;&#x3002;</p>
+<pre><code>mysql&gt; show variables like &apos;innodb_old_blocks%&apos;;
++------------------------+-------+
+| Variable_name          | Value |
++------------------------+-------+
+| innodb_old_blocks_pct  | 37    |
+| innodb_old_blocks_time | 0     |
++------------------------+-------+
+</code></pre><h2 id="%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E9%87%87%E7%94%A8%E4%BC%A0%E7%BB%9F%E7%9A%84lru%E7%AE%97%E6%B3%95%EF%BC%9F">&#x4E3A;&#x4EC0;&#x4E48;&#x4E0D;&#x91C7;&#x7528;&#x4F20;&#x7EDF;&#x7684;LRU&#x7B97;&#x6CD5;&#xFF1F;</h2>
+<p>&#x82E5;&#x76F4;&#x63A5;&#x5C06;&#x8BFB;&#x53D6;&#x5230;&#x7684;page&#x653E;&#x5230;LRU&#x7684;&#x9996;&#x90E8;&#xFF0C;&#x90A3;&#x4E48;&#x67D0;&#x4E9B;SQL&#x64CD;&#x4F5C;&#x53EF;&#x80FD;&#x4F1A;&#x4F7F;&#x7F13;&#x51B2;&#x6C60;&#x4E2D;&#x7684;page&#x88AB;&#x5237;&#x51FA;&#x3002;&#x5E38;&#x89C1;&#x7684;&#x8FD9;&#x7C7B;&#x64CD;&#x4F5C;&#x4E3A;&#x7D22;&#x5F15;&#x6216;&#x6570;&#x636E;&#x7684;&#x626B;&#x63CF;&#x64CD;&#x4F5C;&#x3002;&#x8FD9;&#x7C7B;&#x64CD;&#x4F5C;&#x8BBF;&#x95EE;&#x8868;&#x4E2D;&#x7684;&#x8BB8;&#x591A;&#x9875;&#xFF0C;&#x800C;&#x8FD9;&#x4E9B;&#x9875;&#x901A;&#x5E38;&#x53EA;&#x662F;&#x5728;&#x8FD9;&#x6B21;&#x67E5;&#x8BE2;&#x4E2D;&#x9700;&#x8981;&#xFF0C;&#x5E76;&#x4E0D;&#x662F;&#x6D3B;&#x8DC3;&#x6570;&#x636E;&#x3002;&#x5982;&#x679C;&#x653E;&#x5165;&#x5230;LRU&#x9996;&#x90E8;&#xFF0C;&#x90A3;&#x4E48;&#x975E;&#x5E38;&#x53EF;&#x80FD;&#x5C06;&#x771F;&#x6B63;&#x7684;&#x70ED;&#x70B9;&#x6570;&#x636E;&#x4ECE;LRU&#x5217;&#x8868;&#x4E2D;&#x79FB;&#x9664;&#xFF0C;&#x5728;&#x4E0B;&#x4E00;&#x6B21;&#x9700;&#x8981;&#x65F6;&#xFF0C;InnoDB&#x9700;&#x8981;&#x91CD;&#x65B0;&#x8BBF;&#x95EE;&#x78C1;&#x76D8;&#x8BFB;&#x53D6;&#xFF0C;&#x8FD9;&#x6837;&#x6027;&#x80FD;&#x4F1A;&#x4F4E;&#x4E0B;&#x3002;</p>
+<p>&#x540C;&#x65F6;&#xFF0C;InnoDB&#x8FDB;&#x4E00;&#x6B65;&#x5F15;&#x5165;&#x4E86;&#x53E6;&#x4E00;&#x4E2A;&#x53C2;&#x6570;&#x6765;&#x7BA1;&#x7406;LRU&#x5217;&#x8868;&#xFF0C;&#x8FD9;&#x4E2A;&#x53C2;&#x6570;&#x5C31;&#x662F;<code>innodb_old_blocks_time</code>&#xFF0C;&#x7528;&#x4E8E;&#x8868;&#x793A;page&#x653E;&#x5230;midpoint&#x4F4D;&#x7F6E;&#x540E;&#x9700;&#x8981;&#x7B49;&#x5F85;&#x591A;&#x4E45;&#x624D;&#x4F1A;&#x88AB;&#x52A0;&#x5165;&#x5230;LRU&#x5217;&#x8868;&#x7684;new&#x7AEF;&#x6210;&#x4E3A;&#x70ED;&#x70B9;&#x6570;&#x636E;&#x3002;</p>
+<h2 id="lru%E4%B8%ADpage%E7%9A%84%E5%8F%98%E5%8C%96">LRU&#x4E2D;page&#x7684;&#x53D8;&#x5316;</h2>
+<p>&#x6570;&#x636E;&#x5E93;&#x542F;&#x52A8;&#x65F6;&#xFF0C;LRU&#x5217;&#x8868;&#x662F;&#x7A7A;&#x7684;&#xFF0C;&#x5373;&#x6CA1;&#x6709;&#x4EFB;&#x4F55;page&#xFF0C;&#x8FD9;&#x65F6;page&#x90FD;&#x5B58;&#x653E;&#x5728;Free&#x5217;&#x8868;&#x4E2D;&#x3002;&#x5F53;&#x9700;&#x8981;&#x4ECE;&#x7F13;&#x51B2;&#x6C60;&#x4E2D;&#x5206;&#x9875;&#x65F6;&#xFF0C;&#x9996;&#x5148;&#x4ECE;Free&#x5217;&#x8868;&#x4E2D;&#x67E5;&#x627E;&#x662F;&#x5426;&#x6709;&#x53EF;&#x7528;&#x7684;&#x7A7A;&#x95F2;&#x9875;&#xFF0C;&#x82E5;&#x6709;&#x5219;&#x5C06;page&#x4ECE;Free&#x4E2D;&#x5220;&#x9664;&#xFF0C;&#x653E;&#x5165;&#x5230;LRU&#x4E2D;&#x3002;&#x5426;&#x5219;&#xFF0C;&#x6839;&#x636E;LRU&#x7B97;&#x6CD5;&#xFF0C;&#x6DD8;&#x6C70;LRU&#x5217;&#x8868;&#x672B;&#x5C3E;&#x7684;&#x9875;&#x5206;&#x914D;&#x7ED9;&#x65B0;&#x7684;&#x9875;&#x3002;</p>
+<p>&#x5F53;&#x9875;&#x4ECE;old&#x90E8;&#x5206;&#x8FDB;&#x5165;&#x5230;new&#x90E8;&#x5206;&#x65F6;&#xFF0C;&#x6B64;&#x65F6;&#x53D1;&#x751F;&#x7684;&#x64CD;&#x4F5C;&#x4E3A;page made young&#x3002;&#x56E0;&#x4E3A;<code>innodb_old_blocks_time</code>&#x53C2;&#x6570;&#x5BFC;&#x81F4;page&#x6CA1;&#x6709;&#x4ECE;old&#x79FB;&#x52A8;&#x5230;new&#x90E8;&#x5206;&#x79F0;&#x4E3A;page not made young&#x3002;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x547D;&#x4EE4;<code>show engine innodb status</code>&#x6765;&#x89C2;&#x5BDF;LRU&#x5217;&#x8868;&#x53CA;Free&#x5217;&#x8868;&#x7684;&#x72B6;&#x6001;&#x3002;</p>
+<pre><code>----------------------
+BUFFER POOL AND MEMORY
+----------------------
+Total memory allocated 4395630592; in additional pool allocated 0
+Dictionary memory allocated 28892957
+Buffer pool size   262143
+Free buffers       0
+Database pages     258559
+Old database pages 95424
+Modified db pages  36012
+Pending reads 0
+Pending writes: LRU 0, flush list 0, single page 0
+Pages made young 72342127, not young 0
+8.82 youngs/s, 0.00 non-youngs/s
+Pages read 72300801, created 339791, written 13639066
+8.56 reads/s, 0.35 creates/s, 3.79 writes/s
+Buffer pool hit rate 1000 / 1000, young-making rate 0 / 1000 not 0 / 1000
+Pages read ahead 0.00/s, evicted without access 0.00/s, Random read ahead 0.00/s
+LRU len: 258559, unzip_LRU len: 0
+I/O sum[459]:cur[1], unzip sum[0]:cur[0]
+</code></pre><ul>
+<li>Buffer pool size&#x8868;&#x793A;&#x7F13;&#x51B2;&#x6C60;&#x5171;&#x6709;262143&#x4E2A;page&#xFF0C;&#x5373;262143 * 16K&#xFF0C;&#x7EA6;&#x4E3A;4GB</li>
+<li>Free buffers&#x8868;&#x793A;&#x5F53;&#x524D;Free&#x5217;&#x8868;&#x4E2D;page&#x7684;&#x6570;&#x91CF;</li>
+<li>Database pages&#x8868;&#x793A;LRU&#x5217;&#x8868;&#x4E2D;page&#x7684;&#x6570;&#x91CF;</li>
+<li>Old database pages&#x8868;&#x793A;LRU&#x5217;&#x8868;&#x4E2D;old&#x90E8;&#x5206;&#x7684;page&#x6570;&#x91CF;</li>
+<li>Modified db pages&#x8868;&#x793A;&#x7684;&#x662F;&#x810F;&#x9875;(dirty page)&#x7684;&#x6570;&#x91CF;</li>
+<li>Pages made young&#x8868;&#x793A;LRU&#x5217;&#x8868;&#x4E2D;page&#x79FB;&#x52A8;&#x5230;new&#x90E8;&#x5206;&#x7684;&#x6B21;&#x6570;</li>
+<li>youngs/s, non-youngs/s&#x8868;&#x793A;&#x6BCF;&#x79D2;&#x8FD9;&#x4E24;&#x79CD;&#x64CD;&#x4F5C;&#x7684;&#x6B21;&#x6570;</li>
+<li>Buffer pool hit rate&#x8868;&#x793A;&#x7F13;&#x51B2;&#x6C60;&#x7684;&#x547D;&#x4E2D;&#x7387;&#xFF0C;&#x8BE5;&#x503C;&#x82E5;&#x5C0F;&#x4E8E;95%&#xFF0C;&#x9700;&#x8981;&#x89C2;&#x5BDF;&#x662F;&#x5426;&#x5168;&#x8868;&#x626B;&#x63CF;&#x5F15;&#x8D77;LRU&#x6C61;&#x67D3;</li>
+<li>LRU len&#x8868;&#x793A;LRU&#x4E2D;&#x603B;page&#x6570;&#x91CF;</li>
+</ul>
+<p>&#x53EF;&#x4EE5;&#x770B;&#x5230;Free buffers&#x4E0E;Database pages&#x7684;&#x548C;&#x4E0D;&#x7B49;&#x4E8E;Buffer pool size&#xFF0C;&#x8FD9;&#x662F;&#x56E0;&#x4E3A;&#x7F13;&#x51B2;&#x6C60;&#x4E2D;&#x7684;&#x9875;&#x8FD8;&#x4F1A;&#x88AB;&#x5206;&#x914D;&#x7ED9;&#x81EA;&#x9002;&#x5E94;&#x54C8;&#x5E0C;&#x7D22;&#x5F15;&#xFF0C;Lock&#x4FE1;&#x606F;&#xFF0C;Insert Buffer&#x7B49;&#x9875;&#xFF0C;&#x8FD9;&#x90E8;&#x5206;&#x9875;&#x4E0D;&#x9700;&#x8981;LRU&#x7B97;&#x6CD5;&#x7EF4;&#x62A4;&#x3002;</p>
+<h2 id="%E8%84%8F%E9%A1%B5-dirty-page">&#x810F;&#x9875;(dirty page)</h2>
+<p>LRU&#x5217;&#x8868;&#x4E2D;&#x7684;page&#x88AB;&#x4FEE;&#x6539;&#x540E;&#xFF0C;&#x79F0;&#x8BE5;&#x9875;&#x4E3A;&#x810F;&#x9875;&#xFF0C;&#x5373;&#x7F13;&#x51B2;&#x6C60;&#x4E2D;&#x7684;&#x9875;&#x548C;&#x78C1;&#x76D8;&#x4E0A;&#x7684;&#x9875;&#x7684;&#x6570;&#x636E;&#x4EA7;&#x751F;&#x4E86;&#x4E0D;&#x4E00;&#x81F4;&#x3002;&#x8FD9;&#x65F6;InnoDB&#x901A;&#x8FC7;Checkpoint&#x673A;&#x5236;&#x5C06;&#x810F;&#x9875;&#x5237;&#x65B0;&#x56DE;&#x78C1;&#x76D8;&#x3002;&#x800C;Flush&#x5217;&#x8868;&#x4E2D;&#x7684;&#x9875;&#x5373;&#x4E3A;&#x810F;&#x9875;&#x5217;&#x8868;&#x3002;&#x810F;&#x9875;&#x65E2;&#x5B58;&#x5728;&#x4E8E;LRU&#x5217;&#x8868;&#x4E2D;&#xFF0C;&#x53C8;&#x5B58;&#x5728;&#x4E8E;Flush&#x5217;&#x8868;&#x4E2D;&#xFF0C;&#x4E8C;&#x8005;&#x4E92;&#x4E0D;&#x5F71;&#x54CD;&#x3002;Modified db pages&#x663E;&#x793A;&#x7684;&#x5C31;&#x662F;&#x810F;&#x9875;&#x7684;&#x6570;&#x91CF;&#x3002;</p>
+<h2 id="%E9%87%8D%E5%81%9A%E6%97%A5%E5%BF%97%E7%BC%93%E5%86%B2">&#x91CD;&#x505A;&#x65E5;&#x5FD7;&#x7F13;&#x51B2;</h2>
+<p>InnoDB&#x5F15;&#x64CE;&#x9996;&#x5148;&#x5C06;&#x91CD;&#x505A;&#x65E5;&#x5FD7;&#x4FE1;&#x606F;&#x5148;&#x653E;&#x5230;&#x91CD;&#x505A;&#x65E5;&#x5FD7;&#x7F13;&#x51B2;&#x533A;(redo log buffer)&#xFF0C;&#x7136;&#x540E;&#x6309;&#x4E00;&#x5B9A;&#x9891;&#x7387;&#x5237;&#x65B0;&#x5230;&#x91CD;&#x505A;&#x65E5;&#x5FD7;&#x6587;&#x4EF6;&#x3002;&#x91CD;&#x505A;&#x65E5;&#x5FD7;&#x7F13;&#x51B2;&#x4E0D;&#x9700;&#x8981;&#x8BBE;&#x7F6E;&#x5F88;&#x5927;&#xFF0C;&#x4E00;&#x822C;&#x6BCF;&#x4E00;&#x79D2;&#x90FD;&#x4F1A;&#x5237;&#x65B0;redo log buffer&#xFF0C;&#x914D;&#x7F6E;&#x7684;&#x5927;&#x5C0F;&#x53EA;&#x9700;&#x8981;&#x4FDD;&#x8BC1;&#x6BCF;&#x79D2;&#x4EA7;&#x751F;&#x7684;&#x4E8B;&#x52A1;&#x5728;&#x8FD9;&#x4E2A;&#x7F13;&#x51B2;&#x533A;&#x5927;&#x5C0F;&#x4E4B;&#x5185;&#x5373;&#x53EF;&#x3002;&#x901A;&#x8FC7;&#x53C2;&#x6570;<code>innodb_log_buffer_size</code>&#x4E3A;&#x8BBE;&#x7F6E;&#xFF1A;</p>
+<pre><code>mysql&gt; show variables like &apos;innodb_log_buffer%&apos;;
++------------------------+----------+
+| Variable_name          | Value    |
++------------------------+----------+
+| innodb_log_buffer_size | 16777216 |
++------------------------+----------+
+</code></pre><p>&#x5728;&#x4E0B;&#x5217;&#x60C5;&#x51B5;&#x4E0B;&#x4F1A;&#x5C06;&#x91CD;&#x505A;&#x65E5;&#x5FD7;&#x7F13;&#x51B2;&#x4E2D;&#x7684;&#x5185;&#x5BB9;&#x5237;&#x65B0;&#x5230;&#x78C1;&#x76D8;&#x91CD;&#x505A;&#x65E5;&#x5FD7;&#x6587;&#x4EF6;&#x4E2D;&#xFF1A;</p>
+<ul>
+<li>Master Thread&#x6BCF;&#x4E00;&#x79D2;&#x4E2D;&#x5237;&#x65B0;&#x4E00;&#x6B21;</li>
+<li>&#x6BCF;&#x4E2A;&#x4E8B;&#x52A1;&#x63D0;&#x4EA4;&#x65F6;&#x4F1A;&#x5237;&#x65B0;</li>
+<li>&#x5F53;&#x91CD;&#x505A;&#x65E5;&#x5FD7;&#x7F13;&#x51B2;&#x533A;&#x7A7A;&#x95F4;&#x5C0F;&#x4E8E;1/2&#x65F6;</li>
+</ul>
+<h2 id="%E9%A2%9D%E5%A4%96%E5%86%85%E5%AD%98%E6%B1%A0">&#x989D;&#x5916;&#x5185;&#x5B58;&#x6C60;</h2>
+<p>&#x989D;&#x5916;&#x7684;&#x5185;&#x5B58;&#x6C60;&#x7528;&#x6765;&#x5BF9;&#x4E00;&#x4E9B;&#x6570;&#x636E;&#x7ED3;&#x6784;&#x672C;&#x8EAB;&#x7684;&#x5185;&#x5B58;&#x8FDB;&#x884C;&#x5206;&#x914D;&#xFF0C;&#x4F8B;&#x5982;&#x7F13;&#x51B2;&#x63A7;&#x5236;&#x5BF9;&#x8C61;(buffer control block)&#x8BB0;&#x5F55;&#x7684;LRU&#xFF0C;&#x9501;&#xFF0C;&#x7B49;&#x5F85;&#x7B49;&#x4FE1;&#x606F;&#x3002;&#x989D;&#x5916;&#x7684;&#x5185;&#x5B58;&#x6C60;&#x4E0D;&#x591F;&#x65F6;&#x4F1A;&#x4ECE;&#x7F13;&#x51B2;&#x6C60;&#x4E2D;&#x8FDB;&#x884C;&#x7533;&#x8BF7;&#x3002;&#x56E0;&#x6B64;&#xFF0C;&#x5728;&#x7533;&#x8BF7;&#x4E86;&#x5F88;&#x5927;&#x7684;InnoDB&#x7F13;&#x51B2;&#x6C60;&#x65F6;&#xFF0C;&#x989D;&#x5916;&#x7684;&#x5185;&#x5B58;&#x6C60;&#x4E5F;&#x8981;&#x9002;&#x5F53;&#x7684;&#x8C03;&#x5927;&#x3002;&#x901A;&#x8FC7;&#x53C2;&#x6570;<code>innodb_additional_mem_pool_size</code>&#x6765;&#x8BBE;&#x7F6E;&#x5927;&#x5C0F;&#x3002;&#x67E5;&#x770B;&#x901A;&#x8FC7;&#x5982;&#x4E0B;&#x547D;&#x4EE4;&#xFF1A;</p>
+<pre><code>mysql&gt; show variables like &apos;%pool_size&apos;;
++---------------------------------+------------+
+| Variable_name                   | Value      |
++---------------------------------+------------+
+| innodb_additional_mem_pool_size | 67108864   |
+| innodb_buffer_pool_size         | 4294967296 |
++---------------------------------+------------+
+</code></pre>
                     
                     </section>
                 
@@ -718,10 +760,10 @@
         </div>
 
         
-        <a href="../../blog/mongodb/remove.html" class="navigation navigation-prev " aria-label="Previous page: MongoDB-删除数据"><i class="fa fa-angle-left"></i></a>
+        <a href="../../blog/innodb/innodb-architecture.html" class="navigation navigation-prev " aria-label="Previous page: InnoDB-体系架构"><i class="fa fa-angle-left"></i></a>
         
         
-        <a href="../../blog/mongodb/journal.html" class="navigation navigation-next " aria-label="Next page: MongoDB-Journaling日志"><i class="fa fa-angle-right"></i></a>
+        <a href="../../blog/innodb/innodb-doublewrite-buffer.html" class="navigation navigation-next " aria-label="Next page: InnoDB-双写缓冲"><i class="fa fa-angle-right"></i></a>
         
     </div>
 </div>

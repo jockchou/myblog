@@ -52,3 +52,4 @@ InnoDB缓冲池包含的数据页类型有：索引页，数据页，undo页，�
 ![innodb构架](../../img/innodb-2.jpg)
 
 InnoDB1.0.X版本开始，允许有多个缓冲池实现。page根据哈希平均分配到不同的缓冲池实例中，用来减少资源竞争，提高并发。可以通过参数`innodb_buffer_pool_instances`进行配置。
+
