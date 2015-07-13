@@ -20,7 +20,7 @@
 	* [InnoDB-ACID原则](./blog/innodb/mysql-acid.md)
 	* [InnoDB-体系架构](./blog/innodb/innodb-architecture.md)
 	* [InnoDB-双写缓冲](./blog/innodb/innodb-doublewrite-buffer.md)
-	* [InnoDB-独立表空间](./blog/innodb/innodb_file_per_table.md)
+	* [InnoDB-独立表空间](./blog/innodb/innodb-per-table.md)
 * [C语言相关]
 	* [C语言枚举类型](./blog/clang/20150610-enum.md)
 	* [C语言真假判断的理解](./blog/clang/20150608-true-false.md)
