@@ -2,7 +2,6 @@
 
 * [用MySQL实现微博关注关系](./blog/20150619-weibo-follow.md)
 * [用Redis实现微博关注关系](./blog/20150702-weibo-redis-follow.md)
-
 * [MongoDB数据库]
 	* [MongoDB-简介](./blog/mongodb/introduction.md)
 	* [MongoDB-安装](./blog/mongodb/install.md)
@@ -15,22 +14,22 @@
 	* [MongoDB-数据聚合](./blog/mongodb/aggregation.md)
 	* [MongoDB-Journaling日志](./blog/mongodb/journal.md)
 	* [MongoDB-原子性和事务](./blog/mongodb/transactions.md)
-	* [MongoDB-写关注](./blog/mongodb/write-concern.md)
-
+	* [MongoDB-写关注](./blog/mongodb/write-concern.md) 
 * [InnoDB存储引擎]
-	* [InnoDB-历史](./blog/innodb/innodb-history.md)
-
+	* [InnoDB-发展历史](./blog/innodb/innodb-history.md)
+	* [InnoDB-ACID原则](./blog/innodb/mysql-acid.md)
+	* [InnoDB-体系架构](./blog/innodb/innodb-architecture.md)
+	* [InnoDB-双写缓冲](./blog/innodb/innodb-doublewrite-buffer.md)
+	* [InnoDB-独立表空间](./blog/innodb/innodb_file_per_table.md)
 * [C语言相关]
 	* [C语言枚举类型](./blog/clang/20150610-enum.md)
 	* [C语言真假判断的理解](./blog/clang/20150608-true-false.md)
 	* [C语言常用的输入输出函数](./blog/clang/20150604-input-ouput.md)
 	* [C语言常用字符串操作函数](./blog/clang/20150607-string-fuc.md)
-
 * [Web前端开发]
 	* [用CSS3画公司logo](./blog/webfront/20150606-css3-draw-logo.md)
 	* [JavaScript类型检测最佳实践](./blog/webfront/20150603-type-check.md)
 	* [两个实用函数camelize，hyphenate](./blog/webfront/20150602-hyphenate.md)
 	* [前端函数getPageSize，getPageScroll](./blog/webfront/20150601-getpagesize.md)
-
 * [半小时速成PHP基础](./blog/20150605-php-tutor.md)
 * [Mosquitto服务器日志分析总结](./blog/20150611-mosquitto-log.md)

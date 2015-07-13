@@ -5,7 +5,7 @@
         
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>C语言常用字符串操作函数 | jockchou</title>
+        <title>InnoDB-体系架构 | jockchou</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="generator" content="GitBook 2.1.0">
@@ -25,10 +25,10 @@
         
     
     
-    <link rel="next" href="../../blog/webfront/20150606-css3-draw-logo.html" />
+    <link rel="next" href="../../blog/innodb/innodb-doublewrite-buffer.html" />
     
     
-    <link rel="prev" href="../../blog/clang/20150604-input-ouput.html" />
+    <link rel="prev" href="../../blog/innodb/mysql-acid.html" />
     
 
         
@@ -36,7 +36,7 @@
     <body>
         
         
-    <div class="book" data-level="5.4" data-basepath="../.." data-revision="Mon Jul 13 2015 18:05:50 GMT+0800 (中国标准时间)">
+    <div class="book" data-level="4.3" data-basepath="../.." data-revision="Mon Jul 13 2015 18:05:50 GMT+0800 (中国标准时间)">
     
 
 <div class="book-summary">
@@ -327,7 +327,7 @@
             
         </li>
     
-        <li class="chapter " data-level="4.3" data-path="blog/innodb/innodb-architecture.html">
+        <li class="chapter active" data-level="4.3" data-path="blog/innodb/innodb-architecture.html">
             
                 
                     <a href="../../blog/innodb/innodb-architecture.html">
@@ -430,7 +430,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="5.4" data-path="blog/clang/20150607-string-fuc.html">
+        <li class="chapter " data-level="5.4" data-path="blog/clang/20150607-string-fuc.html">
             
                 
                     <a href="../../blog/clang/20150607-string-fuc.html">
@@ -658,138 +658,37 @@
                 
                     <section class="normal" id="section-">
                     
-                        <h1 id="c%E8%AF%AD%E8%A8%80%E5%B8%B8%E7%94%A8%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%93%8D%E4%BD%9C%E5%87%BD%E6%95%B0">C&#x8BED;&#x8A00;&#x5E38;&#x7528;&#x5B57;&#x7B26;&#x4E32;&#x64CD;&#x4F5C;&#x51FD;&#x6570;</h1>
-<hr>
-<pre><code>#include &lt;string.h&gt;
-
-size_t strlen(const char *s);
-size_t strnlen(const char *s, size_t maxlen);
-
-char *strcat(char *dest, const char *src);
-char *strncat(char *dest, const char *src, size_t n);
-
-int strcmp(const char *s1, const char *s2);
-int strncmp(const char *s1, const char *s2, size_t n);
-
-char *strcpy(char *dest, const char *src);
-char *strncpy(char *dest, const char *src, size_t n);
-
-char *strstr(const char *haystack, const char *needle);
-char *strchr(const char *s, int c);
-char *strrchr(const char *s, int c);
-</code></pre><p>&#x524D;&#x9762;5&#x7EC4;&#x51FD;&#x6570;&#x90FD;&#x6709;&#x4E00;&#x4E2A;&#x5171;&#x540C;&#x7279;&#x70B9;&#xFF0C;&#x7B2C;&#x4E8C;&#x4E2A;&#x51FD;&#x6570;&#x540D;&#x6BD4;&#x524D;&#x4E00;&#x4E2A;&#x591A;&#x4E86;&#x4E2A;n&#x3002;&#x5148;&#x4E0D;&#x7BA1;&#x8FD9;&#x4E2A;n&#x7684;&#x5177;&#x4F53;&#x542B;&#x4E49;&#xFF0C;&#x6211;&#x4EEC;&#x76F4;&#x63A5;&#x5F00;&#x59CB;&#x8BB2;&#x89E3;&#x51FD;&#x6570;&#x3002;</p>
-<h1 id="strlen-%E5%87%BD%E6%95%B0">strlen()&#x51FD;&#x6570;</h1>
-<p>&#x89C1;&#x540D;&#x77E5;&#x610F;&#xFF0C;&#x8FD9;&#x4E2A;&#x51FD;&#x6570;&#x662F;&#x7528;&#x6765;&#x83B7;&#x53D6;&#x5B57;&#x7B26;&#x4E32;&#x957F;&#x5EA6;&#x7684;&#xFF0C;&#x51C6;&#x786E;&#x6765;&#x8BB2;&#x662F;&#x9664;&#x53BB;&#x7ED3;&#x5C3E;&#x7A7A;&#x5B57;&#x7B26;&#x7684;&#x957F;&#x5EA6;&#x3002;&#x4E0B;&#x9762;&#x6765;&#x770B;&#x4E00;&#x4E2A;&#x4F8B;&#x5B50;:</p>
-<pre><code>#include&lt;stdio.h&gt;
-#include&lt;string.h&gt;
-
-//&#x622A;&#x77ED;&#x5B57;&#x7B26;&#x4E32;
-void fit(char *str, size_t n);
-
-int main(void)
-{
-    char msg[] = &quot;Hold on to your hats, hackers. &quot;;
-    puts(msg);
-
-    fit(msg, 7);
-    puts(msg);
-
-    puts(&quot;Let&apos;s look at some more of the string. &quot;);
-
-    puts(msg + 8);
-
-    return 0;
-}
-
-void fit(char *str, size_t n)
-{
-    if (strlen(str) &gt; n)
-        *(str + n) = &apos;\0&apos;;
-}
-</code></pre><p>&#x58F0;&#x660E;&#x4E00;&#x4E2A;fit()&#x51FD;&#x6570;&#x7528;&#x6765;&#x622A;&#x77ED;&#x4E00;&#x4E2A;&#x5B57;&#x7B26;&#x4E32;&#x5230;&#x6307;&#x5B9A;&#x957F;&#x5EA6;&#xFF0C;&#x53C2;&#x6570;str&#x6CA1;&#x6709;&#x4F7F;&#x7528;const&#x4FEE;&#x9970;&#xFF0C;&#x5373;&#x8868;&#x793A;&#x5B57;&#x7B26;&#x4E32;&#x53EF;&#x4EE5;&#x88AB;fit()&#x51FD;&#x6570;&#x6539;&#x53D8;&#x3002;&#x7B2C;&#x4E8C;&#x4E2A;&#x53C2;&#x6570;n&#x8868;&#x793A;&#x622A;&#x53D6;&#x540E;&#xFF0C;&#x5B57;&#x7B26;&#x4E32;&#x7684;&#x957F;&#x5EA6;&#x3002;&#x5728;&#x4E3B;&#x51FD;&#x6570;&#x4E2D;&#x58F0;&#x660E;&#x4E86;&#x4E00;&#x4E2A;msg&#x5B57;&#x7B26;&#x6570;&#x7EC4;&#x3002;&#x8C03;&#x7528;fit(msg, 7)&#xFF0C;&#x5176;&#x4F5C;&#x7528;&#x5C31;&#x662F;*(msg+7) = &apos;\0&apos;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x628A;msg&#x5B57;&#x7B26;&#x6570;&#x7EC4;&#x7B2C;8&#x4E2A;&#x5143;&#x7D20;&#x53D8;&#x6210;&#x7A7A;&#x5B57;&#x7B26;&apos;\0&apos;&#xFF0C;&#x8BA9;&#x5B83;&#x6240;&#x8868;&#x793A;&#x7684;&#x5B57;&#x7B26;&#x4E32;&#x63D0;&#x524D;&#x7ED3;&#x675F;&#xFF0C;&#x5FFD;&#x7565;&#x540E;&#x9762;&#x7684;&#x5143;&#x7D20;&#xFF0C;&#x7136;&#x800C;&#xFF0C;&#x6570;&#x7EC4;&#x7684;&#x540E;&#x9762;&#x7684;&#x5176;&#x4ED6;&#x5143;&#x7D20;&#x4ECD;&#x7136;&#x5B58;&#x5728;&#xFF0C;puts(msg+8)&#x8F93;&#x51FA;&#x4E86;&#x88AB;&#x622A;&#x7684;&#x5185;&#x5BB9;&#x3002;</p>
-<h1 id="strnlen-%E5%87%BD%E6%95%B0">strnlen()&#x51FD;&#x6570;</h1>
-<p>strnlen()&#x7B49;&#x540C;strlen()&#x51FD;&#x6570;&#xFF0C;&#x4F46;&#x662F;&#x8FD4;&#x56DE;&#x7684;&#x503C;&#x4E0D;&#x4F1A;&#x8D85;&#x8FC7;maxlen&#x3002;&#x4E5F;&#x5C31;&#x662F;&#x8BF4;strnlen()&#x51FD;&#x6570;&#x4E2D;&#x4F1A;&#x8BA1;&#x7B97;&#x524D;maxlen&#x4E2A;&#x5B57;&#x7B26;&#xFF0C;&#x4E0D;&#x4F1A;&#x8D85;&#x8FC7;s+maxlen&#x8FD9;&#x4E2A;&#x4F4D;&#x7F6E;&#x3002;&#x4E0B;&#x9762;&#x6211;&#x4EEC;&#x81EA;&#x5DF1;&#x6765;&#x5B9E;&#x73B0;&#x8FD9;&#x4E2A;&#x51FD;&#x6570;&#x8BD5;&#x8BD5;&#x770B;&#xFF1A;</p>
-<pre><code>#include&lt;stdio.h&gt;
-#include&lt;string.h&gt;
-
-size_t strnlen(const char *s, size_t maxlen);
-
-int main(void)
-{
-    char msg[] = &quot;Hold on to your hats, hackers. &quot;;
-    size_t n = strlen(msg);
-    size_t m = strnlen(msg, 30);
-
-    printf(&quot;strlen is %u\n&quot;, n);
-    printf(&quot;strnlen is %u\n&quot;, m);
-}
-
-size_t strnlen(const char *s, size_t maxlen)
-{
-    size_t n = 0;
-
-    while(*s &amp;&amp; n &lt; maxlen) {
-        s++;
-        n++;
-    }
-    return n;
-}
-</code></pre><p>&#x8F93;&#x51FA;&#x7ED3;&#x679C;&#xFF1A;</p>
-<pre><code>strlen is 31
-strnlen is 30
-</code></pre><p>&#x6CE8;&#x91CA;&#x6389;&#x6211;&#x4EEC;&#x81EA;&#x5DF1;&#x5B9A;&#x4E49;&#x7684;strnlen()&#x51FD;&#x6570;&#xFF0C;&#x4F7F;&#x7528;string.h&#x7684;&#x5B9A;&#x4E49;&#xFF0C;&#x518D;&#x7F16;&#x8BD1;&#x6267;&#x884C;&#xFF0C;&#x7ED3;&#x679C;&#x4ECD;&#x7136;&#x4E00;&#x6837;&#x3002;</p>
-<h1 id="strcat-%E5%87%BD%E6%95%B0">strcat()&#x51FD;&#x6570;</h1>
-<p>&#x8FD9;&#x4E2A;&#x51FD;&#x6570;&#x7528;&#x6765;&#x62FC;&#x63A5;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x5B83;&#x5C06;&#x590D;&#x5236;&#x7B2C;&#x4E8C;&#x4E2A;&#x5B57;&#x7B26;&#x4E32;&#x7684;&#x62F7;&#x8D1D;&#x6DFB;&#x52A0;&#x5230;&#x7B2C;&#x4E00;&#x4E2A;&#x5B57;&#x7B26;&#x4E32;&#x7684;&#x7ED3;&#x5C3E;&#xFF0C;&#x7B2C;&#x4E8C;&#x4E2A;&#x5B57;&#x7B26;&#x4E32;&#x6CA1;&#x6709;&#x6539;&#x53D8;&#xFF0C;&#x7B2C;&#x4E00;&#x4E2A;&#x5B57;&#x7B26;&#x4E32;&#x6210;&#x4E3A;&#x4E00;&#x4E2A;&#x65B0;&#x7684;&#x7EC4;&#x5408;&#x5B57;&#x7B26;&#x4E32;&#x4E86;&#x3002;&#x6240;&#x4EE5;&#x7B2C;&#x4E8C;&#x4E2A;&#x53C2;&#x6570;&#x7528;const&#x4FEE;&#x9970;&#x4E86;&#x3002;&#x51FD;&#x6570;&#x8FD4;&#x56DE;&#x7B2C;&#x4E00;&#x4E2A;&#x53C2;&#x6570;&#x7684;&#x503C;&#x3002;&#x90A3;&#x4E48;&#x95EE;&#x9898;&#x5C31;&#x6765;&#x4E86;&#xFF0C;&#x5982;&#x679C;&#x7B2C;&#x4E00;&#x4E2A;&#x5B57;&#x7B26;&#x4E32;&#x7684;&#x5B58;&#x50A8;&#x7A7A;&#x95F4;&#x4E0D;&#x591F;&#x5927;&#xFF0C;&#x5B57;&#x7B26;&#x4E32;&#x5C31;&#x4F1A;&#x6EA2;&#x51FA;&#xFF0C;&#x4EA7;&#x751F;&#x4E0D;&#x5B89;&#x5168;&#x7684;&#x884C;&#x4E3A;&#x3002;strncat()&#x4E0E;&#x4E4B;&#x4E0D;&#x540C;&#xFF0C;&#x5B83;&#x628A;src&#x6240;&#x6307;&#x5B57;&#x7B26;&#x4E32;&#x7684;&#x524D;n&#x4E2A;&#x5B57;&#x7B26;&#x6DFB;&#x52A0;&#x5230;dest&#x7ED3;&#x5C3E;&#x5904;&#xFF0C;&#x8986;&#x76D6;dest&#x7ED3;&#x5C3E;&#x5904;&#x7684;&apos;/0&apos;&#xFF0C;&#x5B9E;&#x73B0;&#x5B57;&#x7B26;&#x4E32;&#x8FDE;&#x63A5;&#x3002;&#x6240;&#x4EE5;&#x4F7F;&#x7528;strcat&#xFF0C;&#x8981;&#x7A0B;&#x5E8F;&#x5458;&#x81EA;&#x5DF1;&#x4FDD;&#x8BC1;dest&#x8DB3;&#x591F;&#x5BB9;&#x7EB3;&#x62FC;&#x63A5;&#x540E;&#x7684;&#x6574;&#x4E2A;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x800C;strncat&#x4F7F;&#x7528;n&#x53C2;&#x6570;&#x6765;&#x9650;&#x5236;&#x53EA;&#x590D;&#x5236;dest&#x7A7A;&#x95F2;&#x7684;&#x5BB9;&#x91CF;&#x5927;&#x5C0F;&#x7684;&#x5B57;&#x7B26;&#x3002;strncat()&#x7684;&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x5B9E;&#x73B0;&#x4E5F;&#x8BB8;&#x662F;&#x8FD9;&#x6837;&#xFF1A;</p>
-<pre><code>char *strncat(char *dest, const char *src, size_t n)
-{
-    size_t dest_len = strlen(dest);
-    size_t i;
-    for (i = 0 ; i &lt; n &amp;&amp; src[i] != &apos;\0&apos; ; i++)
-        dest[dest_len + i] = src[i];
-
-    dest[dest_len + i] = &apos;\0&apos;;
-
-    return dest;
-}
-</code></pre><h1 id="strcmp-%E5%87%BD%E6%95%B0">strcmp()&#x51FD;&#x6570;</h1>
-<p>&#x8FD9;&#x4E2A;&#x51FD;&#x6570;&#x7528;&#x6765;&#x6BD4;&#x8F83;2&#x4E2A;&#x5B57;&#x7B26;&#x4E32;s1,s2&#x7684;&#x5927;&#x5C0F;&#xFF0C;&#x5982;&#x679C;s1&#x548C;s2&#x76F8;&#x540C;&#xFF0C;&#x8FD4;&#x56DE;&#x4E3A;0&#xFF0C;s1&#x5C0F;&#x4E8E;s2&#xFF0C;&#x8FD4;&#x56DE;&#x8D1F;&#x6570;&#xFF0C;&#x5426;&#x5219;&#x8FD4;&#x56DE;&#x5927;&#x4E8E;0&#x3002;&#x5BF9;&#x4E8E;&#x8FD4;&#x56DE;&#x6570;&#x503C;&#x7684;&#x5927;&#x4E8E;&#xFF0C;&#x4E0D;&#x540C;&#x5B9E;&#x73B0;&#x53EF;&#x80FD;&#x4E0D;&#x540C;&#x3002;&#x6709;&#x7684;&#x662F;-1, 0, 1&#x8FD9;&#x4E09;&#x4E2A;&#x503C;&#xFF0C;&#x4E5F;&#x6709;&#x7684;&#x53EF;&#x80FD;&#x662F;&#x5B57;&#x7B26;&#x4E32;&#x67D0;&#x4E2A;&#x4F4D;&#x7F6E;&#x4E0A;&#x7684;ASCII&#x503C;&#x7684;&#x5DEE;&#x3002;&#x800C;strncmp()&#x7684;n&#x53C2;&#x6570;&#x7528;&#x6765;&#x9650;&#x5B9A;&#xFF0C;&#x53EA;&#x6BD4;&#x8F83;s1&#x7684;&#x524D;n&#x4E2A;&#x5B57;&#x7B26;&#xFF0C;&#x800C;&#x4E0D;&#x662F;&#x4E00;&#x76F4;&#x6BD4;&#x8F83;&#x627E;&#x5230;&#x4E0D;&#x540C;&#x7684;&#x5B57;&#x7B26;&#x3002;&#x56E0;&#x4E9B;strncpm(s1, s2, strlen(s2)) == 0&#x8FD9;&#x4E2A;&#x8868;&#x8FBE;&#x5F0F;&#x53EF;&#x4EE5;&#x7528;&#x6765;&#x5224;&#x65AD;s1&#x662F;&#x5426;&#x4EE5;s2&#x5F00;&#x5934;&#x3002;&#x5F53;&#x7136;&#x4E5F;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;strstr()&#x7684;&#x8FD4;&#x56DE;&#x503C;&#x6765;&#x5224;&#x65AD;&#x3002;&#x4E0B;&#x9762;&#x7684;&#x4F8B;&#x5B50;&#x7A0B;&#x5E8F;&#x5C55;&#x793A;&#x4E86;strncmp()&#x51FD;&#x6570;&#x7684;&#x4E00;&#x4E2A;&#x7528;&#x9014;&#xFF1A;</p>
-<pre><code>#include&lt;stdio.h&gt;
-#include&lt;string.h&gt;
-#define LIST_SIZE 5
-
-int main(void)
-{
-    char *list[LIST_SIZE] = {&quot;astronomy&quot;, &quot;astoudfing&quot;, &quot;astrophysici&quot;, &quot;ostracize&quot;, &quot;asterism&quot;};
-    const char *str = &quot;astro&quot;;
-
-    int i, count = 0;
-
-    for (i = 0; i &lt; LIST_SIZE; i++) {
-        if (strncmp(list[i], str, strlen(str)) == 0) {
-            printf(&quot;Found: %s\n&quot;, list[i]);
-            count++;
-        }
-    }
-
-    printf(&quot;The list contained %d words beginning with astro.\n&quot;, count);
-
-    return 0;
-}
-</code></pre><h1 id="strcpy-%E5%87%BD%E6%95%B0">strcpy()&#x51FD;&#x6570;</h1>
-<p>&#x5982;&#x679C;&#x8981;&#x590D;&#x5236;&#x4E00;&#x4E2A;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x5373;&#x5728;&#x5185;&#x5B58;&#x4E2D;&#x4EA7;&#x751F;&#x67D0;&#x4E2A;&#x5B57;&#x7B26;&#x4E32;&#x7684;&#x526F;&#x672C;&#xFF0C;&#x4F60;&#x9700;&#x8981;&#x4F7F;&#x7528;strcpy()&#x51FD;&#x6570;&#x6765;&#x5B9E;&#x73B0;&#x3002;&#x5B83;&#x7684;&#x601D;&#x8DEF;&#x6709;&#x70B9;&#x50CF;strcat()&#x51FD;&#x6570;&#xFF0C;&#x53EA;&#x4E0D;&#x8FC7;&#x4E0D;&#x662F;&#x62FC;&#x6309;&#x5728;dest&#x7684;&#x540E;&#x9762;&#xFF0C;&#x800C;&#x662F;&#x76F4;&#x63A5;&#x4ECE;dest&#x6307;&#x9488;&#x5904;&#x5F00;&#x59CB;&#x8986;&#x76D6;&#xFF0C;&#x540C;&#x65F6;&#x4E5F;&#x4F1A;&#x628A;src&#x7ED3;&#x5C3E;&#x7684;&#x7A7A;&#x5B57;&#x7B26;&#x590D;&#x5236;&#x3002;&#x540C;&#x6837;&#x8981;&#x6C42;dest&#x6709;&#x8DB3;&#x591F;&#x7684;&#x7A7A;&#x95F4;&#x3002;strncpy()&#x7528;&#x6765;&#x9650;&#x5236;&#x53EA;&#x590D;&#x5236;src&#x524D;n&#x4E2A;&#x5B57;&#x7B26;&#xFF0C;&#x5982;&#x679C;&#x524D;n&#x4E2A;&#x5B57;&#x7B26;&#x6CA1;&#x6709;&#x7A7A;&#x5B57;&#x7B26;&#xFF0C;dest&#x5B57;&#x7B26;&#x4E32;&#x5C06;&#x6CA1;&#x6709;&#x7ED3;&#x5C3E;&#x7684;&#x7A7A;&#x5B57;&#x7B26;&#x3002;&#x5982;&#x679C;src&#x957F;&#x5EA6;&#x4E0D;&#x591F;n&#xFF0C;strncpy()&#x4F1A;&#x5199;&#x5165;&#x989D;&#x5916;&#x7684;&#x7A7A;&#x5B57;&#x7B26;&#x5230;dest&#x4E2D;&#xFF0C;&#x786E;&#x4FDD;n&#x4E2A;&#x5B57;&#x7B26;&#x88AB;&#x5B9A;&#x5165;&#x3002;strncpy()&#x7684;&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x5B9E;&#x73B0;&#x5982;&#x4E0B;&#xFF1A;</p>
-<pre><code>char *strncpy(char *dest, const char *src, size_t n)
-{
-    size_t i;
-
-    for (i = 0; i &lt; n &amp;&amp; src[i] != &apos;\0&apos;; i++)
-        dest[i] = src[i];
-    for ( ; i &lt; n; i++)
-        dest[i] = &apos;\0&apos;;
-
-    return dest;
-}
-</code></pre><h1 id="strstr-%E5%87%BD%E6%95%B0">strstr()&#x51FD;&#x6570;</h1>
-<p>strstr()&#x51FD;&#x6570;&#x5728;haystack&#x641C;&#x7D22;&#x5B50;&#x4E32;needle&#xFF0C;&#x5B57;&#x7B26;&#x4E32;&#x7684;&#x7ED3;&#x5C3E;&#x7A7A;&#x5B57;&#x7B26;&#x4E0D;&#x4F1A;&#x53C2;&#x4E0E;&#x6BD4;&#x8F83;&#x3002;&#x8FD4;&#x56DE;&#x5B50;&#x4E32;needle&#x7B2C;&#x4E00;&#x6B21;&#x5339;&#x914D;&#x65F6;&#x7684;&#x5F00;&#x59CB;&#x4F4D;&#x7F6E;&#x7684;&#x6307;&#x9488;&#x3002;</p>
+                        <h1 id="innodb%E4%BD%93%E7%B3%BB%E6%9E%84%E6%9E%B6">InnoDB&#x4F53;&#x7CFB;&#x6784;&#x67B6;</h1>
+<p>&#x5728;InnoDB&#x5B58;&#x50A8;&#x5F15;&#x64CE;&#x7684;&#x67B6;&#x6784;&#x4E2D;&#xFF0C;&#x6709;&#x591A;&#x4E2A;&#x5185;&#x5B58;&#x5757;&#xFF0C;&#x8FD9;&#x4E9B;&#x5185;&#x5B58;&#x5757;&#x7EC4;&#x6210;&#x4E00;&#x4E2A;&#x5185;&#x5B58;&#x6C60;&#x3002;InnoDB&#x5B58;&#x50A8;&#x5F15;&#x64CE;&#x4F53;&#x7CFB;&#x67B6;&#x6784;&#x5982;&#x4E0B;&#x56FE;&#x6240;&#x793A;&#xFF1A;</p>
+<p><img src="../../img/innodb-1.png" alt="innodb&#x6784;&#x67B6;"></p>
+<h1 id="%E5%90%8E%E5%8F%B0%E7%BA%BF%E7%A8%8B">&#x540E;&#x53F0;&#x7EBF;&#x7A0B;</h1>
+<p>&#x540E;&#x53F0;&#x7EBF;&#x7A0B;&#x7684;&#x4E3B;&#x8981;&#x4F5C;&#x7528;&#x662F;&#x8D1F;&#x8D23;&#x5237;&#x65B0;&#x5185;&#x5B58;&#x6C60;&#x4E2D;&#x7684;&#x6570;&#x636E;&#xFF0C;&#x4FDD;&#x8BC1;&#x7F13;&#x51B2;&#x6C60;&#x4E2D;&#x7684;&#x5185;&#x5B58;&#x7F13;&#x5B58;&#x7684;&#x662F;&#x6700;&#x8FD1;&#x7684;&#x6570;&#x636E;&#xFF0C;&#x53E6;&#x5916;&#xFF0C;&#x5C06;&#x5DF2;&#x4FEE;&#x6539;&#x7684;&#x6570;&#x636E;&#x6587;&#x4EF6;&#x5237;&#x65B0;&#x5230;&#x78C1;&#x76D8;&#x6587;&#x4EF6;&#xFF0C;&#x540C;&#x65F6;&#xFF0C;&#x4FDD;&#x8BC1;&#x5728;&#x6570;&#x636E;&#x5E93;&#x53D1;&#x751F;&#x5F02;&#x5E38;&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;InnoDB&#x80FD;&#x6062;&#x590D;&#x5230;&#x6B63;&#x5E38;&#x8FD0;&#x884C;&#x72B6;&#x6001;&#x3002;InnoDB&#x662F;&#x591A;&#x7EBF;&#x7A0B;&#x6A21;&#x578B;&#xFF0C;&#x4E0D;&#x540C;&#x7684;&#x7EBF;&#x7A0B;&#x7528;&#x4E8E;&#x5904;&#x7406;&#x4E0D;&#x540C;&#x7684;&#x4EFB;&#x52A1;&#x3002;</p>
+<h2 id="master-thread">Master Thread</h2>
+<p>Master Thread&#x662F;&#x6838;&#x5FC3;&#x540E;&#x53F0;&#x7EBF;&#x7A0B;&#xFF0C;&#x4E3B;&#x8981;&#x8D1F;&#x8D23;&#x5C06;&#x7F13;&#x51B2;&#x6C60;&#x4E2D;&#x7684;&#x6570;&#x636E;&#x5F02;&#x6B65;&#x5237;&#x65B0;&#x5230;&#x78C1;&#x76D8;&#xFF0C;&#x5305;&#x62EC;&#x810F;&#x9875;&#x7684;&#x5237;&#x65B0;&#xFF0C;&#x5408;&#x5E76;&#x63D2;&#x5165;&#x7F13;&#x51B2;(insert buffer)&#xFF0C;undo&#x9875;&#x7684;&#x56DE;&#x6536;&#x7B49;&#x3002;</p>
+<h2 id="io-thread">IO Thread</h2>
+<p>IO Thread&#x8D1F;&#x8D23;IO&#x8BF7;&#x6C42;&#x7684;&#x56DE;&#x8C03;&#x3002;&#x4E3B;&#x8981;&#x6709;read, write, insert buffer&#x548C;log IO Thread&#x3002;&#x5176;&#x4E2D;read thread&#x548C;write thread&#x5206;&#x522B;&#x4F7F;&#x7528;<code>innodb_read_io_threads</code>&#x548C;<code>innodb_write_io_threads</code>&#x53C2;&#x6570;&#x8FDB;&#x884C;&#x8BBE;&#x7F6E;&#x3002;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x547D;&#x4EE4;<code>show engine innodb status</code>&#x6765;&#x67E5;&#x770B;InnoDB&#x4E2D;&#x7684;IO Thread:</p>
+<pre><code>I/O thread 0 state: waiting for i/o request (insert buffer thread)
+I/O thread 1 state: waiting for i/o request (log thread)
+I/O thread 2 state: waiting for i/o request (read thread)
+I/O thread 3 state: waiting for i/o request (read thread)
+I/O thread 4 state: waiting for i/o request (read thread)
+I/O thread 5 state: waiting for i/o request (read thread)
+I/O thread 6 state: waiting for i/o request (write thread)
+I/O thread 7 state: waiting for i/o request (write thread)
+I/O thread 8 state: waiting for i/o request (write thread)
+I/O thread 9 state: waiting for i/o request (write thread)
+</code></pre><p>&#x53EF;&#x4EE5;&#x770B;&#x5230;IO Thread 0&#x4E3A;insert buffer thread&#xFF0C;IO Thread 1&#x4E3A;log thread&#x3002;&#x4E4B;&#x540E;&#x6839;&#x636E;&#x53C2;&#x6570;<code>innodb_read_io_threads</code>&#x548C;<code>innodb_write_io_threads</code>&#x6765;&#x8BBE;&#x7F6E;&#x8BFB;&#x5199;&#x7EBF;&#x7A0B;&#xFF0C;&#x5E76;&#x4E14;&#x8BFB;&#x7EBF;&#x7A0B;ID&#x603B;&#x662F;&#x5C0F;&#x4E8E;&#x5199;&#x7EBF;&#x7A0B;&#x3002;</p>
+<h2 id="purge-thread">Purge Thread</h2>
+<p>&#x4E8B;&#x52A1;&#x88AB;&#x63D0;&#x4EA4;&#x540E;&#xFF0C;&#x5176;&#x6240;&#x4F7F;&#x7528;&#x7684;undolog&#x53EF;&#x80FD;&#x4E0D;&#x518D;&#x9700;&#x8981;&#xFF0C;Purge Thread&#x8D1F;&#x8D23;&#x56DE;&#x6536;undo&#x9875;&#x3002;&#x5728;InnoDB1.1&#x7248;&#x672C;&#x4E4B;&#x524D;&#xFF0C;purge&#x64CD;&#x4F5C;&#x4EC5;&#x5728;Master Thread&#x4E2D;&#x5B8C;&#x6210;&#x3002;InnoDB1.1&#x5F00;&#x59CB;&#xFF0C;purge&#x64CD;&#x4F5C;&#x53EF;&#x4EE5;&#x72EC;&#x7ACB;&#x5728;Purge Thread&#x4E2D;&#x8FDB;&#x884C;&#x3002;&#x901A;&#x8FC7;&#x5982;&#x4E0B;&#x914D;&#x7F6E;&#x6765;&#x542F;&#x7528;&#x72EC;&#x7ACB;&#x7684;Purge Thread:</p>
+<pre><code>innodb_purge_threads=1
+</code></pre><p>InnoDB1.2&#x7248;&#x672C;&#x5F00;&#x59CB;&#x652F;&#x6301;&#x591A;&#x4E2A;Purge Thread&#xFF0C;&#x52A0;&#x5FEB;undo&#x9875;&#x7684;&#x56DE;&#x6536;&#x3002;&#x7531;&#x4E8E;&#x662F;&#x79BB;&#x6563;&#x5730;&#x8BFB;&#x53D6;undo&#x9875;&#xFF0C;&#x4E5F;&#x80FD;&#x66F4;&#x8FDB;&#x4E00;&#x6B65;&#x5229;&#x7528;&#x78C1;&#x76D8;&#x7684;&#x968F;&#x673A;&#x8BFB;&#x53D6;&#x6027;&#x80FD;&#x3002;</p>
+<h2 id="page-cleaner-thread">Page Cleaner Thread</h2>
+<p>InnoDB1.2&#x7248;&#x672C;&#x5F15;&#x5165;&#x4E86;Page Cleaner Thread&#x3002;&#x4F5C;&#x7528;&#x662F;&#x5C06;&#x810F;&#x9875;&#x5237;&#x65B0;&#x64CD;&#x4F5C;&#x90FD;&#x653E;&#x5230;&#x5355;&#x72EC;&#x7684;&#x7EBF;&#x7A0B;&#x4E2D;&#x6765;&#x5B8C;&#x6210;&#xFF0C;&#x4ECE;&#x800C;&#x51CF;&#x8F7B;Master Thread&#x7684;&#x5DE5;&#x4F5C;&#x3002;</p>
+<h1 id="innodb%E7%BC%93%E5%86%B2%E6%B1%A0">InnoDB&#x7F13;&#x51B2;&#x6C60;</h1>
+<p>InnoDB&#x5F15;&#x64CE;&#x662F;&#x57FA;&#x4E8E;&#x78C1;&#x76D8;&#x5B58;&#x50A8;&#x7684;&#xFF0C;&#x5C06;&#x6570;&#x636E;&#x8BB0;&#x5F55;&#x6309;&#x7167;&#x9875;&#x7684;&#x65B9;&#x5F0F;&#x8FDB;&#x884C;&#x7BA1;&#x7406;&#x3002;&#x5BF9;&#x6570;&#x636E;&#x5E93;&#x9875;&#x7684;&#x4FEE;&#x6539;&#x64CD;&#x4F5C;&#xFF0C;&#x9996;&#x9875;&#x4FEE;&#x6539;&#x7F13;&#x51B2;&#x6C60;&#x4E2D;&#x7684;&#x9875;&#xFF0C;&#x7136;&#x540E;&#x518D;&#x6309;&#x7167;&#x67D0;&#x79CD;&#x9891;&#x7387;&#x5237;&#x65B0;&#x5230;&#x78C1;&#x76D8;&#x4E0A;&#xFF0C;&#x8FD9;&#x79CD;&#x9891;&#x7387;&#x7684;&#x63A7;&#x5236;&#x662F;&#x901A;&#x8FC7;&#x4E00;&#x79CD;&#x79F0;&#x4E3A;Checkpoint&#x7684;&#x673A;&#x5236;&#x6765;&#x5B9E;&#x73B0;&#x3002;&#x7F13;&#x51B2;&#x6C60;&#x7684;&#x5927;&#x5C0F;&#x76F4;&#x63A5;&#x5F71;&#x54CD;&#x5230;&#x6570;&#x636E;&#x5E93;&#x7684;&#x6574;&#x4F53;&#x6027;&#x80FD;&#xFF0C;&#x5176;&#x901A;&#x8FC7;&#x53C2;&#x6570;<code>innodb_buffer_pool_size</code>&#x6765;&#x8BBE;&#x7F6E;&#xFF0C;&#x989D;&#x5916;&#x5185;&#x5B58;&#x6C60;&#x901A;&#x8FC7;&#x53C2;&#x6570;<code>innodb_additional_mem_pool_size</code>&#x6765;&#x8BBE;&#x7F6E;&#x3002;</p>
+<p>InnoDB&#x7F13;&#x51B2;&#x6C60;&#x5305;&#x542B;&#x7684;&#x6570;&#x636E;&#x9875;&#x7C7B;&#x578B;&#x6709;&#xFF1A;&#x7D22;&#x5F15;&#x9875;&#xFF0C;&#x6570;&#x636E;&#x9875;&#xFF0C;undo&#x9875;&#xFF0C;&#x63D2;&#x5165;&#x7F13;&#x51B2;&#xFF08;insert buffer)&#xFF0C;&#x81EA;&#x9002;&#x5E94;&#x54C8;&#x5E0C;&#x7D22;&#x5F15;&#xFF0C;InnoDB&#x5B58;&#x50A8;&#x7684;&#x9501;&#x4FE1;&#x606F;&#xFF0C;&#x6570;&#x636E;&#x5B57;&#x5178;&#x4FE1;&#x606F;&#x7B49;&#x3002;&#x7ED3;&#x6784;&#x56FE;&#x5982;&#x4E0B;&#xFF1A;</p>
+<p><img src="../../img/innodb-2.jpg" alt="innodb&#x6784;&#x67B6;"></p>
+<p>InnoDB1.0.X&#x7248;&#x672C;&#x5F00;&#x59CB;&#xFF0C;&#x5141;&#x8BB8;&#x6709;&#x591A;&#x4E2A;&#x7F13;&#x51B2;&#x6C60;&#x5B9E;&#x73B0;&#x3002;page&#x6839;&#x636E;&#x54C8;&#x5E0C;&#x5E73;&#x5747;&#x5206;&#x914D;&#x5230;&#x4E0D;&#x540C;&#x7684;&#x7F13;&#x51B2;&#x6C60;&#x5B9E;&#x4F8B;&#x4E2D;&#xFF0C;&#x7528;&#x6765;&#x51CF;&#x5C11;&#x8D44;&#x6E90;&#x7ADE;&#x4E89;&#xFF0C;&#x63D0;&#x9AD8;&#x5E76;&#x53D1;&#x3002;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x53C2;&#x6570;<code>innodb_buffer_pool_instances</code>&#x8FDB;&#x884C;&#x914D;&#x7F6E;&#x3002;</p>
 
                     
                     </section>
@@ -800,10 +699,10 @@ int main(void)
         </div>
 
         
-        <a href="../../blog/clang/20150604-input-ouput.html" class="navigation navigation-prev " aria-label="Previous page: C语言常用的输入输出函数"><i class="fa fa-angle-left"></i></a>
+        <a href="../../blog/innodb/mysql-acid.html" class="navigation navigation-prev " aria-label="Previous page: InnoDB-ACID原则"><i class="fa fa-angle-left"></i></a>
         
         
-        <a href="../../blog/webfront/20150606-css3-draw-logo.html" class="navigation navigation-next " aria-label="Next page: 用CSS3画公司logo"><i class="fa fa-angle-right"></i></a>
+        <a href="../../blog/innodb/innodb-doublewrite-buffer.html" class="navigation navigation-next " aria-label="Next page: InnoDB-双写缓冲"><i class="fa fa-angle-right"></i></a>
         
     </div>
 </div>
