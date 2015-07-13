@@ -20,6 +20,7 @@
 	* [InnoDB-ACID原则](./blog/innodb/mysql-acid.md)
 	* [InnoDB-体系架构](./blog/innodb/innodb-architecture.md)
 	* [InnoDB-内存管理](./blog/innodb/innodb-buffer-pool.md)
+	* [InnoDB-脏页刷新](./blog/innodb/innodb-checkpoint.md)
 	* [InnoDB-双写缓冲](./blog/innodb/innodb-doublewrite-buffer.md)
 	* [InnoDB-独立表空间](./blog/innodb/innodb-per-table.md)
 * [C语言相关]
