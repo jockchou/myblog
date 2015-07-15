@@ -5,7 +5,7 @@
         
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>InnoDB-脏页刷新 | jockchou</title>
+        <title>用redis实现计数器 | jockchou</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="generator" content="GitBook 2.1.0">
@@ -25,10 +25,10 @@
         
     
     
-    <link rel="next" href="../../blog/innodb/innodb-doublewrite-buffer.html" />
+    <link rel="next" href="../../blog/redis/redis-weibo.html" />
     
     
-    <link rel="prev" href="../../blog/innodb/innodb-buffer-pool.html" />
+    <link rel="prev" href="../../index.html" />
     
 
         
@@ -36,7 +36,7 @@
     <body>
         
         
-    <div class="book" data-level="3.5" data-basepath="../.." data-revision="Wed Jul 15 2015 12:16:51 GMT+0800 (中国标准时间)">
+    <div class="book" data-level="1.1" data-basepath="../.." data-revision="Wed Jul 15 2015 12:16:51 GMT+0800 (中国标准时间)">
     
 
 <div class="book-summary">
@@ -74,7 +74,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.1" data-path="blog/redis/redis-counter.html">
+        <li class="chapter active" data-level="1.1" data-path="blog/redis/redis-counter.html">
             
                 
                     <a href="../../blog/redis/redis-counter.html">
@@ -370,7 +370,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="3.5" data-path="blog/innodb/innodb-checkpoint.html">
+        <li class="chapter " data-level="3.5" data-path="blog/innodb/innodb-checkpoint.html">
             
                 
                     <a href="../../blog/innodb/innodb-checkpoint.html">
@@ -716,56 +716,114 @@
                 
                     <section class="normal" id="section-">
                     
-                        <h1 id="innodb%E8%84%8F%E9%A1%B5%E5%88%B7%E6%96%B0%E6%9C%BA%E5%88%B6">InnoDB&#x810F;&#x9875;&#x5237;&#x65B0;&#x673A;&#x5236;</h1>
-<p>&#x6211;&#x4EEC;&#x77E5;&#x9053;InnoDB&#x91C7;&#x7528;Write Ahead Log&#x7B56;&#x7565;&#x6765;&#x9632;&#x6B62;&#x5B95;&#x673A;&#x6570;&#x636E;&#x4E22;&#x5931;&#xFF0C;&#x5373;&#x4E8B;&#x52A1;&#x63D0;&#x4EA4;&#x65F6;&#xFF0C;&#x5148;&#x5199;&#x91CD;&#x505A;&#x65E5;&#x5FD7;&#xFF0C;&#x518D;&#x4FEE;&#x6539;&#x5185;&#x5B58;&#x6570;&#x636E;&#x9875;&#xFF0C;&#x8FD9;&#x6837;&#x5C31;&#x4EA7;&#x751F;&#x4E86;&#x810F;&#x9875;&#x3002;&#x65E2;&#x7136;&#x6709;&#x91CD;&#x505A;&#x65E5;&#x5FD7;&#x4FDD;&#x8BC1;&#x6570;&#x636E;&#x6301;&#x4E45;&#x6027;&#xFF0C;&#x67E5;&#x8BE2;&#x65F6;&#x4E5F;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x4ECE;&#x7F13;&#x51B2;&#x6C60;&#x9875;&#x4E2D;&#x53D6;&#x6570;&#x636E;&#xFF0C;&#x90A3;&#x4E3A;&#x4EC0;&#x4E48;&#x8FD8;&#x8981;&#x5237;&#x65B0;&#x810F;&#x9875;&#x5230;&#x78C1;&#x76D8;&#x5462;&#xFF1F;&#x5982;&#x679C;&#x91CD;&#x505A;&#x65E5;&#x5FD7;&#x53EF;&#x4EE5;&#x65E0;&#x9650;&#x589E;&#x5927;&#xFF0C;&#x540C;&#x65F6;&#x7F13;&#x51B2;&#x6C60;&#x8DB3;&#x591F;&#x5927;&#xFF0C;&#x80FD;&#x591F;&#x7F13;&#x5B58;&#x6240;&#x6709;&#x6570;&#x636E;&#xFF0C;&#x90A3;&#x4E48;&#x662F;&#x4E0D;&#x9700;&#x8981;&#x5C06;&#x7F13;&#x51B2;&#x6C60;&#x4E2D;&#x7684;&#x810F;&#x9875;&#x5237;&#x65B0;&#x5230;&#x78C1;&#x76D8;&#x3002;&#x4F46;&#x662F;&#xFF0C;&#x901A;&#x5E38;&#x4F1A;&#x6709;&#x4EE5;&#x4E0B;&#x51E0;&#x4E2A;&#x95EE;&#x9898;&#xFF1A;</p>
+                        <h1 id="%E7%94%A8redis%E5%AE%9E%E7%8E%B0%E8%AE%A1%E6%95%B0%E5%99%A8">&#x7528;redis&#x5B9E;&#x73B0;&#x8BA1;&#x6570;&#x5668;</h1>
+<p>&#x793E;&#x4EA4;&#x4EA7;&#x54C1;&#x4E1A;&#x52A1;&#x91CC;&#x6709;&#x5F88;&#x591A;&#x7EDF;&#x8BA1;&#x8BA1;&#x6570;&#x7684;&#x529F;&#x80FD;&#xFF0C;&#x6BD4;&#x5982;&#xFF1A;</p>
 <ul>
-<li>&#x670D;&#x52A1;&#x5668;&#x5185;&#x5B58;&#x6709;&#x9650;&#xFF0C;&#x7F13;&#x51B2;&#x6C60;&#x4E0D;&#x591F;&#x7528;&#xFF0C;&#x65E0;&#x6CD5;&#x7F13;&#x5B58;&#x5168;&#x90E8;&#x6570;&#x636E;</li>
-<li>&#x91CD;&#x505A;&#x65E5;&#x5FD7;&#x65E0;&#x9650;&#x589E;&#x5927;&#x6210;&#x672C;&#x8981;&#x6C42;&#x592A;&#x9AD8;</li>
-<li>&#x5B95;&#x673A;&#x65F6;&#x5982;&#x679C;&#x91CD;&#x505A;&#x5168;&#x90E8;&#x65E5;&#x5FD7;&#x6062;&#x590D;&#x65F6;&#x95F4;&#x8FC7;&#x957F;</li>
+<li>&#x7528;&#x6237;&#xFF1A; &#x603B;&#x70B9;&#x8D5E;&#x6570;&#xFF0C;&#x5173;&#x6CE8;&#x6570;&#xFF0C;&#x7C89;&#x4E1D;&#x6570;</li>
+<li>&#x5E16;&#x5B50;&#xFF1A; &#x70B9;&#x8D5E;&#x6570;&#xFF0C;&#x8BC4;&#x8BBA;&#x6570;&#xFF0C;&#x70ED;&#x5EA6;</li>
+<li>&#x6D88;&#x606F;&#xFF1A; &#x5DF2;&#x8BFB;&#xFF0C;&#x672A;&#x8BFB;&#xFF0C;&#x7EA2;&#x70B9;&#x6D88;&#x606F;&#x6570;</li>
+<li>&#x8BDD;&#x9898;&#xFF1A; &#x9605;&#x8BFB;&#x6570;&#xFF0C;&#x5E16;&#x5B50;&#x6570;&#xFF0C;&#x6536;&#x85CF;&#x6570;</li>
 </ul>
-<p>&#x4E8B;&#x5B9E;&#x4E0A;&#xFF0C;&#x5F53;&#x6570;&#x636E;&#x5E93;&#x5B95;&#x673A;&#x65F6;&#xFF0C;&#x6570;&#x636E;&#x5E93;&#x4E0D;&#x9700;&#x8981;&#x91CD;&#x505A;&#x6240;&#x6709;&#x7684;&#x65E5;&#x5FD7;&#xFF0C;&#x53EA;&#x9700;&#x8981;&#x6267;&#x884C;&#x4E0A;&#x6B21;&#x5237;&#x5165;&#x70B9;&#x4E4B;&#x540E;&#x7684;&#x65E5;&#x5FD7;&#x3002;&#x8FD9;&#x4E2A;&#x70B9;&#x5C31;&#x53EB;&#x505A;Checkpoint&#xFF0C;&#x5B83;&#x89E3;&#x51B3;&#x4E86;&#x4EE5;&#x4E0A;&#x7684;&#x95EE;&#x9898;&#xFF1A;</p>
+<h2 id="%E7%BB%9F%E8%AE%A1%E8%AE%A1%E6%95%B0%E7%9A%84%E7%89%B9%E7%82%B9">&#x7EDF;&#x8BA1;&#x8BA1;&#x6570;&#x7684;&#x7279;&#x70B9;</h2>
 <ul>
-<li>&#x7F29;&#x77ED;&#x6570;&#x636E;&#x5E93;&#x6062;&#x590D;&#x65F6;&#x95F4;</li>
-<li>&#x7F13;&#x51B2;&#x6C60;&#x4E0D;&#x591F;&#x7528;&#x65F6;&#xFF0C;&#x5C06;&#x810F;&#x9875;&#x5237;&#x65B0;&#x5230;&#x78C1;&#x76D8;</li>
-<li>&#x91CD;&#x505A;&#x65E5;&#x5FD7;&#x4E0D;&#x53EF;&#x7528;&#x65F6;&#xFF0C;&#x5237;&#x65B0;&#x810F;&#x9875;</li>
+<li>&#x5B9E;&#x65F6;&#x6027;&#x8981;&#x6C42;&#x9AD8;  </li>
+<li>&#x5199;&#x7684;&#x9891;&#x7387;&#x5F88;&#x9AD8;  </li>
+<li>&#x5199;&#x7684;&#x6027;&#x80FD;&#x5BF9;MySQL&#x662F;&#x4E00;&#x4E2A;&#x6311;&#x6218;  </li>
 </ul>
-<p>&#x91CD;&#x505A;&#x65E5;&#x5FD7;&#x88AB;&#x8BBE;&#x8BA1;&#x6210;&#x53EF;&#x5FAA;&#x73AF;&#x4F7F;&#x7528;&#xFF0C;&#x5F53;&#x65E5;&#x5FD7;&#x6587;&#x4EF6;&#x5199;&#x6EE1;&#x65F6;&#xFF0C;&#x91CD;&#x505A;&#x65E5;&#x5FD7;&#x4E2D;&#x5BF9;&#x5E94;&#x6570;&#x636E;&#x5DF2;&#x7ECF;&#x88AB;&#x5237;&#x65B0;&#x5230;&#x78C1;&#x76D8;&#x7684;&#x90A3;&#x90E8;&#x5206;&#x4E0D;&#x518D;&#x9700;&#x8981;&#x7684;&#x65E5;&#x5FD7;&#x53EF;&#x4EE5;&#x88AB;&#x8986;&#x76D6;&#x91CD;&#x7528;&#x3002;</p>
-<p>InnoDB&#x5F15;&#x64CE;&#x901A;&#x8FC7;LSN(Log Sequence Number)&#x6765;&#x6807;&#x8BB0;&#x7248;&#x672C;&#xFF0C;LSN&#x662F;&#x65E5;&#x5FD7;&#x7A7A;&#x95F4;&#x4E2D;&#x6BCF;&#x6761;&#x65E5;&#x5FD7;&#x7684;&#x7ED3;&#x675F;&#x70B9;&#xFF0C;&#x7528;&#x5B57;&#x8282;&#x504F;&#x79FB;&#x91CF;&#x6765;&#x8868;&#x793A;&#x3002;&#x6BCF;&#x4E2A;page&#x6709;LSN&#xFF0C;redo log&#x4E5F;&#x6709;LSN&#xFF0C;Checkpoint&#x4E5F;&#x6709;LSN&#x3002;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x547D;&#x4EE4;<code>show engine innodb status</code>&#x6765;&#x89C2;&#x5BDF;&#xFF1A;</p>
-<pre><code>---
-LOG
----
-Log sequence number 11102619599
-Log flushed up to   11102618636
-Last checkpoint at  11102606319
-0 pending log writes, 0 pending chkp writes
-15416290 log i/o&apos;s done, 12.32 log i/o&apos;s/second
-</code></pre><p>Checkpoint&#x673A;&#x5236;&#x6BCF;&#x6B21;&#x5237;&#x65B0;&#x591A;&#x5C11;&#x9875;&#xFF0C;&#x4ECE;&#x54EA;&#x91CC;&#x53D6;&#x810F;&#x9875;&#xFF0C;&#x4EC0;&#x4E48;&#x65F6;&#x95F4;&#x89E6;&#x53D1;&#x5237;&#x65B0;&#xFF1F;&#x8FD9;&#x4E9B;&#x90FD;&#x662F;&#x5F88;&#x590D;&#x6742;&#x7684;&#x3002;&#x6709;&#x4E24;&#x79CD;Checkpoint&#xFF0C;&#x5206;&#x522B;&#x4E3A;&#xFF1A;</p>
-<ul>
-<li>Sharp Checkpoint  </li>
-<li>Fuzzy Checkpoint  </li>
-</ul>
-<p>Sharp Checkpoint&#x53D1;&#x751F;&#x5728;&#x5173;&#x95ED;&#x6570;&#x636E;&#x5E93;&#x65F6;&#xFF0C;&#x5C06;&#x6240;&#x6709;&#x810F;&#x9875;&#x5237;&#x56DE;&#x78C1;&#x76D8;&#x3002;&#x5728;&#x8FD0;&#x884C;&#x65F6;&#x4F7F;&#x7528;Fuzzy Checkpoint&#x8FDB;&#x884C;&#x90E8;&#x5206;&#x810F;&#x9875;&#x7684;&#x5237;&#x65B0;&#x3002;&#x90E8;&#x5206;&#x810F;&#x9875;&#x5237;&#x65B0;&#x6709;&#x4EE5;&#x4E0B;&#x51E0;&#x79CD;&#xFF1A;</p>
-<ul>
-<li>Master Thread Checkpoint</li>
-<li>FLUSH_LRU_LIST Checkpoint</li>
-<li>Async/Sync Flush Checkpoint</li>
-<li>Dirty Page too much Checkpoint</li>
-</ul>
-<h2 id="master-thread-checkpoint">Master Thread Checkpoint</h2>
-<p>Master Thread&#x4EE5;&#x6BCF;&#x79D2;&#x6216;&#x6BCF;&#x5341;&#x79D2;&#x7684;&#x901F;&#x5EA6;&#x4ECE;&#x7F13;&#x51B2;&#x6C60;&#x7684;&#x810F;&#x9875;&#x5217;&#x8868;&#x4E2D;&#x5237;&#x65B0;&#x4E00;&#x5B9A;&#x6BD4;&#x4F8B;&#x7684;&#x9875;&#x56DE;&#x78C1;&#x76D8;&#x3002;&#x8FD9;&#x4E2A;&#x8FC7;&#x7A0B;&#x662F;&#x5F02;&#x6B65;&#x7684;&#xFF0C;&#x4E0D;&#x4F1A;&#x963B;&#x585E;&#x67E5;&#x8BE2;&#x7EBF;&#x7A0B;&#x3002;</p>
-<h2 id="flush-lru-list-checkpoint">FLUSH_LRU_LIST Checkpoint</h2>
-<p>InnoDB&#x8981;&#x4FDD;&#x8BC1;LRU&#x5217;&#x8868;&#x4E2D;&#x6709;100&#x5DE6;&#x53F3;&#x7A7A;&#x95F2;&#x9875;&#x53EF;&#x4F7F;&#x7528;&#x3002;&#x5728;InnoDB1.1.X&#x7248;&#x672C;&#x524D;&#xFF0C;&#x8981;&#x68C0;&#x67E5;LRU&#x4E2D;&#x662F;&#x5426;&#x6709;&#x8DB3;&#x591F;&#x7684;&#x9875;&#x7528;&#x4E8E;&#x7528;&#x6237;&#x67E5;&#x8BE2;&#x64CD;&#x4F5C;&#x7EBF;&#x7A0B;&#xFF0C;&#x5982;&#x679C;&#x6CA1;&#x6709;&#xFF0C;&#x4F1A;&#x5C06;LRU&#x5217;&#x8868;&#x5C3E;&#x7AEF;&#x7684;&#x9875;&#x6DD8;&#x6C70;&#xFF0C;&#x5982;&#x679C;&#x88AB;&#x6DD8;&#x6C70;&#x7684;&#x9875;&#x4E2D;&#x6709;&#x810F;&#x9875;&#xFF0C;&#x4F1A;&#x5F3A;&#x5236;&#x6267;&#x884C;Checkpoint&#x5237;&#x56DE;&#x810F;&#x9875;&#x6570;&#x636E;&#x5230;&#x78C1;&#x76D8;&#xFF0C;&#x663E;&#x7136;&#x8FD9;&#x4F1A;&#x963B;&#x585E;&#x7528;&#x6237;&#x67E5;&#x8BE2;&#x7EBF;&#x7A0B;&#x3002;&#x4ECE;InnoDB1.2.X&#x7248;&#x672C;&#x5F00;&#x59CB;&#xFF0C;&#x8FD9;&#x4E2A;&#x68C0;&#x67E5;&#x653E;&#x5230;&#x5355;&#x72EC;&#x7684;Page Cleaner Thread&#x4E2D;&#x8FDB;&#x884C;&#xFF0C;&#x5E76;&#x4E14;&#x7528;&#x6237;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;<code>innodb_lru_scan_depth</code>&#x63A7;&#x5236;LRU&#x5217;&#x8868;&#x4E2D;&#x53EF;&#x7528;&#x9875;&#x7684;&#x6570;&#x91CF;&#xFF0C;&#x9ED8;&#x8BA4;&#x503C;&#x4E3A;1024&#x3002;</p>
-<h2 id="async-sync-flush-checkpoint">Async/Sync Flush Checkpoint</h2>
-<p>&#x662F;&#x6307;&#x91CD;&#x505A;&#x65E5;&#x5FD7;&#x6587;&#x4EF6;&#x4E0D;&#x53EF;&#x7528;&#x65F6;&#xFF0C;&#x9700;&#x8981;&#x5F3A;&#x5236;&#x5C06;&#x810F;&#x9875;&#x5217;&#x8868;&#x4E2D;&#x7684;&#x4E00;&#x4E9B;&#x9875;&#x5237;&#x65B0;&#x56DE;&#x78C1;&#x76D8;&#x3002;&#x8FD9;&#x53EF;&#x4EE5;&#x4FDD;&#x8BC1;&#x91CD;&#x505A;&#x65E5;&#x5FD7;&#x6587;&#x4EF6;&#x53EF;&#x5FAA;&#x73AF;&#x4F7F;&#x7528;&#x3002;&#x5728;InnoDB1.2.X&#x7248;&#x672C;&#x4E4B;&#x524D;&#xFF0C;Async Flush Checkpoint&#x4F1A;&#x963B;&#x585E;&#x53D1;&#x73B0;&#x95EE;&#x9898;&#x7684;&#x7528;&#x6237;&#x67E5;&#x8BE2;&#x7EBF;&#x7A0B;&#xFF0C;Sync Flush Checkpoint&#x4F1A;&#x963B;&#x585E;&#x6240;&#x6709;&#x67E5;&#x8BE2;&#x7EBF;&#x7A0B;&#x3002;InnoDB1.2.X&#x4E4B;&#x540E;&#x653E;&#x5230;&#x5355;&#x72EC;&#x7684;Page Cleaner Thread&#x3002;</p>
-<h2 id="dirty-page-too-much-checkpoint">Dirty Page too much Checkpoint</h2>
-<p>&#x810F;&#x9875;&#x6570;&#x91CF;&#x592A;&#x591A;&#x65F6;&#xFF0C;InnoDB&#x5F15;&#x64CE;&#x4F1A;&#x5F3A;&#x5236;&#x8FDB;&#x884C;Checkpoint&#x3002;&#x76EE;&#x7684;&#x8FD8;&#x662F;&#x4E3A;&#x4E86;&#x4FDD;&#x8BC1;&#x7F13;&#x51B2;&#x6C60;&#x4E2D;&#x6709;&#x8DB3;&#x591F;&#x53EF;&#x7528;&#x7684;&#x7A7A;&#x95F2;&#x9875;&#x3002;&#x5176;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x53C2;&#x6570;<code>innodb_max_dirty_pages_pct</code>&#x6765;&#x8BBE;&#x7F6E;&#xFF1A;</p>
-<pre><code>mysql&gt; show variables like &apos;innodb_max_dirty_pages_pct&apos;;
-+----------------------------+-------+
-| Variable_name              | Value |
-+----------------------------+-------+
-| innodb_max_dirty_pages_pct | 90    |
-+----------------------------+-------+
-</code></pre>
+<p>&#x53EF;&#x4EE5;&#x91C7;&#x7528;redis&#x6765;&#x4F18;&#x5316;&#x9AD8;&#x9891;&#x7387;&#x5199;&#x5165;&#x7684;&#x6027;&#x80FD;&#x8981;&#x6C42;&#x3002;</p>
+<h2 id="redis%E4%BC%98%E5%8C%96%E6%96%B9%E6%A1%88%E4%B8%80">redis&#x4F18;&#x5316;&#x65B9;&#x6848;&#x4E00;</h2>
+<p>&#x5BF9;&#x4E8E;&#x6BCF;&#x4E00;&#x4E2A;&#x5B9E;&#x4F53;&#x7684;&#x8BA1;&#x6570;&#xFF0C;&#x8BBE;&#x8BA1;&#x4E00;&#x4E2A;hash&#x7ED3;&#x6784;&#x7684;counter&#xFF1A;</p>
+<pre><code>//&#x7528;&#x6237;
+counter:user:{userID}
+                        -&gt;    praiseCnt: 100        //&#x70B9;&#x8D5E;&#x6570;
+                        -&gt;    hostCnt: 200        //&#x70ED;&#x5EA6;
+                        -&gt;    followCnt: 332        //&#x5173;&#x6CE8;&#x6570;
+                        -&gt;    fansCnt: 123        //&#x7C89;&#x4E1D;&#x6570;
+
+
+//&#x5E16;&#x5B50;
+counter:topic:{topicID}
+                        -&gt; praiseCnt: 100        //&#x70B9;&#x8D5E;&#x6570;
+                        -&gt; commentCnt: 322        //&#x8BC4;&#x8BBA;&#x6570;
+
+
+//&#x8BDD;&#x9898;
+counter:subject:{subjectID}
+                            -&gt; favoCnt: 312        //&#x6536;&#x85CF;&#x6570;
+                            -&gt; viewCnt: 321        //&#x9605;&#x8BFB;&#x6570;
+                            -&gt; searchCnt: 212    //&#x641C;&#x7D22;&#x8FDB;&#x5165;&#x6B21;&#x6570;
+                            -&gt; topicCnt: 312    //&#x8BDD;&#x9898;&#x4E2D;&#x5E16;&#x5B50;&#x6570;
+</code></pre><p>&#x7C7B;&#x4F3C;&#x8FD9;&#x79CD;&#x8BA1;&#x6570;&#x5668;&#xFF0C;&#x968F;&#x7740;&#x4EA7;&#x54C1;&#x529F;&#x80FD;&#x7684;&#x589E;&#x52A0;&#xFF0C;&#x4E5F;&#x4F1A;&#x8D8A;&#x6765;&#x8D8A;&#x591A;&#xFF0C;&#x6BD4;&#x5982;&#x56DE;&#x590D;&#x6570;&#xFF0C;&#x8E29;&#x6570;&#xFF0C;&#x8F6C;&#x53D1;&#x6570;&#x4EC0;&#x4E48;&#x7684;&#x3002;</p>
+<h2 id="redis%E7%9B%B8%E5%85%B3%E7%9A%84%E5%91%BD%E4%BB%A4">redis&#x76F8;&#x5173;&#x7684;&#x547D;&#x4EE4;</h2>
+<pre><code>//&#x83B7;&#x53D6;&#x6307;&#x5B9A;userID&#x7684;&#x6240;&#x6709;&#x8BA1;&#x6570;&#x5668;
+HGETALL counter:user:{userID}   
+
+//&#x83B7;&#x53D6;&#x6307;&#x5B9A;userID&#x7684;&#x6307;&#x5B9A;&#x8BA1;&#x6570;&#x5668;
+HMGET counter:user:{userID}  praiseCnt hostCnt 
+
+//&#x6307;&#x5B9A;userID&#x70B9;&#x8D5E;&#x6570;+1
+HINCRBY counter:user:{userID}   praiseCnt
+</code></pre><p>&#x7F3A;&#x70B9;&#xFF1A;</p>
+<blockquote>
+<p>&#x8FD9;&#x6837;&#x8BBE;&#x8BA1;&#xFF0C;&#x5982;&#x679C;&#x8981;&#x6279;&#x91CF;&#x67E5;&#x8BE2;&#x591A;&#x4E2A;&#x7528;&#x6237;&#x7684;&#x6570;&#x636E;&#xFF0C;&#x5C31;&#x6BD4;&#x8F83;&#x9EBB;&#x70E6;&#xFF0C;&#x4F8B;&#x5982;&#x4E00;&#x6B21;&#x8981;&#x67E5;&#x6307;&#x5B9A;20&#x4E2A;userID&#x7684;&#x8BA1;&#x6570;&#x5668;&#xFF1F;&#x53EA;&#x80FD;&#x5FAA;&#x73AF;&#x6267;&#x884C; HGETALL counter:user:{userID}&#x3002;</p>
+</blockquote>
+<p>&#x4F18;&#x70B9;&#xFF1A;</p>
+<blockquote>
+<p>&#x4EE5;&#x5B9E;&#x4F53;&#x805A;&#x5408;&#x6570;&#x636E;&#xFF0C;&#x65B9;&#x4FBF;&#x6570;&#x636E;&#x7BA1;&#x7406;</p>
+</blockquote>
+<h2 id="redis%E4%BC%98%E5%8C%96%E6%96%B9%E6%A1%88%E4%BA%8C">redis&#x4F18;&#x5316;&#x65B9;&#x6848;&#x4E8C;</h2>
+<p>&#x65B9;&#x6848;&#x4E8C;&#x662F;&#x7528;&#x6765;&#x89E3;&#x51B3;&#x65B9;&#x6848;&#x4E00;&#x7684;&#x7F3A;&#x70B9;&#x7684;&#xFF0C;&#x4F9D;&#x7136;&#x662F;&#x91C7;&#x7528;hash&#xFF0C;&#x7ED3;&#x6784;&#x8BBE;&#x8BA1;&#x662F;&#x8FD9;&#x6837;&#x7684;&#xFF1A;</p>
+<pre><code>counter:user:praiseCnt
+                        -&gt;  userID_1001: 100
+                        -&gt;  userID_1002: 200
+                        -&gt;  userID_1003: 332
+                        -&gt;  userID_1004: 123
+                                .......
+                        -&gt;  userID_9999: 213
+
+
+
+counter:user:hostCnt
+                        -&gt;  userID_1001: 10
+                        -&gt;  userID_1002: 290
+                        -&gt;  userID_1003: 322
+                        -&gt;  userID_1004: 143
+                                .......
+                        -&gt;  userID_9999: 213
+
+
+counter:user:followCnt
+                        -&gt;  userID_1001: 21
+                        -&gt;  userID_1002: 10
+                        -&gt;  userID_1003: 32
+                        -&gt;  userID_1004: 203
+                                .......
+                        -&gt;  userID_9999: 130
+</code></pre><p>&#x83B7;&#x53D6;&#x591A;&#x4E2A;&#x6307;&#x5B9A;userID&#x7684;&#x70B9;&#x8D5E;&#x6570;&#x7684;&#x547D;&#x4EE4;&#x53D8;&#x6210;&#x8FD9;&#x6837;&#x4E86;&#xFF1A;</p>
+<pre><code>HMGET counter:user:praiseCnt userID_1001 userID_1002
+</code></pre><p>&#x4E0A;&#x9762;&#x547D;&#x4EE4;&#x53EF;&#x4EE5;&#x6279;&#x91CF;&#x83B7;&#x53D6;&#x591A;&#x4E2A;&#x7528;&#x6237;&#x7684;&#x70B9;&#x8D5E;&#x6570;&#xFF0C;&#x65F6;&#x95F4;&#x590D;&#x6742;&#x5EA6;&#x4E3A;O(n)&#xFF0C;n&#x4E3A;&#x6307;&#x5B9A;userID&#x7684;&#x6570;&#x91CF;&#x3002;</p>
+<p>&#x4F18;&#x70B9;&#xFF1A;</p>
+<blockquote>
+<p>&#x89E3;&#x51B3;&#x4E86;&#x6279;&#x91CF;&#x64CD;&#x4F5C;&#x7684;&#x95EE;&#x9898;</p>
+</blockquote>
+<p>&#x7F3A;&#x70B9;&#xFF1A;</p>
+<blockquote>
+<p>&#x5F53;&#x8981;&#x83B7;&#x53D6;&#x591A;&#x4E2A;&#x8BA1;&#x6570;&#x5668;&#xFF0C;&#x6BD4;&#x5982;&#x540C;&#x65F6;&#x9700;&#x8981;praiseCnt&#xFF0C;hostCnt&#x65F6;&#xFF0C;&#x8981;&#x8BFB;&#x591A;&#x6B21;&#xFF0C;&#x4E0D;&#x8FC7;&#x8981;&#x6BD4;&#x7B2C;&#x4E00;&#x79CD;&#x65B9;&#x6848;&#x8BFB;&#x7684;&#x6B21;&#x6570;&#x8981;&#x5C11;&#x3002;
+&#x4E00;&#x4E2A;hash&#x91CC;&#x7684;&#x5B57;&#x6BB5;&#x5C06;&#x4F1A;&#x975E;&#x5E38;&#x5BA0;&#x5927;&#xFF0C;HMGET&#x4E5F;&#x8BB8;&#x4F1A;&#x6709;&#x6027;&#x80FD;&#x74F6;&#x9888;&#x3002;</p>
+</blockquote>
+<h2 id="%E7%94%A8redis%E7%AE%A1%E9%81%93%EF%BC%88pipelining-%E6%9D%A5%E4%BC%98%E5%8C%96%E6%96%B9%E6%A1%88%E4%B8%80">&#x7528;redis&#x7BA1;&#x9053;&#xFF08;Pipelining)&#x6765;&#x4F18;&#x5316;&#x65B9;&#x6848;&#x4E00;</h2>
+<p>&#x5BF9;&#x4E8E;&#x7B2C;&#x4E00;&#x79CD;&#x65B9;&#x6848;&#x7684;&#x7F3A;&#x70B9;&#xFF0C;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;redis&#x7BA1;&#x9053;&#x6765;&#x4F18;&#x5316;&#xFF0C;&#x4E00;&#x6B21;&#x6027;&#x53D1;&#x9001;&#x591A;&#x4E2A;&#x547D;&#x4EE4;&#x7ED9;redis&#x6267;&#x884C;&#xFF1A;</p>
+<pre><code>$userIDArray = array(1001, 1002, 1003, 1009);
+
+$pipe = $redis-&gt;multi(Redis::PIPELINE);
+foreach ($userIDArray as $userID) {
+    $pipe-&gt;hGetAll(&apos;counter:user:&apos; . $userID);
+}
+
+$replies = $pipe-&gt;exec();
+print_r($replies);
+</code></pre><p>&#x8FD8;&#x6709;&#x4E00;&#x79CD;&#x65B9;&#x5F0F;&#x662F;&#x5728;redis&#x4E0A;&#x6267;&#x884C;lua&#x811A;&#x672C;&#xFF0C;&#x524D;&#x63D0;&#x662F;&#x4F60;&#x5FC5;&#x987B;&#x8981;&#x5B66;&#x4F1A;&#x5199;lua&#x3002;</p>
+
                     
                     </section>
                 
@@ -775,10 +833,10 @@ Last checkpoint at  11102606319
         </div>
 
         
-        <a href="../../blog/innodb/innodb-buffer-pool.html" class="navigation navigation-prev " aria-label="Previous page: InnoDB-内存管理"><i class="fa fa-angle-left"></i></a>
+        <a href="../../index.html" class="navigation navigation-prev " aria-label="Previous page: Introduction"><i class="fa fa-angle-left"></i></a>
         
         
-        <a href="../../blog/innodb/innodb-doublewrite-buffer.html" class="navigation navigation-next " aria-label="Next page: InnoDB-双写缓冲"><i class="fa fa-angle-right"></i></a>
+        <a href="../../blog/redis/redis-weibo.html" class="navigation navigation-next " aria-label="Next page: 用redis实现微博关注关系"><i class="fa fa-angle-right"></i></a>
         
     </div>
 </div>

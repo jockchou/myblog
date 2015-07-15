@@ -5,7 +5,7 @@
         
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>用Redis实现微博关注关系 | jockchou</title>
+        <title>用redis实现微博关注关系 | jockchou</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="generator" content="GitBook 2.1.0">
@@ -15,20 +15,20 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-status-bar-style" content="black">
-        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
-        <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+        <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
         
-    <link rel="stylesheet" href="../gitbook/style.css">
+    <link rel="stylesheet" href="../../gitbook/style.css">
     
     
 
         
     
     
-    <link rel="next" href="../blog/mongodb/introduction.html" />
+    <link rel="next" href="../../blog/mongodb/introduction.html" />
     
     
-    <link rel="prev" href="../blog/20150619-weibo-follow.html" />
+    <link rel="prev" href="../../blog/redis/redis-counter.html" />
     
 
         
@@ -36,7 +36,7 @@
     <body>
         
         
-    <div class="book" data-level="2" data-basepath=".." data-revision="Tue Jul 14 2015 01:48:37 GMT+0800 (中国标准时间)">
+    <div class="book" data-level="1.2" data-basepath="../.." data-revision="Wed Jul 15 2015 12:16:51 GMT+0800 (中国标准时间)">
     
 
 <div class="book-summary">
@@ -56,7 +56,7 @@
         <li class="chapter " data-level="0" data-path="index.html">
             
                 
-                    <a href="../index.html">
+                    <a href="../../index.html">
                         <i class="fa fa-check"></i>
                         
                         Introduction
@@ -66,51 +66,64 @@
             
         </li>
     
-        <li class="chapter " data-level="1" data-path="blog/20150619-weibo-follow.html">
+        <li class="chapter " data-level="1" >
             
-                
-                    <a href="../blog/20150619-weibo-follow.html">
-                        <i class="fa fa-check"></i>
-                        
-                            <b>1.</b>
-                        
-                        用MySQL实现微博关注关系
-                    </a>
-                
-            
-            
-        </li>
-    
-        <li class="chapter active" data-level="2" data-path="blog/20150702-weibo-redis-follow.html">
-            
-                
-                    <a href="../blog/20150702-weibo-redis-follow.html">
-                        <i class="fa fa-check"></i>
-                        
-                            <b>2.</b>
-                        
-                        用Redis实现微博关注关系
-                    </a>
-                
-            
-            
-        </li>
-    
-        <li class="chapter " data-level="3" >
-            
-            <span><b>3.</b> [MongoDB数据库]</span>
+            <span><b>1.</b> [Redis]</span>
             
             
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="3.1" data-path="blog/mongodb/introduction.html">
+        <li class="chapter " data-level="1.1" data-path="blog/redis/redis-counter.html">
             
                 
-                    <a href="../blog/mongodb/introduction.html">
+                    <a href="../../blog/redis/redis-counter.html">
                         <i class="fa fa-check"></i>
                         
-                            <b>3.1.</b>
+                            <b>1.1.</b>
+                        
+                        用redis实现计数器
+                    </a>
+                
+            
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.2" data-path="blog/redis/redis-weibo.html">
+            
+                
+                    <a href="../../blog/redis/redis-weibo.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.2.</b>
+                        
+                        用redis实现微博关注关系
+                    </a>
+                
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2" >
+            
+            <span><b>2.</b> [MongoDB数据库]</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1" data-path="blog/mongodb/introduction.html">
+            
+                
+                    <a href="../../blog/mongodb/introduction.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.1.</b>
                         
                         MongoDB-简介
                     </a>
@@ -119,13 +132,13 @@
             
         </li>
     
-        <li class="chapter " data-level="3.2" data-path="blog/mongodb/install.html">
+        <li class="chapter " data-level="2.2" data-path="blog/mongodb/install.html">
             
                 
-                    <a href="../blog/mongodb/install.html">
+                    <a href="../../blog/mongodb/install.html">
                         <i class="fa fa-check"></i>
                         
-                            <b>3.2.</b>
+                            <b>2.2.</b>
                         
                         MongoDB-安装
                     </a>
@@ -134,13 +147,13 @@
             
         </li>
     
-        <li class="chapter " data-level="3.3" data-path="blog/mongodb/import.html">
+        <li class="chapter " data-level="2.3" data-path="blog/mongodb/import.html">
             
                 
-                    <a href="../blog/mongodb/import.html">
+                    <a href="../../blog/mongodb/import.html">
                         <i class="fa fa-check"></i>
                         
-                            <b>3.3.</b>
+                            <b>2.3.</b>
                         
                         MongoDB-导入数据
                     </a>
@@ -149,13 +162,13 @@
             
         </li>
     
-        <li class="chapter " data-level="3.4" data-path="blog/mongodb/shell.html">
+        <li class="chapter " data-level="2.4" data-path="blog/mongodb/shell.html">
             
                 
-                    <a href="../blog/mongodb/shell.html">
+                    <a href="../../blog/mongodb/shell.html">
                         <i class="fa fa-check"></i>
                         
-                            <b>3.4.</b>
+                            <b>2.4.</b>
                         
                         MongoDB-命令行
                     </a>
@@ -164,13 +177,13 @@
             
         </li>
     
-        <li class="chapter " data-level="3.5" data-path="blog/mongodb/insert.html">
+        <li class="chapter " data-level="2.5" data-path="blog/mongodb/insert.html">
             
                 
-                    <a href="../blog/mongodb/insert.html">
+                    <a href="../../blog/mongodb/insert.html">
                         <i class="fa fa-check"></i>
                         
-                            <b>3.5.</b>
+                            <b>2.5.</b>
                         
                         MongoDB-插入数据
                     </a>
@@ -179,13 +192,13 @@
             
         </li>
     
-        <li class="chapter " data-level="3.6" data-path="blog/mongodb/query.html">
+        <li class="chapter " data-level="2.6" data-path="blog/mongodb/query.html">
             
                 
-                    <a href="../blog/mongodb/query.html">
+                    <a href="../../blog/mongodb/query.html">
                         <i class="fa fa-check"></i>
                         
-                            <b>3.6.</b>
+                            <b>2.6.</b>
                         
                         MongoDB-查询数据
                     </a>
@@ -194,13 +207,13 @@
             
         </li>
     
-        <li class="chapter " data-level="3.7" data-path="blog/mongodb/update.html">
+        <li class="chapter " data-level="2.7" data-path="blog/mongodb/update.html">
             
                 
-                    <a href="../blog/mongodb/update.html">
+                    <a href="../../blog/mongodb/update.html">
                         <i class="fa fa-check"></i>
                         
-                            <b>3.7.</b>
+                            <b>2.7.</b>
                         
                         MongoDB-更新数据
                     </a>
@@ -209,13 +222,13 @@
             
         </li>
     
-        <li class="chapter " data-level="3.8" data-path="blog/mongodb/remove.html">
+        <li class="chapter " data-level="2.8" data-path="blog/mongodb/remove.html">
             
                 
-                    <a href="../blog/mongodb/remove.html">
+                    <a href="../../blog/mongodb/remove.html">
                         <i class="fa fa-check"></i>
                         
-                            <b>3.8.</b>
+                            <b>2.8.</b>
                         
                         MongoDB-删除数据
                     </a>
@@ -224,13 +237,13 @@
             
         </li>
     
-        <li class="chapter " data-level="3.9" data-path="blog/mongodb/aggregation.html">
+        <li class="chapter " data-level="2.9" data-path="blog/mongodb/aggregation.html">
             
                 
-                    <a href="../blog/mongodb/aggregation.html">
+                    <a href="../../blog/mongodb/aggregation.html">
                         <i class="fa fa-check"></i>
                         
-                            <b>3.9.</b>
+                            <b>2.9.</b>
                         
                         MongoDB-数据聚合
                     </a>
@@ -239,13 +252,13 @@
             
         </li>
     
-        <li class="chapter " data-level="3.10" data-path="blog/mongodb/journal.html">
+        <li class="chapter " data-level="2.10" data-path="blog/mongodb/journal.html">
             
                 
-                    <a href="../blog/mongodb/journal.html">
+                    <a href="../../blog/mongodb/journal.html">
                         <i class="fa fa-check"></i>
                         
-                            <b>3.10.</b>
+                            <b>2.10.</b>
                         
                         MongoDB-Journaling日志
                     </a>
@@ -254,13 +267,13 @@
             
         </li>
     
-        <li class="chapter " data-level="3.11" data-path="blog/mongodb/transactions.html">
+        <li class="chapter " data-level="2.11" data-path="blog/mongodb/transactions.html">
             
                 
-                    <a href="../blog/mongodb/transactions.html">
+                    <a href="../../blog/mongodb/transactions.html">
                         <i class="fa fa-check"></i>
                         
-                            <b>3.11.</b>
+                            <b>2.11.</b>
                         
                         MongoDB-原子性和事务
                     </a>
@@ -269,13 +282,13 @@
             
         </li>
     
-        <li class="chapter " data-level="3.12" data-path="blog/mongodb/write-concern.html">
+        <li class="chapter " data-level="2.12" data-path="blog/mongodb/write-concern.html">
             
                 
-                    <a href="../blog/mongodb/write-concern.html">
+                    <a href="../../blog/mongodb/write-concern.html">
                         <i class="fa fa-check"></i>
                         
-                            <b>3.12.</b>
+                            <b>2.12.</b>
                         
                         MongoDB-写关注
                     </a>
@@ -289,21 +302,21 @@
             
         </li>
     
-        <li class="chapter " data-level="4" >
+        <li class="chapter " data-level="3" >
             
-            <span><b>4.</b> [InnoDB存储引擎]</span>
+            <span><b>3.</b> [InnoDB存储引擎]</span>
             
             
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="4.1" data-path="blog/innodb/innodb-history.html">
+        <li class="chapter " data-level="3.1" data-path="blog/innodb/innodb-history.html">
             
                 
-                    <a href="../blog/innodb/innodb-history.html">
+                    <a href="../../blog/innodb/innodb-history.html">
                         <i class="fa fa-check"></i>
                         
-                            <b>4.1.</b>
+                            <b>3.1.</b>
                         
                         InnoDB-发展历史
                     </a>
@@ -312,13 +325,13 @@
             
         </li>
     
-        <li class="chapter " data-level="4.2" data-path="blog/innodb/mysql-acid.html">
+        <li class="chapter " data-level="3.2" data-path="blog/innodb/mysql-acid.html">
             
                 
-                    <a href="../blog/innodb/mysql-acid.html">
+                    <a href="../../blog/innodb/mysql-acid.html">
                         <i class="fa fa-check"></i>
                         
-                            <b>4.2.</b>
+                            <b>3.2.</b>
                         
                         InnoDB-ACID原则
                     </a>
@@ -327,13 +340,13 @@
             
         </li>
     
-        <li class="chapter " data-level="4.3" data-path="blog/innodb/innodb-architecture.html">
+        <li class="chapter " data-level="3.3" data-path="blog/innodb/innodb-architecture.html">
             
                 
-                    <a href="../blog/innodb/innodb-architecture.html">
+                    <a href="../../blog/innodb/innodb-architecture.html">
                         <i class="fa fa-check"></i>
                         
-                            <b>4.3.</b>
+                            <b>3.3.</b>
                         
                         InnoDB-体系架构
                     </a>
@@ -342,13 +355,13 @@
             
         </li>
     
-        <li class="chapter " data-level="4.4" data-path="blog/innodb/innodb-buffer-pool.html">
+        <li class="chapter " data-level="3.4" data-path="blog/innodb/innodb-buffer-pool.html">
             
                 
-                    <a href="../blog/innodb/innodb-buffer-pool.html">
+                    <a href="../../blog/innodb/innodb-buffer-pool.html">
                         <i class="fa fa-check"></i>
                         
-                            <b>4.4.</b>
+                            <b>3.4.</b>
                         
                         InnoDB-内存管理
                     </a>
@@ -357,13 +370,13 @@
             
         </li>
     
-        <li class="chapter " data-level="4.5" data-path="blog/innodb/innodb-checkpoint.html">
+        <li class="chapter " data-level="3.5" data-path="blog/innodb/innodb-checkpoint.html">
             
                 
-                    <a href="../blog/innodb/innodb-checkpoint.html">
+                    <a href="../../blog/innodb/innodb-checkpoint.html">
                         <i class="fa fa-check"></i>
                         
-                            <b>4.5.</b>
+                            <b>3.5.</b>
                         
                         InnoDB-脏页刷新
                     </a>
@@ -372,13 +385,13 @@
             
         </li>
     
-        <li class="chapter " data-level="4.6" data-path="blog/innodb/innodb-doublewrite-buffer.html">
+        <li class="chapter " data-level="3.6" data-path="blog/innodb/innodb-doublewrite-buffer.html">
             
                 
-                    <a href="../blog/innodb/innodb-doublewrite-buffer.html">
+                    <a href="../../blog/innodb/innodb-doublewrite-buffer.html">
                         <i class="fa fa-check"></i>
                         
-                            <b>4.6.</b>
+                            <b>3.6.</b>
                         
                         InnoDB-双写缓冲
                     </a>
@@ -387,13 +400,13 @@
             
         </li>
     
-        <li class="chapter " data-level="4.7" data-path="blog/innodb/innodb-per-table.html">
+        <li class="chapter " data-level="3.7" data-path="blog/innodb/innodb-per-table.html">
             
                 
-                    <a href="../blog/innodb/innodb-per-table.html">
+                    <a href="../../blog/innodb/innodb-per-table.html">
                         <i class="fa fa-check"></i>
                         
-                            <b>4.7.</b>
+                            <b>3.7.</b>
                         
                         InnoDB-独立表空间
                     </a>
@@ -407,21 +420,21 @@
             
         </li>
     
-        <li class="chapter " data-level="5" >
+        <li class="chapter " data-level="4" >
             
-            <span><b>5.</b> [C语言相关]</span>
+            <span><b>4.</b> [C语言相关]</span>
             
             
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="5.1" data-path="blog/clang/20150610-enum.html">
+        <li class="chapter " data-level="4.1" data-path="blog/clang/20150610-enum.html">
             
                 
-                    <a href="../blog/clang/20150610-enum.html">
+                    <a href="../../blog/clang/20150610-enum.html">
                         <i class="fa fa-check"></i>
                         
-                            <b>5.1.</b>
+                            <b>4.1.</b>
                         
                         C语言枚举类型
                     </a>
@@ -430,13 +443,13 @@
             
         </li>
     
-        <li class="chapter " data-level="5.2" data-path="blog/clang/20150608-true-false.html">
+        <li class="chapter " data-level="4.2" data-path="blog/clang/20150608-true-false.html">
             
                 
-                    <a href="../blog/clang/20150608-true-false.html">
+                    <a href="../../blog/clang/20150608-true-false.html">
                         <i class="fa fa-check"></i>
                         
-                            <b>5.2.</b>
+                            <b>4.2.</b>
                         
                         C语言真假判断的理解
                     </a>
@@ -445,13 +458,13 @@
             
         </li>
     
-        <li class="chapter " data-level="5.3" data-path="blog/clang/20150604-input-ouput.html">
+        <li class="chapter " data-level="4.3" data-path="blog/clang/20150604-input-ouput.html">
             
                 
-                    <a href="../blog/clang/20150604-input-ouput.html">
+                    <a href="../../blog/clang/20150604-input-ouput.html">
                         <i class="fa fa-check"></i>
                         
-                            <b>5.3.</b>
+                            <b>4.3.</b>
                         
                         C语言常用的输入输出函数
                     </a>
@@ -460,13 +473,13 @@
             
         </li>
     
-        <li class="chapter " data-level="5.4" data-path="blog/clang/20150607-string-fuc.html">
+        <li class="chapter " data-level="4.4" data-path="blog/clang/20150607-string-fuc.html">
             
                 
-                    <a href="../blog/clang/20150607-string-fuc.html">
+                    <a href="../../blog/clang/20150607-string-fuc.html">
                         <i class="fa fa-check"></i>
                         
-                            <b>5.4.</b>
+                            <b>4.4.</b>
                         
                         C语言常用字符串操作函数
                     </a>
@@ -480,21 +493,21 @@
             
         </li>
     
-        <li class="chapter " data-level="6" >
+        <li class="chapter " data-level="5" >
             
-            <span><b>6.</b> [Web前端开发]</span>
+            <span><b>5.</b> [Web前端开发]</span>
             
             
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="6.1" data-path="blog/webfront/20150606-css3-draw-logo.html">
+        <li class="chapter " data-level="5.1" data-path="blog/webfront/20150606-css3-draw-logo.html">
             
                 
-                    <a href="../blog/webfront/20150606-css3-draw-logo.html">
+                    <a href="../../blog/webfront/20150606-css3-draw-logo.html">
                         <i class="fa fa-check"></i>
                         
-                            <b>6.1.</b>
+                            <b>5.1.</b>
                         
                         用CSS3画公司logo
                     </a>
@@ -503,13 +516,13 @@
             
         </li>
     
-        <li class="chapter " data-level="6.2" data-path="blog/webfront/20150603-type-check.html">
+        <li class="chapter " data-level="5.2" data-path="blog/webfront/20150603-type-check.html">
             
                 
-                    <a href="../blog/webfront/20150603-type-check.html">
+                    <a href="../../blog/webfront/20150603-type-check.html">
                         <i class="fa fa-check"></i>
                         
-                            <b>6.2.</b>
+                            <b>5.2.</b>
                         
                         JavaScript类型检测最佳实践
                     </a>
@@ -518,13 +531,13 @@
             
         </li>
     
-        <li class="chapter " data-level="6.3" data-path="blog/webfront/20150602-hyphenate.html">
+        <li class="chapter " data-level="5.3" data-path="blog/webfront/20150602-hyphenate.html">
             
                 
-                    <a href="../blog/webfront/20150602-hyphenate.html">
+                    <a href="../../blog/webfront/20150602-hyphenate.html">
                         <i class="fa fa-check"></i>
                         
-                            <b>6.3.</b>
+                            <b>5.3.</b>
                         
                         两个实用函数camelize，hyphenate
                     </a>
@@ -533,13 +546,13 @@
             
         </li>
     
-        <li class="chapter " data-level="6.4" data-path="blog/webfront/20150601-getpagesize.html">
+        <li class="chapter " data-level="5.4" data-path="blog/webfront/20150601-getpagesize.html">
             
                 
-                    <a href="../blog/webfront/20150601-getpagesize.html">
+                    <a href="../../blog/webfront/20150601-getpagesize.html">
                         <i class="fa fa-check"></i>
                         
-                            <b>6.4.</b>
+                            <b>5.4.</b>
                         
                         前端函数getPageSize，getPageScroll
                     </a>
@@ -553,10 +566,25 @@
             
         </li>
     
+        <li class="chapter " data-level="6" data-path="blog/20150619-weibo-follow.html">
+            
+                
+                    <a href="../../blog/20150619-weibo-follow.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.</b>
+                        
+                        用MySQL实现微博关注关系
+                    </a>
+                
+            
+            
+        </li>
+    
         <li class="chapter " data-level="7" data-path="blog/20150605-php-tutor.html">
             
                 
-                    <a href="../blog/20150605-php-tutor.html">
+                    <a href="../../blog/20150605-php-tutor.html">
                         <i class="fa fa-check"></i>
                         
                             <b>7.</b>
@@ -571,7 +599,7 @@
         <li class="chapter " data-level="8" data-path="blog/20150611-mosquitto-log.html">
             
                 
-                    <a href="../blog/20150611-mosquitto-log.html">
+                    <a href="../../blog/20150611-mosquitto-log.html">
                         <i class="fa fa-check"></i>
                         
                             <b>8.</b>
@@ -678,7 +706,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="../" >jockchou</a>
+        <a href="../../" >jockchou</a>
     </h1>
 </div>
 
@@ -688,7 +716,7 @@
                 
                     <section class="normal" id="section-">
                     
-                        <h1 id="%E7%94%A8redis%E5%AE%9E%E7%8E%B0%E5%BE%AE%E5%8D%9A%E5%85%B3%E6%B3%A8%E5%85%B3%E7%B3%BB%E7%9A%84%E5%88%86%E6%9E%90">&#x7528;Redis&#x5B9E;&#x73B0;&#x5FAE;&#x535A;&#x5173;&#x6CE8;&#x5173;&#x7CFB;&#x7684;&#x5206;&#x6790;</h1>
+                        <h1 id="%E7%94%A8redis%E5%AE%9E%E7%8E%B0%E5%BE%AE%E5%8D%9A%E5%85%B3%E6%B3%A8%E5%85%B3%E7%B3%BB">&#x7528;redis&#x5B9E;&#x73B0;&#x5FAE;&#x535A;&#x5173;&#x6CE8;&#x5173;&#x7CFB;</h1>
 <hr>
 <h1 id="%E5%85%B3%E6%B3%A8%E5%85%B3%E7%B3%BB%E4%BA%A7%E7%94%9F%E7%9A%84%E5%9B%9B%E7%A7%8D%E5%85%B3%E7%B3%BB%E7%8A%B6%E6%80%81">&#x5173;&#x6CE8;&#x5173;&#x7CFB;&#x4EA7;&#x751F;&#x7684;&#x56DB;&#x79CD;&#x5173;&#x7CFB;&#x72B6;&#x6001;</h1>
 <ul>
@@ -709,7 +737,7 @@
 <h2 id="%E7%9C%8B%E5%88%AB%E4%BA%BA%E7%9A%84%E5%85%B3%E6%B3%A8%EF%BC%8C%E7%B2%89%E4%B8%9D%E5%88%97%E8%A1%A8%EF%BC%9A">&#x770B;&#x522B;&#x4EBA;&#x7684;&#x5173;&#x6CE8;&#xFF0C;&#x7C89;&#x4E1D;&#x5217;&#x8868;&#xFF1A;</h2>
 <p>&#x8FD9;&#x662F;&#x6700;&#x590D;&#x6742;&#x7684;&#x60C5;&#x51B5;&#xFF0C;&#x5047;&#x5982;&#x770B;&#x522B;&#x4EBA;&#x5173;&#x6CE8;&#x5217;&#x8868;&#xFF0C;&#x5217;&#x8868;&#x91CC;&#x7684;&#x4EBA;&#x548C;&#x81EA;&#x5DF1;&#x53EF;&#x80FD;&#x6709;&#x4E0A;&#x8FF0;&#x5168;&#x90E8;&#x56DB;&#x79CD;&#x5173;&#x7CFB;&#x72B6;&#x6001;&#x3002;</p>
 <h1 id="%E4%BB%8E%E9%9B%86%E5%90%88%E7%9A%84%E5%9B%BE%E6%9D%A5%E5%88%86%E6%9E%90">&#x4ECE;&#x96C6;&#x5408;&#x7684;&#x56FE;&#x6765;&#x5206;&#x6790;</h1>
-<p><img src="../img/4.png" alt="&#x5173;&#x6CE8;&#x5173;&#x7CFB;&#x96C6;&#x5408;&#x56FE;"></p>
+<p><img src="../../img/4.png" alt="&#x5173;&#x6CE8;&#x5173;&#x7CFB;&#x96C6;&#x5408;&#x56FE;"></p>
 <p>&#x5982;&#x4E0A;&#x56FE;&#x6240;&#x793A;&#x3002;&#x5DE6;&#x8FB9;&#x7684;&#x5706;&#x8868;&#x793A;&#x7528;&#x6237;&#x7684;&#x5173;&#x6CE8;&#x5217;&#x8868;&#xFF0C;&#x53F3;&#x8FB9;&#x7684;&#x5706;&#x8868;&#x793A;&#x7C89;&#x4E1D;&#x5217;&#x8868;&#xFF0C;&#x4E0B;&#x8FB9;&#x7684;&#x5706;&#x8868;&#x793A;&#x7684;&#x662F;&#x8981;&#x67E5;&#x770B;&#x7684;&#x5217;&#x8868;&#xFF08;&#x96C6;&#x5408;&#xFF09;&#x3002;&#x5206;&#x522B;&#x7528;follow, fans, find&#x6765;&#x8868;&#x660E;&#x8FD9;&#x4E09;&#x4E2A;&#x96C6;&#x5408;&#x3002;</p>
 <p>&#x5F53;&#x67E5;&#x770B;&#x81EA;&#x5DF1;&#x7684;&#x5217;&#x8868;&#x65F6;&#xFF0C;&#x5176;&#x5B9E;&#x8868;&#x793A;find&#x96C6;&#x5408;&#x662F;&#x4E0A;&#x9762;&#x96C6;&#x5408;&#x4E2D;&#x67D0;&#x4E00;&#x4E2A;&#x7684;&#x5B50;&#x96C6;&#x3002;&#x4F8B;&#x5982;&#x67E5;&#x770B;&#x81EA;&#x5DF1;&#x7C89;&#x4E1D;&#xFF0C;&#x8868;&#x793A;find&#x662F;fans&#x7684;&#x5B50;&#x96C6;&#xFF0C;&#x67E5;&#x770B;&#x81EA;&#x5DF1;&#x7684;&#x5173;&#x6CE8;&#xFF0C;&#x8868;&#x793A;find&#x662F;follow&#x7684;&#x5B50;&#x96C6;&#x3002;</p>
 <p>&#x67E5;&#x770B;&#x522B;&#x4EBA;&#x7684;&#x5217;&#x8868;&#x65F6;&#xFF0C;&#x6B64;&#x65F6;&#x56FE;&#x4E2D;&#x4EA7;&#x751F;&#x4E86;&#x4E09;&#x4E2A;&#x96C6;&#x5408;&#x7684;&#x4EA4;&#x96C6;&#x3002;&#x8981;&#x67E5;&#x8BE2;&#x96C6;&#x5408;&#x4E2D;&#x7684;&#x7528;&#x6237;&#x53EF;&#x80FD;&#x662F;&#x5728;&#x4F60;&#x7684;&#x7C89;&#x4E1D;&#xFF0C;&#x5173;&#x6CE8;&#x96C6;&#x5408;&#x4E2D;&#xFF0C;&#x4E5F;&#x53EF;&#x80FD;&#x4E0D;&#x5728;&#x3002;&#x5C31;&#x662F;&#x8BF4;&#x53EF;&#x80FD;&#x662F;&#x4EFB;&#x4F55;&#x4E00;&#x79CD;&#x5173;&#x7CFB;&#x72B6;&#x6001;&#xFF0C;&#x95EE;&#x9898;&#x7684;&#x6839;&#x672C;&#x5C31;&#x662F;&#xFF0C;&#x6211;&#x4EEC;&#x8981;&#x8BA1;&#x7B97;&#x51FA;&#x6BCF;&#x4E00;&#x4E2A;&#x7528;&#x6237;&#x4E0E;&#x5F53;&#x524D;&#x7528;&#x6237;&#x7684;&#x5173;&#x7CFB;&#x72B6;&#x6001;&#x3002;&#x8981;&#x6C42;&#x89E3;&#x56DB;&#x79CD;&#x5173;&#x7CFB;&#x72B6;&#x6001;&#xFF0C;&#x6211;&#x4EEC;&#x5FC5;&#x7136;&#x8981;&#x6C42;&#x51FA;&#x56FE;&#x4E2D;&#x4E0B;&#x90E8;&#x5206;&#x7684;&#x4E09;&#x4E2A;&#x5C0F;&#x4EA4;&#x96C6;&#x3002;</p>
@@ -861,16 +889,16 @@ function getUserInfoList($isSelf, $findType, $userInfoArr, $findSet, $fofaSet, $
         </div>
 
         
-        <a href="../blog/20150619-weibo-follow.html" class="navigation navigation-prev " aria-label="Previous page: 用MySQL实现微博关注关系"><i class="fa fa-angle-left"></i></a>
+        <a href="../../blog/redis/redis-counter.html" class="navigation navigation-prev " aria-label="Previous page: 用redis实现计数器"><i class="fa fa-angle-left"></i></a>
         
         
-        <a href="../blog/mongodb/introduction.html" class="navigation navigation-next " aria-label="Next page: MongoDB-简介"><i class="fa fa-angle-right"></i></a>
+        <a href="../../blog/mongodb/introduction.html" class="navigation navigation-next " aria-label="Next page: MongoDB-简介"><i class="fa fa-angle-right"></i></a>
         
     </div>
 </div>
 
         
-<script src="../gitbook/app.js"></script>
+<script src="../../gitbook/app.js"></script>
 
 <script>
 require(["gitbook"], function(gitbook) {

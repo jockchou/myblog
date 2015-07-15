@@ -1,7 +1,8 @@
 # Summary
 
-* [用MySQL实现微博关注关系](./blog/20150619-weibo-follow.md)
-* [用Redis实现微博关注关系](./blog/20150702-weibo-redis-follow.md)
+* [Redis]
+	* [用redis实现计数器](./blog/redis/redis-counter.md)
+	* [用redis实现微博关注关系](./blog/redis/redis-weibo.md)
 * [MongoDB数据库]
 	* [MongoDB-简介](./blog/mongodb/introduction.md)
 	* [MongoDB-安装](./blog/mongodb/install.md)
@@ -33,5 +34,6 @@
 	* [JavaScript类型检测最佳实践](./blog/webfront/20150603-type-check.md)
 	* [两个实用函数camelize，hyphenate](./blog/webfront/20150602-hyphenate.md)
 	* [前端函数getPageSize，getPageScroll](./blog/webfront/20150601-getpagesize.md)
+* [用MySQL实现微博关注关系](./blog/20150619-weibo-follow.md)
 * [半小时速成PHP基础](./blog/20150605-php-tutor.md)
 * [Mosquitto服务器日志分析总结](./blog/20150611-mosquitto-log.md)
